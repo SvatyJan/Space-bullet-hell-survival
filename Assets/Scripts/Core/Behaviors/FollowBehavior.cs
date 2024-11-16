@@ -2,14 +2,29 @@ using UnityEngine;
 
 public class FollowBehavior : EnemyBehaviorBase
 {
-    [SerializeField] private Transform target;
-    [SerializeField] private float followSpeed = 3f;
+    private Transform target;
 
-    public override void Execute(SpaceEntity ship)
+    private Vector3 direction;
+
+    protected new ShipStats shipStats;
+    private SpaceEntity ship;
+
+    private void Start()
     {
-        if (target == null) return;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        shipStats = GetComponent<ShipStats>();
+        ship = GetComponent<SpaceEntity>();
+    }
 
-        Vector3 direction = (target.position - ship.transform.position).normalized;
-        ship.transform.position += direction * followSpeed * Time.deltaTime;
+    public override void Execute()
+    {
+        if (target == null && this.direction != null) return;
+
+        // Otáèení smìrem k hráèi
+        this.direction = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
+        ship.transform.position += direction * shipStats.Speed * Time.deltaTime;
     }
 }

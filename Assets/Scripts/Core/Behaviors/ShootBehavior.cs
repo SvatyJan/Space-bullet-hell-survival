@@ -3,49 +3,44 @@ using UnityEngine;
 public class ShootBehavior : EnemyBehaviorBase 
 {
     public GameObject projectilePrefab;
-    public Transform shootingPoint;      // Výchozí pozice støely
     public float fireRate = 1f;
     private float nextFireTime = 0f;
-    private Transform player;
+
+    private Transform shootingPoint;      // Výchozí pozice støely
+    private Transform target;
+    private SpaceEntity spaceEntity;
+    protected new ShipStats shipStats;
+
+    private Vector3 direction;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+        spaceEntity = GetComponent<SpaceEntity>();
+        shipStats = GetComponent<ShipStats>();
 
         // Zkontrolujeme, zda je shootingPoint nastaven; pokud ne, použijeme pozici nepøítele
         if (shootingPoint == null)
         {
-            shootingPoint = this.transform;
+            shootingPoint = spaceEntity.shootingPoint;
         }
     }
 
-    private void Update()
+    public override void Execute()
     {
-        if (player != null)
-        {
-            // Otáèení smìrem k hráèi
-            Vector3 direction = (player.position - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        if (target == null) return;
 
-            // Støelba na hráèe v intervalu fireRate
-            if (Time.time >= nextFireTime)
-            {
-                nextFireTime = Time.time + fireRate;
-                ShootProjectile(direction);
-            }
-        }
-    }
+        // Otáèení smìrem k hráèi
+        this.direction = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
-    public override void Execute(SpaceEntity ship)
-    {
+        // Støelba na hráèe v intervalu fireRate
         if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + fireRate;
-            foreach (var weapon in ship.weapons)
-            {
-                weapon?.Fire();
-            }
+
+            ShootProjectile(direction);
         }
     }
 
@@ -56,6 +51,7 @@ public class ShootBehavior : EnemyBehaviorBase
         Projectile projectileScript = projectileInstance.GetComponent<Projectile>();
         if (projectileScript != null)
         {
+            projectileScript.Initialize(spaceEntity, shipStats.BaseDamage);
             projectileScript.SetDirection(direction);
         }
     }

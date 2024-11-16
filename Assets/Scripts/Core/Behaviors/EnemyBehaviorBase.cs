@@ -2,5 +2,11 @@
 
 public abstract class EnemyBehaviorBase : MonoBehaviour
 {
-    public abstract void Execute(SpaceEntity ship);
+    protected ShipStats shipStats;
+    public abstract void Execute();
+
+    private void Start()
+    {
+        ShipStats shipStats = GetComponent<ShipStats>();
+    }
 }

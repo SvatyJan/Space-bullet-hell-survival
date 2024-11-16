@@ -1,13 +1,10 @@
-﻿using Assets.Scripts.Enemies.Behaviors;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyShip : SpaceEntity, IController
 {
     private Transform target; // Cíl (hráč nebo jiný objekt)
 
-    protected new ShipStats shipStats;
-
-    private EnemyBehaviorBase behavior;
+    [SerializeField] public EnemyBehaviorBase behavior;
 
     private void Awake()
     {
@@ -26,7 +23,7 @@ public class EnemyShip : SpaceEntity, IController
 
     public override void Controll()
     {
-        behavior?.Execute(this); // Delegace na připojené chování
+        behavior?.Execute(); // Delegace na připojené chování
     }
 
     /*public override void Controll()

@@ -1,11 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 public abstract class SpaceEntity : MonoBehaviour, IController
 {
     [SerializeField] protected ShipStats shipStats; // Statistiky lodi (např. rychlost, zdraví)
     public Transform shootingPoint;                // Bod, odkud střílí projektily
 
     [SerializeField] public IWeapon[] weapons; // Připojené zbraně
+
+    private void Start()
+    {
+        shipStats = GetComponent<ShipStats>();
+    }
 
     public abstract void Controll(); // Metoda pro řízení entity, implementovaná hráčem nebo počítačem
 
@@ -23,6 +27,7 @@ public abstract class SpaceEntity : MonoBehaviour, IController
         shipStats.Health -= damage;
         if (shipStats.Health <= 0)
         {
+            Debug.Log(this.gameObject.name + " took damage: " + damage);
             DestroyEntity();
         }
     }

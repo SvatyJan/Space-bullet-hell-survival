@@ -2,13 +2,6 @@
 
 public class PlayerShip : SpaceEntity, IController
 {
-    protected new ShipStats shipStats;
-
-    private void Start()
-    {
-        shipStats = GetComponent<ShipStats>();
-    }
-
     private void Update()
     {
         Controll(); // Řídí hráče
