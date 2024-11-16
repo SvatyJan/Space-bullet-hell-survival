@@ -230,6 +230,8 @@ MonoBehaviour:
   health: 20
   baseDamage: 10
   velocity: {x: 0, y: 0, z: 0}
+  fireRate: 1
+  attackRadius: 10
 --- !u!114 &1137017218432819352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,4 +245,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2777960311145917976, guid: 671230cbd353e63489a6f2e59ecda675, type: 3}
-  fireRate: 1.5
