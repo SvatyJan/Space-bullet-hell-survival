@@ -10,6 +10,8 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private float health = 100f;         // Zdraví lodi
     [SerializeField] private float baseDamage = 10f;      // Základní poškození lodi
     [SerializeField] private Vector3 velocity;            // Rychlost pohybu
+    [SerializeField] private float fireRate = 1f;         // Rychlost ptoku
+    [SerializeField] private float attackRadius = 1f;     // Oblast útoku
 
     public float Speed
     {
@@ -51,5 +53,17 @@ public class ShipStats : MonoBehaviour
     {
         get { return velocity; }
         set { velocity = value; }
+    }
+
+    public float FireRate
+    {
+        get { return fireRate; }
+        set { fireRate = Mathf.Clamp(value, 0, 100); }
+    }
+
+    public float AttackRadius
+    {
+        get { return attackRadius; }
+        set { attackRadius = Mathf.Max(0, value); }
     }
 }

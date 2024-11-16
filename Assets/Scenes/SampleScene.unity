@@ -195,7 +195,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8.0692625
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Follow: {fileID: 418740126}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 8.0692625
+    OrthographicSize: 12
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -465,6 +465,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &2074580346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4507033410055292894, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_Name
+      value: Chaser
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.1396575
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.19752678
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.86469835
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5022916
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4610217598387141708, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -60.303
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
 --- !u!1001 &3753999014053532575
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -524,6 +585,10 @@ PrefabInstance:
     - target: {fileID: 8523913758150132518, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
       propertyPath: m_Name
       value: Enemy Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523913758150132518, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

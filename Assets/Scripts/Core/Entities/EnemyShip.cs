@@ -23,21 +23,6 @@ public class EnemyShip : SpaceEntity, IController
 
     public override void Controll()
     {
-        behavior?.Execute(); // Delegace na připojené chování
+        behavior?.Execute(); // Implementované chování
     }
-
-    /*public override void Controll()
-    {
-        // Sleduj hráče
-        Vector3 direction = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), shipStats.RotationSpeed * Time.deltaTime);
-
-        // Pohyb směrem k hráči
-        shipStats.Velocity= direction * shipStats.Speed * Time.deltaTime;
-        transform.position += shipStats.Velocity;
-
-        // Střelba, pokud je implementována
-        FireWeapons();
-    }*/
 }

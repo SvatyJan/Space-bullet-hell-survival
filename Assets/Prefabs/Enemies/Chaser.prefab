@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1241567042731068014}
   - component: {fileID: 5551444090713088505}
   - component: {fileID: 8897413080187619402}
-  - component: {fileID: 5339618874331094761}
+  - component: {fileID: 3013589223619252054}
   m_Layer: 0
   m_Name: Chaser
   m_TagString: Enemy
@@ -36,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 3128685163572038352}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7138000407911266023
 SpriteRenderer:
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipStats: {fileID: 8897413080187619402}
   shootingPoint: {fileID: 3128685163572038352}
-  behavior: {fileID: 5339618874331094761}
+  behavior: {fileID: 0}
 --- !u!50 &1241567042731068014
 Rigidbody2D:
   serializedVersion: 4
@@ -198,9 +198,11 @@ MonoBehaviour:
   acceleration: 1
   deceleration: 1
   health: 10
-  baseDamage: 5
+  baseDamage: 50
   velocity: {x: 0, y: 0, z: 0}
---- !u!114 &5339618874331094761
+  fireRate: 1
+  attackRadius: 0.5
+--- !u!114 &3013589223619252054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
