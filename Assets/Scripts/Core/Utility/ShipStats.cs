@@ -12,6 +12,10 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private Vector3 velocity;            // Rychlost pohybu
     [SerializeField] private float fireRate = 1f;         // Rychlost ptoku
     [SerializeField] private float attackRadius = 1f;     // Oblast útoku
+    [SerializeField] private float attractionRadius = 5f; // Radius pro pøitažení xp
+    [SerializeField] private float attractionSpeed = 2f;  // Rychlost pøitahování xp
+    [SerializeField] private float xp = 0f;               // Aktuální poèet xp
+    [SerializeField] private float xpNextlevelUp = 15f;   // Poèet xp pro další level
 
     public float Speed
     {
@@ -46,7 +50,7 @@ public class ShipStats : MonoBehaviour
     public float Health
     {
         get { return health; }
-        set { health = Mathf.Clamp(value, 0, 100); }  // Chceme, aby health byl mezi 0 a 100
+        set { health = Mathf.Max(0, value); }
     }
 
     public Vector3 Velocity
@@ -65,5 +69,29 @@ public class ShipStats : MonoBehaviour
     {
         get { return attackRadius; }
         set { attackRadius = Mathf.Max(0, value); }
+    }
+
+    public float AttractionRadius
+    {
+        get { return attractionRadius; }
+        set { attractionRadius = Mathf.Max(0, value); }
+    }
+
+    public float AttractionSpeed
+    {
+        get { return attractionSpeed; }
+        set { attractionSpeed = Mathf.Max(0, value); }
+    }
+
+    public float XP
+    {
+        get { return xp; }
+        set { xp = Mathf.Max(0, value); }
+    }
+
+    public float XpNextLevelUp
+    {
+        get { return xpNextlevelUp; }
+        set { xpNextlevelUp = Mathf.Max(0, value); }
     }
 }

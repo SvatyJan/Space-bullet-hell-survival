@@ -1,15 +1,41 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Data;
+using System;
 
 public class Projectile : MonoBehaviour
 {
-    public float speed = 10f;           // Rychlost støely
-    private Vector3 direction;          // Smìr pohybu støely
-    public SpaceEntity owner;           // Odkaz na hráèe nebo nepøítele, který projektil vystøelil
-    [SerializeField]
-    private List<string> collisionTags; // Seznam tagù, se kterými projektil mùže kolidovat
+    /** Odkaz na staty hráèe nebo nepøítele, který projekt vystøelil. */
+    private ShipStats shipStats;
 
-    private float projectileDamage;     // Poškození projektilu
+    /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
+    public SpaceEntity owner;
+
+    /** Rychlost støely. */
+    [SerializeField] public float speed = 10f;
+
+    /** Seznam tagù, se kterými projektil mùže kolidovat. */
+    [SerializeField] private List<string> collisionTags;
+
+    /** Poškození projektilu. */
+    [SerializeField] private float projectileDamage = 10f;
+
+    /** Doba, jak dlouho vydrží projektil než se znièí. */
+    [SerializeField] private float projectileDuration = 5f;
+
+    /** Smìr pohybu støely. */
+    private Vector3 direction;
+
+    private void Start()
+    {
+        Destroy(gameObject, projectileDuration);
+    }
+
+    private void Update()
+    {
+        // Pohyb støely
+        transform.position += direction * speed * Time.deltaTime;
+    }
 
     // Nastavení smìru pohybu støely
     public void SetDirection(Vector3 direction)
@@ -21,19 +47,7 @@ public class Projectile : MonoBehaviour
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
-        this.projectileDamage = damage;
-    }
-
-    private void Update()
-    {
-        // Pohyb støely
-        transform.position += direction * speed * Time.deltaTime;
-    }
-
-    private void Start()
-    {
-        // Znièení støely po 5 sekundách
-        Destroy(gameObject, 5f);
+        this.projectileDamage = projectileDamage + damage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

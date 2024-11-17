@@ -22,6 +22,11 @@ public abstract class SpaceEntity : MonoBehaviour, IController
         }
     }
 
+    public ShipStats getShipStats()
+    {
+        return shipStats;
+    }
+
     public void TakeDamage(float damage)
     {
         shipStats.Health -= damage;
