@@ -10,7 +10,6 @@ public class XPOrb : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerProgression>().AddXP(xpAmount);
-            ShipController.Instance.AddExperience(xpAmount);
             Destroy(gameObject);
         }
     }

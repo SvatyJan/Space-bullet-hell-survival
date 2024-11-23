@@ -4,9 +4,6 @@ public class ShipController : MonoBehaviour
 {
     public static ShipController Instance;
 
-    public delegate void ExperienceChangeHandler(float xpAmount);
-    public event ExperienceChangeHandler OnExperienceChange;
-
     [SerializeField] public GameObject controllingObject;
 
     private void Awake()
@@ -36,10 +33,5 @@ public class ShipController : MonoBehaviour
         {
             Debug.Log(controllingObject.name + "Cannot be controlled." + e.Message);
         }
-    }
-
-    public void AddExperience(float xpAmount)
-    {
-        OnExperienceChange?.Invoke(xpAmount);
     }
 }

@@ -7,8 +7,8 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private float rotationSpeed = 100f;  // Rychlost rotace
     [SerializeField] private float acceleration = 5f;     // Zrychlení
     [SerializeField] private float deceleration = 2f;     // Zpomalení
-    [SerializeField] private float maxHealth = 100f;         // Zdraví lodi
-    [SerializeField] private float currentHealth = 100f;         // Zdraví lodi
+    [SerializeField] private float maxHealth = 100f;      // Maximální zdraví lodi
+    [SerializeField] private float currentHealth = 100f;  // Aktuální zdraví lodi
     [SerializeField] private float baseDamage = 10f;      // Základní poškození lodi
     [SerializeField] private Vector3 velocity;            // Rychlost pohybu
     [SerializeField] private float fireRate = 1f;         // Rychlost ptoku
@@ -17,6 +17,7 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private float attractionSpeed = 2f;  // Rychlost pøitahování xp
     [SerializeField] private float xp = 0f;               // Aktuální poèet xp
     [SerializeField] private float xpNextlevelUp = 15f;   // Poèet xp pro další level
+    [SerializeField] private float level = 1f;   // Aktuální level
 
     public float Speed
     {
@@ -100,5 +101,11 @@ public class ShipStats : MonoBehaviour
     {
         get { return xpNextlevelUp; }
         set { xpNextlevelUp = Mathf.Max(0, value); }
+    }
+
+    public float Level
+    {
+        get { return level; }
+        set { level = Mathf.Max(0, value); }
     }
 }

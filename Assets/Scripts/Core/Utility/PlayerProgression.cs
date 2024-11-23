@@ -25,15 +25,17 @@ public class PlayerProgression : MonoBehaviour
     {
         while (shipStats.XP >= shipStats.XpNextLevelUp)
         {
-            shipStats.XP -= shipStats.XpNextLevelUp;
-            shipStats.XpNextLevelUp *= 1.5f; // Zvyšujeme požadavek na další úroveò (exponenciálnì)
+            
             LevelUp();
         }
     }
 
     private void LevelUp()
     {
-        Debug.Log("Level Up! Choose an upgrade!");
+        shipStats.XP -= shipStats.XpNextLevelUp;
+        shipStats.XpNextLevelUp *= 1.5f; // Zvyšujeme požadavek na další úroveò (exponenciálnì)
+        shipStats.Level++;
+        Debug.Log("Level Up to " + shipStats.Level + "! Choose an upgrade!");
         ShowUpgradeChoices();
     }
 
