@@ -13,6 +13,7 @@ public class UpgradeOption : ScriptableObject
     {
         stats.Speed += speedIncrease;
         stats.BaseDamage += damageIncrease;
-        stats.Health += healthIncrease;
+        stats.MaxHealth += healthIncrease;
+        stats.CurrentHealth += healthIncrease;
     }
 }

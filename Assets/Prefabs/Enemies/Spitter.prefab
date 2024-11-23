@@ -67,7 +67,7 @@ Transform:
   m_Children:
   - {fileID: 2512922300153659316}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7558883994398324240
 SpriteRenderer:
@@ -211,6 +211,7 @@ MonoBehaviour:
   shipStats: {fileID: 294805897262152833}
   shootingPoint: {fileID: 2512922300153659316}
   behavior: {fileID: 1137017218432819352}
+  XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
 --- !u!114 &294805897262152833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +233,10 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 10
+  attractionRadius: 5
+  attractionSpeed: 2
+  xp: 2
+  xpNextlevelUp: 15
 --- !u!114 &1137017218432819352
 MonoBehaviour:
   m_ObjectHideFlags: 0

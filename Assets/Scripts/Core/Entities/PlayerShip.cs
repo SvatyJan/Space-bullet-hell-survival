@@ -2,13 +2,20 @@
 
 public class PlayerShip : SpaceEntity, IController
 {
+    [SerializeField] private bool controlsEnabled = true;
+
     private void Update()
     {
-        Controll(); // Řídí hráče
+        Controll();
     }
 
     public override void Controll()
     {
+        if(!controlsEnabled)
+        {
+            return;
+        }
+
         // Střelba při stisknutí mezerníku
         if (Input.GetMouseButton(1))
         {
@@ -46,5 +53,41 @@ public class PlayerShip : SpaceEntity, IController
 
         // Aplikujeme pohyb
         transform.position += shipStats.Velocity * Time.deltaTime;
+
+        AttractXpOrbs();
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        shipStats.CurrentHealth -= damage;
+        if (shipStats.CurrentHealth <= 0)
+        {
+            Debug.Log(this.gameObject.name + " took damage: " + damage);
+            controlsEnabled = false;
+        }
+    }
+
+    private void AttractXpOrbs()
+    {
+        // Najdeme všechny objekty v dosahu attractionRadius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shipStats.AttractionRadius);
+
+        foreach (var collider in colliders)
+        {
+            // Zkontrolujeme, zda objekt má komponentu XPOrb
+            XPOrb xpOrb = collider.GetComponent<XPOrb>();
+            if (xpOrb != null)
+            {
+                // Přitahování orbů k hráči
+                Vector3 direction = (transform.position - xpOrb.transform.position).normalized;
+                xpOrb.transform.position += direction * shipStats.AttractionSpeed * Time.deltaTime;
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, shipStats.AttractionRadius);
     }
 }

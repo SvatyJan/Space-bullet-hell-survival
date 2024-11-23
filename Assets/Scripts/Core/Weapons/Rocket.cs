@@ -75,14 +75,11 @@ public class Rocket : MonoBehaviour
             }
         }
 
-        // Zničíme raketu po explozi
-        Debug.Log("Rocket exploded at " + transform.position);
         Destroy(gameObject);
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
-        // Vizualizace rádiusu exploze
         Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // Oranžová
         Gizmos.DrawSphere(transform.position, explosionRadius);
     }

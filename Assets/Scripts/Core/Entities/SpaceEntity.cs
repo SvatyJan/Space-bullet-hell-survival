@@ -27,19 +27,5 @@ public abstract class SpaceEntity : MonoBehaviour, IController
         return shipStats;
     }
 
-    public void TakeDamage(float damage)
-    {
-        shipStats.Health -= damage;
-        if (shipStats.Health <= 0)
-        {
-            Debug.Log(this.gameObject.name + " took damage: " + damage);
-            DestroyEntity();
-        }
-    }
-
-    protected void DestroyEntity()
-    {
-        Debug.Log(gameObject.name + " is destroyed.");
-        Destroy(gameObject);
-    }    
+    public abstract void TakeDamage(float damage);
 }

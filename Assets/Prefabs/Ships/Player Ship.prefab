@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 2413761636758888703}
   - component: {fileID: 4136178611045943487}
   - component: {fileID: 8669658913284847154}
+  - component: {fileID: 6746245913259550702}
   - component: {fileID: 8779135055296280992}
+  - component: {fileID: 8325460350171649937}
   - component: {fileID: 4396548690546568947}
   - component: {fileID: 7045229386058817717}
   m_Layer: 0
@@ -35,6 +37,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2509701665588952320}
+  - {fileID: 864366328607796841}
+  - {fileID: 5333658175925473365}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -104,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipStats: {fileID: 8779135055296280992}
   shootingPoint: {fileID: 2509701665588952320}
+  controlsEnabled: 1
 --- !u!114 &8669658913284847154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,6 +125,22 @@ MonoBehaviour:
   shootingPoint: {fileID: 2509701665588952320}
   fireRate: 0.5
   owner: {fileID: 0}
+--- !u!114 &6746245913259550702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187343540806454267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3d96604d100bd42935cd8f1ee8da72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPrefab: {fileID: 2129507558778322961, guid: 72c65cb467ef785448c04819e64c1c11, type: 3}
+  leftLaunchPoint: {fileID: 864366328607796841}
+  rightLaunchPoint: {fileID: 5333658175925473365}
+  fireRate: 2
 --- !u!114 &8779135055296280992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +160,25 @@ MonoBehaviour:
   health: 100
   baseDamage: 10
   velocity: {x: 0, y: 0, z: 0}
+  fireRate: 1
+  attackRadius: 1
+  attractionRadius: 15
+  attractionSpeed: 2
+  xp: 0
+  xpNextlevelUp: 15
+--- !u!114 &8325460350171649937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187343540806454267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8113cd2dc5a27614fa2e7df5be6898b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableUpgrades: []
 --- !u!50 &4396548690546568947
 Rigidbody2D:
   serializedVersion: 4
@@ -239,6 +279,68 @@ Transform:
   m_GameObject: {fileID: 2297246210456475628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5969517081146512659}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3277200113098542389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864366328607796841}
+  m_Layer: 0
+  m_Name: LeftRocketLauncher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864366328607796841
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277200113098542389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.33, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5969517081146512659}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6834438013595140514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5333658175925473365}
+  m_Layer: 0
+  m_Name: RightRocketLauncher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5333658175925473365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6834438013595140514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
