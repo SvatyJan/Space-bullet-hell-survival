@@ -1,10 +1,17 @@
 using UnityEngine;
+using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerProgression : MonoBehaviour
 {
     private ShipStats shipStats;
     public List<UpgradeOption> availableUpgrades; // Seznam možných vylepšení
+
+    [Header("UI Elements")]
+    public GameObject upgradePanel;        // Upgrade menu
+    public GameObject[] upgradeCards;      // Kartièky pro jednotlivé možnosti vylepšení
+    public TMP_Text[] upgradeDescriptions; // Texty na kartièkách (TextMeshPro)
 
     private void Start()
     {
@@ -12,6 +19,11 @@ public class PlayerProgression : MonoBehaviour
         if (shipStats == null)
         {
             Debug.LogError("PlayerProgression requires ShipStats component!");
+        }
+
+        if (upgradePanel != null)
+        {
+            upgradePanel.SetActive(false);
         }
     }
 
@@ -25,7 +37,6 @@ public class PlayerProgression : MonoBehaviour
     {
         while (shipStats.XP >= shipStats.XpNextLevelUp)
         {
-            
             LevelUp();
         }
     }
@@ -41,16 +52,25 @@ public class PlayerProgression : MonoBehaviour
 
     private void ShowUpgradeChoices()
     {
-        // Vybereme 3 náhodné vylepšení z dostupných
+        // Zastavíme hru
+        Time.timeScale = 0f;
+
+        // Zobrazíme panel
+        upgradePanel.SetActive(true);
+
+        // Vybereme 3 náhodné vylepšení
         List<UpgradeOption> upgradeChoices = GetRandomUpgrades(3);
 
-        // Logika k zobrazení UI s vylepšeními (UI systém není souèástí)
-        foreach (var upgrade in upgradeChoices)
+        // Nastavíme popisy a callbacky na kartièky
+        for (int i = 0; i < upgradeChoices.Count; i++)
         {
-            Debug.Log($"Upgrade Option: {upgrade.name} - {upgrade.description}");
+            int index = i; // Nutné pro správné zachycení closure
+            upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
+            upgradeCards[i].SetActive(true); // Ujistíme se, že je kartièka viditelná
+            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
+            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
+            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(CloseUpgradePanel);
         }
-
-        // Po výbìru voláme ApplyUpgrade s vybraným upgradem
     }
 
     private List<UpgradeOption> GetRandomUpgrades(int count)
@@ -68,5 +88,14 @@ public class PlayerProgression : MonoBehaviour
     {
         upgrade.Apply(shipStats); // Aplikujeme vybrané vylepšení na loï
         Debug.Log($"Applied upgrade: {upgrade.name}");
+    }
+
+    private void CloseUpgradePanel()
+    {
+        // Skryjeme panel
+        upgradePanel.SetActive(false);
+
+        // Obnovíme hru
+        Time.timeScale = 1f;
     }
 }

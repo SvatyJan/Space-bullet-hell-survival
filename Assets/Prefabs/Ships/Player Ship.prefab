@@ -157,7 +157,8 @@ MonoBehaviour:
   rotationSpeed: 125
   acceleration: 10
   deceleration: 1
-  health: 100
+  maxHealth: 100
+  currentHealth: 100
   baseDamage: 10
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
@@ -166,6 +167,7 @@ MonoBehaviour:
   attractionSpeed: 2
   xp: 0
   xpNextlevelUp: 15
+  level: 1
 --- !u!114 &8325460350171649937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +180,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8113cd2dc5a27614fa2e7df5be6898b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  availableUpgrades: []
+  availableUpgrades:
+  - {fileID: 11400000, guid: 5d8a6225770db364a8f10047a82563ac, type: 2}
+  - {fileID: 11400000, guid: daba66d7e9f0c1b46868a492661c5882, type: 2}
+  - {fileID: 11400000, guid: 45f9d2189d2cdd44d9de84440af24ff0, type: 2}
+  upgradePanel: {fileID: 0}
+  upgradeCards:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  upgradeDescriptions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!50 &4396548690546568947
 Rigidbody2D:
   serializedVersion: 4
