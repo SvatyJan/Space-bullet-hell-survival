@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8325460350171649937}
   - component: {fileID: 4396548690546568947}
   - component: {fileID: 7045229386058817717}
+  - component: {fileID: 4647849489768216968}
   m_Layer: 0
   m_Name: Player Ship
   m_TagString: Player
@@ -166,7 +167,7 @@ MonoBehaviour:
   attractionRadius: 15
   attractionSpeed: 2
   xp: 0
-  xpNextlevelUp: 15
+  xpNextlevelUp: 5
   level: 1
 --- !u!114 &8325460350171649937
 MonoBehaviour:
@@ -268,6 +269,22 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &4647849489768216968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187343540806454267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7dbffeef91c3874b9058e6d527e2b81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 0}
+  fillImage: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  shipStats: {fileID: 8779135055296280992}
 --- !u!1 &2297246210456475628
 GameObject:
   m_ObjectHideFlags: 0

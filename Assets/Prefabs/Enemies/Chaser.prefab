@@ -198,7 +198,8 @@ MonoBehaviour:
   rotationSpeed: 100
   acceleration: 1
   deceleration: 1
-  health: 10
+  maxHealth: 10
+  currentHealth: 10
   baseDamage: 50
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
@@ -207,6 +208,7 @@ MonoBehaviour:
   attractionSpeed: 2
   xp: 1
   xpNextlevelUp: 15
+  level: 1
 --- !u!114 &3013589223619252054
 MonoBehaviour:
   m_ObjectHideFlags: 0
