@@ -9,11 +9,25 @@ public class Blaster : MonoBehaviour, IWeapon
 
     private float baseDamage = 10f;       // Základní poškození zbranì
     public SpaceEntity owner;             // Odkaz na vlastníka zbranì
+
+    private void Awake()
+    {
+        // Najdeme støelecký bod podle tagu
+        GameObject point = GameObject.FindGameObjectWithTag("FrontShootingPoint");
+        if (point != null)
+        {
+            shootingPoint = point.transform;
+        }
+        else
+        {
+            Debug.LogError("Blaster: FrontShootingPoint tag not found!");
+        }
+    }
+
     private void Start()
     {
-        // Automaticky pøiøadí vlastníka z parent objektu
-        baseDamage = GetComponent<ShipStats>().BaseDamage;
         owner = GetComponentInParent<SpaceEntity>();
+        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
     }
 
     public void Fire()
@@ -33,5 +47,15 @@ public class Blaster : MonoBehaviour, IWeapon
                 projectileScript.SetDirection(shootingPoint.up); // Nastaví smìr podle výchozího bodu
             }
         }
+    }
+
+    public void Upgrade()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Evolve()
+    {
+        throw new System.NotImplementedException();
     }
 }

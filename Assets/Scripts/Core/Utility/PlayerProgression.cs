@@ -1,12 +1,12 @@
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class PlayerProgression : MonoBehaviour
 {
     private ShipStats shipStats;
-    public List<UpgradeOption> availableUpgrades; // Seznam možných vylepšení
+    public List<StatUpgradeOption> statUpgrades;     // Dostupná vylepšení statù
+    public List<WeaponUpgradeOption> weaponUpgrades; // Dostupná vylepšení zbraní
 
     [Header("UI Elements")]
     public GameObject upgradePanel;        // Upgrade menu
@@ -58,31 +58,53 @@ public class PlayerProgression : MonoBehaviour
         // Zobrazíme panel
         upgradePanel.SetActive(true);
 
+        List<UpgradeOption> options = new List<UpgradeOption>();
+
+        // Pøidáme dostupné statové upgrady
+        foreach (var statUpgrade in statUpgrades)
+        {
+            if (shipStats.CanAddStatUpgrade(statUpgrade.statType))
+            {
+                options.Add(statUpgrade);
+            }
+        }
+
+        // Pøidáme dostupné zbraòové upgrady
+        foreach (var weaponUpgrade in weaponUpgrades)
+        {
+            if (shipStats.CanAddWeapon(weaponUpgrade.weaponName))
+            {
+                options.Add(weaponUpgrade);
+            }
+        }
+
         // Vybereme 3 náhodné vylepšení
-        List<UpgradeOption> upgradeChoices = GetRandomUpgrades(3);
+        List<UpgradeOption> upgradeChoices = GetRandomUpgrades(options, 3);
 
         // Nastavíme popisy a callbacky na kartièky
         for (int i = 0; i < upgradeChoices.Count; i++)
         {
             int index = i; // Nutné pro správné zachycení closure
-            upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
             upgradeCards[i].SetActive(true); // Ujistíme se, že je kartièka viditelná
+            upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
             upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
             upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
             upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(CloseUpgradePanel);
         }
     }
 
-    private List<UpgradeOption> GetRandomUpgrades(int count)
+    private List<UpgradeOption> GetRandomUpgrades(List<UpgradeOption> options, int count)
     {
         List<UpgradeOption> randomUpgrades = new List<UpgradeOption>();
-        for (int i = 0; i < count && availableUpgrades.Count > 0; i++)
+        for (int i = 0; i < count && options.Count > 0; i++)
         {
-            int index = Random.Range(0, availableUpgrades.Count);
-            randomUpgrades.Add(availableUpgrades[index]);
+            int index = Random.Range(0, options.Count);
+            randomUpgrades.Add(options[index]);
+            options.RemoveAt(index);
         }
         return randomUpgrades;
     }
+
 
     public void ApplyUpgrade(UpgradeOption upgrade)
     {

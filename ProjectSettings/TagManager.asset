@@ -8,6 +8,9 @@ TagManager:
   - Player Projectile
   - Enemy Projectile
   - XP
+  - FrontShootingPoint
+  - LeftShootingPoint
+  - RightShootingPoint
   layers:
   - Default
   - TransparentFX

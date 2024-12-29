@@ -206,9 +206,11 @@ MonoBehaviour:
   attackRadius: 0.5
   attractionRadius: 5
   attractionSpeed: 2
-  xp: 1
+  xp: 50
   xpNextlevelUp: 15
   level: 1
+  maxWeapons: 2
+  maxStatUpgrades: 3
 --- !u!114 &3013589223619252054
 MonoBehaviour:
   m_ObjectHideFlags: 0

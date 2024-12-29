@@ -655,6 +655,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Ship
       objectReference: {fileID: 0}
+    - target: {fileID: 2297246210456475628, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: m_Name
+      value: FrontShootingPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 2297246210456475628, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: m_TagString
+      value: FrontShootingPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 3277200113098542389, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: m_TagString
+      value: LeftShootingPoint
+      objectReference: {fileID: 0}
     - target: {fileID: 4647849489768216968, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: fillImage
       value: 
@@ -710,6 +722,10 @@ PrefabInstance:
     - target: {fileID: 5969517081146512659, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6834438013595140514, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: m_TagString
+      value: RightShootingPoint
       objectReference: {fileID: 0}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradePanel

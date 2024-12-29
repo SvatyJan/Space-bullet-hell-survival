@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -17,7 +18,66 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private float attractionSpeed = 2f;  // Rychlost pøitahování xp
     [SerializeField] private float xp = 0f;               // Aktuální poèet xp
     [SerializeField] private float xpNextlevelUp = 15f;   // Poèet xp pro další level
-    [SerializeField] private float level = 1f;   // Aktuální level
+    [SerializeField] private float level = 1f;            // Aktuální level
+
+    [SerializeField] private int maxWeapons = 2;          // Maximální poèet zbraní
+    private Dictionary<StatType, int> statUpgradeCounts = new Dictionary<StatType, int>(); // Poèet vylepšení podle statù
+    [SerializeField] private int maxStatUpgrades = 3;     // Maximální poèet rùzných statù
+    private List<string> equippedWeapons = new List<string>();
+    private List<string> upgradedStats = new List<string>();
+
+    private void Awake()
+    {
+        // Inicializace poètu vylepšení pro každý StatType
+        foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
+        {
+            statUpgradeCounts[stat] = 0;
+        }
+    }
+
+    public bool CanAddStatUpgrade(StatType statType)
+    {
+        // Zkontrolujeme, zda poèet vylepšení pro tento stat nepøekroèil maximum
+        return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] < maxStatUpgrades;
+    }
+
+    public void AddStatUpgrade(StatType statType)
+    {
+        if (CanAddStatUpgrade(statType))
+        {
+            statUpgradeCounts[statType]++;
+        }
+        else
+        {
+            Debug.LogWarning($"Cannot add upgrade to {statType}, maximum upgrades reached.");
+        }
+    }
+
+    public bool CanAddWeapon(string weaponName)
+    {
+        return equippedWeapons.Count < maxWeapons && !equippedWeapons.Contains(weaponName);
+    }
+
+    public void AddWeapon(string weaponName)
+    {
+        if (CanAddWeapon(weaponName))
+        {
+            equippedWeapons.Add(weaponName);
+        }
+    }
+
+    public bool CanAddStatUpgrade(string statName)
+    {
+        return upgradedStats.Count < maxStatUpgrades || upgradedStats.Contains(statName);
+    }
+
+    public void AddStatUpgrade(string statName)
+    {
+        if (!upgradedStats.Contains(statName))
+        {
+            upgradedStats.Add(statName);
+        }
+    }
 
     public float Speed
     {

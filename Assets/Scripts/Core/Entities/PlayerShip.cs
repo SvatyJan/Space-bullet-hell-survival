@@ -3,6 +3,7 @@
 public class PlayerShip : SpaceEntity, IController
 {
     [SerializeField] private bool controlsEnabled = true;
+    [SerializeField] private GameObject Weapons;
 
     private void Update()
     {
@@ -55,6 +56,25 @@ public class PlayerShip : SpaceEntity, IController
         transform.position += shipStats.Velocity * Time.deltaTime;
 
         AttractXpOrbs();
+    }
+
+    public void FireWeapons()
+    {
+        if(Weapons == null)
+        {
+            Debug.Log("Weapons not found!");
+        }
+
+        // Získáme všechny child objekty pod Weapons
+        foreach (Transform weaponTransform in Weapons.transform)
+        {
+            // Pokusíme se získat komponentu IWeapon z každého child objektu
+            IWeapon weapon = weaponTransform.GetComponent<IWeapon>();
+            if (weapon != null)
+            {
+                weapon.Fire(); // Zavoláme metodu Fire, pokud zbraň implementuje IWeapon
+            }
+        }
     }
 
     public override void TakeDamage(float damage)

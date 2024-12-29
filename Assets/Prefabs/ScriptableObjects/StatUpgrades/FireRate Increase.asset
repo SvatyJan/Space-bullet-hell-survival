@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c61c0d5766a6e46980509793474d49, type: 3}
-  m_Name: Speed Increase
+  m_Script: {fileID: 11500000, guid: 6293cd1d8921bab47ac52a25a28721c2, type: 3}
+  m_Name: FireRate Increase
   m_EditorClassIdentifier: 
-  name: Speed Increase
-  description: Speed Increase
-  speedIncrease: 5
-  damageIncrease: 0
-  healthIncrease: 0
+  description: FireRate Increase 5
+  statType: 3
+  increaseAmount: 5
