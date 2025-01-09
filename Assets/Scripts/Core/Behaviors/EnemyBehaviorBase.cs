@@ -14,11 +14,5 @@ public abstract class EnemyBehaviorBase : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         shipStats = GetComponent<ShipStats>();
         spaceEntity = GetComponent<SpaceEntity>();
-
-        // Zkontrolujeme, zda je shootingPoint nastaven; pokud ne, použijeme pozici nepřítele
-        if (shootingPoint == null)
-        {
-            shootingPoint = spaceEntity.shootingPoint;
-        }
     }
 }

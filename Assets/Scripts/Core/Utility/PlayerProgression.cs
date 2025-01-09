@@ -5,13 +5,22 @@ using System.Collections.Generic;
 public class PlayerProgression : MonoBehaviour
 {
     private ShipStats shipStats;
-    public List<StatUpgradeOption> statUpgrades;     // Dostupná vylepšení statù
-    public List<WeaponUpgradeOption> weaponUpgrades; // Dostupná vylepšení zbraní
+
+    /** Dostupná vylepšení atributù. */
+    public List<StatUpgradeOption> statUpgrades;
+
+    /** Dostupná vylepšení zbraní. */
+    public List<WeaponUpgradeOption> weaponUpgrades;
 
     [Header("UI Elements")]
-    public GameObject upgradePanel;        // Upgrade menu
-    public GameObject[] upgradeCards;      // Kartièky pro jednotlivé možnosti vylepšení
-    public TMP_Text[] upgradeDescriptions; // Texty na kartièkách (TextMeshPro)
+    /** Upgrade menu. */
+    public GameObject upgradePanel;
+
+    /** Kartièky pro jednotlivé možnosti vylepšení. */
+    public GameObject[] upgradeCards;
+
+    /** Texty na kartièkách. */
+    public TMP_Text[] upgradeDescriptions;
 
     private void Start()
     {
@@ -27,12 +36,15 @@ public class PlayerProgression : MonoBehaviour
         }
     }
 
+    /** Pøidá zkušenosti. */
     public void AddXP(float xpAmount)
     {
         shipStats.XP += xpAmount;
         CheckLevelUp();
     }
 
+
+    /** Kontroluje zda mùže zvýšit úroveò. */
     private void CheckLevelUp()
     {
         while (shipStats.XP >= shipStats.XpNextLevelUp)
@@ -41,6 +53,7 @@ public class PlayerProgression : MonoBehaviour
         }
     }
 
+    /** Zvyšuje úroveò. */
     private void LevelUp()
     {
         shipStats.XP -= shipStats.XpNextLevelUp;
@@ -50,6 +63,7 @@ public class PlayerProgression : MonoBehaviour
         ShowUpgradeChoices();
     }
 
+    /** Ukáže možnosti vylepšení. */
     private void ShowUpgradeChoices()
     {
         // Zastavíme hru
@@ -84,8 +98,8 @@ public class PlayerProgression : MonoBehaviour
         // Nastavíme popisy a callbacky na kartièky
         for (int i = 0; i < upgradeChoices.Count; i++)
         {
-            int index = i; // Nutné pro správné zachycení closure
-            upgradeCards[i].SetActive(true); // Ujistíme se, že je kartièka viditelná
+            int index = i;
+            upgradeCards[i].SetActive(true);
             upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
             upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
             upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
@@ -93,6 +107,7 @@ public class PlayerProgression : MonoBehaviour
         }
     }
 
+    /** Vrátí náhodné možné vylepšení. */
     private List<UpgradeOption> GetRandomUpgrades(List<UpgradeOption> options, int count)
     {
         List<UpgradeOption> randomUpgrades = new List<UpgradeOption>();
@@ -105,19 +120,18 @@ public class PlayerProgression : MonoBehaviour
         return randomUpgrades;
     }
 
-
+    /** Aplikuje vylepšení. */
     public void ApplyUpgrade(UpgradeOption upgrade)
     {
-        upgrade.Apply(shipStats); // Aplikujeme vybrané vylepšení na loï
+        upgrade.Apply(shipStats);
         Debug.Log($"Applied upgrade: {upgrade.name}");
     }
 
+    /** Zavøe panel vylepšování a odpauzuje hru. */
     private void CloseUpgradePanel()
     {
-        // Skryjeme panel
         upgradePanel.SetActive(false);
 
-        // Obnovíme hru
         Time.timeScale = 1f;
     }
 }

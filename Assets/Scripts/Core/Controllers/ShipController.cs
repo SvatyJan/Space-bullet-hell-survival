@@ -23,6 +23,7 @@ public class ShipController : MonoBehaviour
         Controll();
     }
 
+    /** Ovládání entity v kontrole. */
     private void Controll()
     {
         try

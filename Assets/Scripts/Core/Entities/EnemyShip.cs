@@ -14,19 +14,27 @@ public class EnemyShip : SpaceEntity, IController
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform; // Najdi hráče jako cíl
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
     }
 
     private void Update()
     {
-        Controll(); // Řídí nepřítele
+        Controll();
     }
 
+    /** Ovládání. Implementované chování. */
     public override void Controll()
     {
-        behavior?.Execute(); // Implementované chování
+        behavior?.Execute();
     }
 
+    /**
+     * Odečte životy.
+     * Pokud má entita méně životů než 0, tak je zničena.
+     */
     public override void TakeDamage(float damage)
     {
         shipStats.CurrentHealth -= damage;

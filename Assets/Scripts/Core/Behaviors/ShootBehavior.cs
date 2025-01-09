@@ -2,41 +2,44 @@ using UnityEngine;
 
 public class ShootBehavior : EnemyBehaviorBase
 {
-    public GameObject projectilePrefab; // Prefab støely
-    private float nextFireTime = 0f;    // Èas do další støelby
-    private Vector3 direction;          // Smìr k cíli
+    /** Prefab projektilu. */
+    public GameObject projectilePrefab;
+
+    /** Èas kdy mùže znovu vystøelit. */
+    private float nextFireTime = 0f;
+
+    /** Smìr støelby. */
+    private Vector3 shootDirection;
 
     public override void Execute()
     {
         if (target == null) return;
 
         // Výpoèet smìru k hráèi
-        direction = (target.position - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        shootDirection = (target.position - transform.position).normalized;
+        float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
 
-        // Vzdálenost mezi Spitterem a hráèem
+        // Vzdálenost mezi entitou a targetem.
         float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
         if (distanceToTarget <= shipStats.AttackRadius)
         {
-            // Hráè je v dosahu útoku
             if (Time.time >= nextFireTime)
             {
                 nextFireTime = Time.time + shipStats.FireRate;
-                ShootProjectile(direction);
+                ShootProjectile(shootDirection);
             }
         }
         else
         {
-            // Hráè je mimo dosah útoku -> Spitter se pohybuje smìrem k hráèi
-            ChaseTarget(direction);
+            ChaseTarget(shootDirection);
         }
     }
 
+    /** Vytvoøí projektil na pozici shootingPoint a nastaví její smìr. */
     private void ShootProjectile(Vector3 direction)
     {
-        // Vytvoøíme støelu na pozici shootingPoint a nastavíme její smìr
         GameObject projectileInstance = Instantiate(projectilePrefab, shootingPoint.position, shootingPoint.rotation);
         Projectile projectileScript = projectileInstance.GetComponent<Projectile>();
         if (projectileScript != null)
@@ -46,15 +49,15 @@ public class ShootBehavior : EnemyBehaviorBase
         }
     }
 
+    /** Pohybuje s entitou smìrem k targetu. */
     private void ChaseTarget(Vector3 direction)
     {
-        // Pohyb smìrem k hráèi
         transform.position += direction * shipStats.Speed * Time.deltaTime;
     }
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.5f); // Poloprùhledná èervená
+        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
         Gizmos.DrawSphere(transform.position, shipStats.AttackRadius);
     }
 }

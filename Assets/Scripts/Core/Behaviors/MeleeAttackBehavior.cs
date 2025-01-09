@@ -8,27 +8,28 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     public override void Execute()
     {
         if (target == null) return;
-        LookAtTarget();
-        FlyTowards();
-        AttackInRange();
+        RotateTowardsTarget();
+        MoveForward();
+        AttackPlayerInRange();
     }
 
     /** Otáèí se smìrem targetu. */
-    private void LookAtTarget()
+    private void RotateTowardsTarget()
     {
         direction = (target.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 
-    private void FlyTowards()
+    /** Pohybuje se smìrem dopøedu. */
+    private void MoveForward()
     {
         transform.position += direction * shipStats.Speed * Time.deltaTime;
     }
 
-    private void AttackInRange()
+    /** Útoèí na hráèe pokud je v dosahu. */
+    private void AttackPlayerInRange()
     {
-        // Pokud je cooldown hotový, zkontrolujeme, zda je hráè v dosahu
         if (Time.time >= lastAttackTime + shipStats.FireRate)
         {
             Collider2D[] hits = Physics2D.OverlapCircleAll(shootingPoint.position, shipStats.AttackRadius);

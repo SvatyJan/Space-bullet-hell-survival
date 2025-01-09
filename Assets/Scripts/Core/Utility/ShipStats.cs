@@ -82,25 +82,25 @@ public class ShipStats : MonoBehaviour
     public float Speed
     {
         get { return speed; }
-        set { speed = Mathf.Max(0, value); }  // Chceme, aby speed nemohl být negativní
+        set { speed = Mathf.Max(0, value); }
     }
 
     public float RotationSpeed
     {
         get { return rotationSpeed; }
-        set { rotationSpeed = Mathf.Max(0, value); }  // Chceme, aby rotationSpeed nemohl být negativní
+        set { rotationSpeed = Mathf.Max(0, value); }
     }
 
     public float Acceleration
     {
         get { return acceleration; }
-        set { acceleration = Mathf.Max(0, value); }  // Chceme, aby acceleration nemohl být negativní
+        set { acceleration = Mathf.Max(0, value); }
     }
 
     public float Deceleration
     {
         get { return deceleration; }
-        set { deceleration = Mathf.Max(0, value); }  // Chceme, aby deceleration nemohl být negativní
+        set { deceleration = Mathf.Max(0, value); }
     }
 
     public float BaseDamage
