@@ -3,12 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeaponUpgradeOption", menuName = "Upgrades/WeaponUpgradeOption")]
 public class WeaponUpgradeOption : ScriptableObject, UpgradeOption
 {
-    public string description;      // Popis upgradu
-    public string weaponName;       // Název zbranì
-    public GameObject weaponPrefab; // Prefab zbranì
+    /** Popis vylepšení. */
+    public string description;
 
+    /** Název zbranì. */
+    public string weaponName;
+
+    /** Prefab zbranì. */
+    public GameObject weaponPrefab;
+
+    /** Pøiøazení popisu vylepšení. */
     string UpgradeOption.description => description;
 
+    /** Aplikuje zmìny. */
     public void Apply(ShipStats stats)
     {
         if (stats.CanAddWeapon(weaponName))

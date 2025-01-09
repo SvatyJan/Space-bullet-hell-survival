@@ -11,7 +11,16 @@ public abstract class EnemyBehaviorBase : MonoBehaviour
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        if (target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
+        if(shootingPoint == null)
+        {
+            shootingPoint = transform;
+        }
+
         shipStats = GetComponent<ShipStats>();
         spaceEntity = GetComponent<SpaceEntity>();
     }

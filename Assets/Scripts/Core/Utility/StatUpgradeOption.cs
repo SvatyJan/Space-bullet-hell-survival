@@ -3,12 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewStatUpgradeOption", menuName = "Upgrades/StatUpgradeOption")]
 public class StatUpgradeOption : ScriptableObject, UpgradeOption
 {
-    public string description;   // Popis upgradu
-    public StatType statType;    // Typ statu, který se má zvýšit
-    public float increaseAmount; // Hodnota, o kterou se stat zvýší
+    /** Popis upgradu. */
+    public string description;
 
+    /** Typ statu, který se má zvýšit. */
+    public StatType statType;
+
+    /** Hodnota, o kterou se stat zvýší. */
+    public float increaseAmount;
+
+    /** Pøiøazení popisu vylepšení. */
     string UpgradeOption.description => description;
 
+    /** Aplikuje atributy. */
     public void Apply(ShipStats stats)
     {
         // Ovìøíme, zda hráè mùže pøidat tento stat
@@ -50,7 +57,7 @@ public class StatUpgradeOption : ScriptableObject, UpgradeOption
     }
 }
 
-// Výèet dostupných statù
+/** Výèet dostupných statù. */
 public enum StatType
 {
     Speed,

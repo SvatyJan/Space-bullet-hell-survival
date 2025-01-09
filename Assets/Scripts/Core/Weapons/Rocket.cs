@@ -3,24 +3,37 @@ using System.Collections.Generic;
 
 public class Rocket : MonoBehaviour
 {
-    public float speed = 15f;               // Rychlost rakety
-    public float maxDistance = 10f;         // Maximální vzdálenost letu
-    public float explosionRadius = 2f;      // Rádius exploze
-    private Vector3 direction;              // Směr pohybu rakety
-    public SpaceEntity owner;               // Odkaz na hráče nebo nepřítele, který raketu vystřelil
-    [SerializeField]
-    private List<string> collisionTags;     // Seznam tagů, se kterými raketa může kolidovat
+    /** Rychlost rakety. */
+    public float speed = 15f;
 
-    private float rocketDamage;             // Poškození rakety
-    private Vector3 startPosition;          // Počáteční pozice rakety
+    /** Maximální vzdálenost letu. */
+    public float maxDistance = 10f;
 
-    // Nastavení směru pohybu rakety
+    /** Rádius exploze. */
+    public float explosionRadius = 2f;
+
+    /** Směr pohybu rakety. */
+    private Vector3 direction;
+
+    /** Odkaz na entitu, která raketu vystřelila. */
+    public SpaceEntity owner;
+
+    /** Seznam tagů, se kterými raketa může kolidovat. */
+    [SerializeField] private List<string> collisionTags;
+
+    /** Poškození rakety. */
+    private float rocketDamage;
+
+    /** Počáteční pozice rakety. */
+    private Vector3 startPosition;
+
+    /** Nastavení směru pohybu rakety. */
     public void SetDirection(Vector3 direction)
     {
         this.direction = direction.normalized;
     }
 
-    // Inicializace vlastníka rakety a poškození
+    /** Inicializace vlastníka rakety a poškození. */
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
@@ -30,10 +43,9 @@ public class Rocket : MonoBehaviour
 
     private void Update()
     {
-        // Pohyb rakety
         transform.position += direction * speed * Time.deltaTime;
 
-        // Zkontrolujeme, zda raketa nepřekročila maximální vzdálenost
+        // Kontrola, zda raketa nepřekročila maximální vzdálenost.
         if (Vector3.Distance(startPosition, transform.position) >= maxDistance)
         {
             Explode();
@@ -42,7 +54,7 @@ public class Rocket : MonoBehaviour
 
     private void Start()
     {
-        // Automatické zničení rakety po 5 sekundách (pro jistotu)
+        // Automatické zničení rakety po 5 sekundách.
         Destroy(gameObject, 5f);
     }
 
@@ -60,14 +72,13 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    /** Najde všechny objekty v rádiusu exploze a udělí poškození objektům, které mají komponentu SpaceEntity. */
     private void Explode()
     {
-        // Najdeme všechny objekty v rádiusu exploze
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
 
         foreach (Collider2D hit in hits)
         {
-            // Udělíme poškození objektům, které mají komponentu SpaceEntity
             SpaceEntity target = hit.GetComponent<SpaceEntity>();
             if (target != null && target != owner)
             {
@@ -80,7 +91,7 @@ public class Rocket : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f); // Oranžová
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);
         Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }

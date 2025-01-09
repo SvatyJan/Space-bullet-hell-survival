@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Data;
-using System;
 
 public class Projectile : MonoBehaviour
 {
@@ -33,7 +31,6 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        // Pohyb støely
         transform.position += direction * speed * Time.deltaTime;
     }
 
@@ -55,12 +52,11 @@ public class Projectile : MonoBehaviour
         // Zkontroluj, zda tag objektu je v seznamu povolených kolizí
         if (collisionTags.Contains(other.tag))
         {
-            // Najdi komponentu SpaceEntity na objektu, se kterým jsme kolidovali
             SpaceEntity target = other.GetComponent<SpaceEntity>();
-            if (target != null && target != owner) // Zajistíme, že nezraníme vlastníka
+            if (target != null && target != owner)
             {
-                target.TakeDamage(projectileDamage); // Udìlíme poškození cíli
-                Destroy(gameObject); // Znièíme støelu po zásahu
+                target.TakeDamage(projectileDamage);
+                Destroy(gameObject);
             }
         }
     }
