@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WallBreaker : MonoBehaviour, IWeapon
+public class ForceField : MonoBehaviour, IWeapon
 {
     public float activationVelocity = 5f;
     public float damage = 5f;
