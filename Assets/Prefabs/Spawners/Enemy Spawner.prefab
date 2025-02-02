@@ -50,4 +50,4 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnRadius: 15
   safeRadius: 10
-  spawnInterval: 3
+  spawnInterval: 2

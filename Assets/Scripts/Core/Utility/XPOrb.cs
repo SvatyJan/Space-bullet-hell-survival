@@ -10,7 +10,14 @@ public class XPOrb : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerProgression>().AddXP(xpAmount);
+            PlayerProgression playerXp = collision.GetComponent<PlayerProgression>();
+            if(playerXp == null)
+            {
+                return;
+            }
+
+            playerXp.AddXP(xpAmount);
+
             Destroy(gameObject);
         }
     }
