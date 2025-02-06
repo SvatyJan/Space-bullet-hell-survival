@@ -132,6 +132,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 1
+  detectionRadius: 15
   attractionRadius: 15
   attractionSpeed: 2
   xp: 0
@@ -159,6 +160,7 @@ MonoBehaviour:
   weaponUpgrades:
   - {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
   - {fileID: 11400000, guid: 96c4c6b022457b2409d5aae64c9f7416, type: 2}
+  - {fileID: 11400000, guid: 5ad72193ce176e641b014f2f529c87f0, type: 2}
   upgradePanel: {fileID: 0}
   upgradeCards:
   - {fileID: 0}
@@ -395,6 +397,10 @@ PrefabInstance:
     - target: {fileID: 578313417102426796, guid: 315149b18482d664c92fdedc07e29d25, type: 3}
       propertyPath: m_Name
       value: Blaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 578313417102426796, guid: 315149b18482d664c92fdedc07e29d25, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4805979121277212250, guid: 315149b18482d664c92fdedc07e29d25, type: 3}
       propertyPath: m_RootOrder

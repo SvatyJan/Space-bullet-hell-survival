@@ -200,7 +200,7 @@ MonoBehaviour:
   deceleration: 1
   maxHealth: 10
   currentHealth: 10
-  baseDamage: 50
+  baseDamage: 5
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 0.5

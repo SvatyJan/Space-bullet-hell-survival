@@ -18,7 +18,7 @@ public class PlayerShip : SpaceEntity, IController
             return;
         }
 
-        if (Input.GetMouseButton(1))
+        if(IsEnemyNearby())
         {
             FireWeapons();
         }
@@ -81,6 +81,21 @@ public class PlayerShip : SpaceEntity, IController
         }
     }
 
+
+    /** Vrátí true jestli je nepřítel v okolí, jinak false. */
+    private bool IsEnemyNearby()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, shipStats.DetectionRadius);
+        foreach (Collider2D collider in colliders)
+        {
+            if(collider.CompareTag("Enemy"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Přitahuje xp orby. */
     private void AttractXpOrbs()
     {
@@ -101,5 +116,8 @@ public class PlayerShip : SpaceEntity, IController
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, shipStats.AttractionRadius);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, shipStats.DetectionRadius);
     }
 }

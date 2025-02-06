@@ -34,6 +34,9 @@ public class ShipStats : MonoBehaviour
     /** Oblast útoku. */
     [SerializeField] private float attackRadius = 1f;
 
+    /** Vzdálenost ve které lod utoci. */
+    [SerializeField] private float detectionRadius = 1f;
+
     /** Radius pro pøitažení xp. */
     [SerializeField] private float attractionRadius = 5f;
 
@@ -188,6 +191,12 @@ public class ShipStats : MonoBehaviour
     {
         get { return attractionRadius; }
         set { attractionRadius = Mathf.Max(0, value); }
+    }
+
+    public float DetectionRadius
+    {
+        get { return detectionRadius; }
+        set { detectionRadius = Mathf.Max(0, value); }
     }
 
     public float AttractionSpeed
