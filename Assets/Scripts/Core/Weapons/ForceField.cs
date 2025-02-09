@@ -2,9 +2,8 @@
 
 public class ForceField : MonoBehaviour, IWeapon
 {
-    public float activationVelocity = 5f;
     public float damage = 5f;
-    public float cooldownTime = 2f;
+    public float cooldownTime = 5f;
 
     private ShipStats shipStats;
     private Collider2D collider2D;
@@ -26,11 +25,6 @@ public class ForceField : MonoBehaviour, IWeapon
     {
         float shipVelocity = shipStats.Velocity.magnitude;
 
-        if (shipVelocity <= activationVelocity)
-        {
-            DeactivateShield();
-        }
-
         if (cooldownTimer > 0)
         {
             cooldownTimer -= Time.deltaTime;
@@ -38,7 +32,7 @@ public class ForceField : MonoBehaviour, IWeapon
         }
 
 
-        if (!isActive && shipVelocity >= activationVelocity)
+        if (!isActive)
         {
             ActivateShield();
         }
@@ -97,8 +91,8 @@ public class ForceField : MonoBehaviour, IWeapon
 
     public void Upgrade()
     {
-        activationVelocity -= 0.5f; // Snížení požadované rychlosti pro aktivaci
         damage += 2f; // Zvýšení poškození
+        cooldownTime -= 0.5f;
     }
 
     public void Evolve()
