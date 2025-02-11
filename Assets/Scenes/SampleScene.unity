@@ -633,10 +633,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Ship
       objectReference: {fileID: 0}
-    - target: {fileID: 4565684457606641929, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4647849489768216968, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: healthSlider
       value: 
@@ -685,18 +681,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7710557025362004322, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradePanel
       value: 
       objectReference: {fileID: 2063858426}
-    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: weaponUpgrades.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCards.Array.data[0]
       value: 
@@ -709,10 +697,6 @@ PrefabInstance:
       propertyPath: upgradeCards.Array.data[2]
       value: 
       objectReference: {fileID: 221578052}
-    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: weaponUpgrades.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 67ef2d51edf559f4eb9f33993087b941, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeDescriptions.Array.data[0]
       value: 
