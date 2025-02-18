@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FleetShipBehavior : MonoBehaviour
 {
@@ -44,6 +45,10 @@ public class FleetShipBehavior : MonoBehaviour
         GameObject nearestEnemy = FindNearestEnemy();
         if (nearestEnemy != null)
         {
+            Vector3 shootDirection = (nearestEnemy.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
             Shoot(nearestEnemy.transform.position);
             fireCooldown = 1f / fireRate;
         }
