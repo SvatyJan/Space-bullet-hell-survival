@@ -350,17 +350,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5969517081146512659, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
   m_PrefabInstance: {fileID: 4527802059179301218}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &418740127 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4136178611045943487, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-  m_PrefabInstance: {fileID: 4527802059179301218}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418740122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4956f70e51aa8145a623824e3e39259, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &483521379 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2251475032841720906, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
@@ -501,6 +490,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1816235995}
     m_Modifications:
+    - target: {fileID: 232354974056727237, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
+      propertyPath: shootingPoint
+      value: 
+      objectReference: {fileID: 1603716462}
     - target: {fileID: 585859790714670227, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -545,18 +538,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 863831705871907172, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
-      propertyPath: owner
-      value: 
-      objectReference: {fileID: 418740127}
-    - target: {fileID: 863831705871907172, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
-      propertyPath: fireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 863831705871907172, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
-      propertyPath: shootingPoint
-      value: 
-      objectReference: {fileID: 1603716462}
     - target: {fileID: 9043178360200690608, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
       propertyPath: m_Name
       value: BioLauncher

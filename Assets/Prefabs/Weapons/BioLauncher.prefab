@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 585859790714670227}
-  - component: {fileID: 863831705871907172}
+  - component: {fileID: 232354974056727237}
   m_Layer: 0
   m_Name: BioLauncher
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &863831705871907172
+--- !u!114 &232354974056727237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,10 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9043178360200690608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e25f88c0e47b9944ca2a54bb5b92defb, type: 3}
+  m_Script: {fileID: 11500000, guid: 1376cab0a30d3a142b4c015770ba9680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 44860097022628975, guid: 03c3f70983d0e894cb3f87f5e8e535ef, type: 3}
+  projectilePrefab: {fileID: 44860097022628975, guid: 755697f2e9e568a4599dcb864a365416, type: 3}
   shootingPoint: {fileID: 0}
-  fireRate: 2.5
+  fireRate: 0.5
   owner: {fileID: 0}

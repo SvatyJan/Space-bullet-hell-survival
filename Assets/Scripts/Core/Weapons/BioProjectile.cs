@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BioProjectile : MonoBehaviour
 {
@@ -10,30 +9,20 @@ public class BioProjectile : MonoBehaviour
     /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
     public SpaceEntity owner;
 
-    /** Prefab projektilu pøi explozi. */
-    public GameObject explosionProjectilePrefab;
-
     /** Rychlost støely. */
     [SerializeField] public float speed = 10f;
 
     /** Seznam tagù, se kterými projektil mùže kolidovat. */
     [SerializeField] private List<string> collisionTags;
 
-    /** Procentuální poškození projektilu pøi nalepení. */
-    [SerializeField] private float healthPercentageDamage = 0.05f;
-
-    /** Doba pøilepení projektilu. */
-    [SerializeField] private float stickDuration = 3f;
+    /** Poškození projektilu. */
+    [SerializeField] private float projectileDamage = 10f;
 
     /** Doba, jak dlouho vydrží projektil než se znièí. */
     [SerializeField] private float projectileDuration = 5f;
 
     /** Smìr pohybu støely. */
     private Vector3 direction;
-
-    private Transform target;
-    private SpaceEntity targetEntity;
-    [SerializeField] private bool isAttached = false;
 
     private void Start()
     {
@@ -45,71 +34,30 @@ public class BioProjectile : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
+    // Nastavení smìru pohybu støely
     public void SetDirection(Vector3 direction)
     {
         this.direction = direction.normalized;
     }
 
+    // Nastavení vlastnictví a poškození
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
+        this.projectileDamage = projectileDamage + damage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isAttached) return;
-
-        Debug.Log(isAttached);
-
         // Zkontroluj, zda tag objektu je v seznamu povolených kolizí
         if (collisionTags.Contains(other.tag))
         {
-            target = other.transform;
-            targetEntity = other.GetComponent<SpaceEntity>();
-            if (targetEntity != null && targetEntity != owner)
+            SpaceEntity target = other.GetComponent<SpaceEntity>();
+            if (target != null && target != owner)
             {
-                AttachToTarget();
+                target.TakeDamage(projectileDamage);
+                Destroy(gameObject);
             }
         }
-    }
-
-    private void AttachToTarget()
-    {
-        isAttached = true;
-        transform.SetParent(target);
-        transform.localPosition = Vector3.zero;
-
-        StartCoroutine(DamageOverTime());
-    }
-
-    private IEnumerator DamageOverTime()
-    {
-        float damage = shipStats.BaseDamage + (targetEntity.getShipStats().MaxHealth * healthPercentageDamage);
-        targetEntity.TakeDamage(damage);
-
-        yield return new WaitForSeconds(stickDuration);
-        
-        if(targetEntity.getShipStats().CurrentHealth < 0)
-        {
-            Explode();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Explode()
-    {
-        for(int i = 0; i < 5; i++)
-        {
-            GameObject newProjectile = Instantiate(explosionProjectilePrefab, transform.position, Quaternion.identity);
-            Rigidbody2D rb = newProjectile.GetComponent<Rigidbody2D>();
-
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            rb.velocity = randomDirection;
-        }
-
-        Destroy(gameObject);
     }
 }
