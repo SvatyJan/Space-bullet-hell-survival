@@ -21,6 +21,9 @@ public class BioProjectile : MonoBehaviour
     /** Doba, jak dlouho vydrží projektil než se znièí. */
     [SerializeField] private float projectileDuration = 5f;
 
+    /** Prefab efektu bio zbranì. */
+    [SerializeField] private GameObject bioWeaponEffectPrefab;
+
     /** Smìr pohybu støely. */
     private Vector3 direction;
 
@@ -55,9 +58,22 @@ public class BioProjectile : MonoBehaviour
             SpaceEntity target = other.GetComponent<SpaceEntity>();
             if (target != null && target != owner)
             {
+                ApplyBioEffect(target);
                 target.TakeDamage(projectileDamage);
                 Destroy(gameObject);
             }
+        }
+    }
+
+    private void ApplyBioEffect(SpaceEntity target)
+    {
+        GameObject bioWeaponEffect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity);
+        bioWeaponEffect.transform.SetParent(target.transform);
+
+        BioWeaponEffect bioWeaponScript = bioWeaponEffect.GetComponent<BioWeaponEffect>();
+        if (bioWeaponScript != null)
+        {
+            bioWeaponScript.ApplyBioWeaponEffect(target, this.owner);
         }
     }
 }

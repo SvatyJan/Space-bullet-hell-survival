@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8316576430682903305
 SpriteRenderer:
@@ -167,3 +167,4 @@ MonoBehaviour:
   - Enemy
   projectileDamage: 10
   projectileDuration: 5
+  bioWeaponEffectPrefab: {fileID: 6181941549093296517, guid: a379be59f5518ec42aeb89be9d9b71d2, type: 3}

@@ -40,6 +40,13 @@ public class EnemyShip : SpaceEntity, IController
         shipStats.CurrentHealth -= damage;
         if (shipStats.CurrentHealth <= 0)
         {
+            BioWeaponEffect bioWeaponEffect = GetComponentInChildren<BioWeaponEffect>();
+            if (bioWeaponEffect != null)
+            {
+
+                bioWeaponEffect.GetComponent<BioWeaponEffect>()?.Explode();
+            }
+
             GameObject xpOrb = Instantiate(XpOrbPrefab, transform.position, transform.rotation);
             xpOrb.GetComponent<XPOrb>().xpAmount = shipStats.XP;
 

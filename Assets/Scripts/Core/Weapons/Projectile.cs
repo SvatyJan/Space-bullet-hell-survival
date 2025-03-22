@@ -31,7 +31,6 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Moving projectile, direction: " + direction);
         transform.position += direction * speed * Time.deltaTime;
     }
 
