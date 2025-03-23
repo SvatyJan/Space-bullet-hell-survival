@@ -46,5 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 44860097022628975, guid: 755697f2e9e568a4599dcb864a365416, type: 3}
   shootingPoint: {fileID: 0}
-  fireRate: 0.5
+  fireRate: 1
   owner: {fileID: 0}

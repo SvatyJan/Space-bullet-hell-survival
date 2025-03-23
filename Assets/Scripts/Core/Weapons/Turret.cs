@@ -1,5 +1,3 @@
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour, IWeapon
@@ -30,12 +28,18 @@ public class Turret : MonoBehaviour, IWeapon
     void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
-        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
-    }
+        if (owner == null)
+        {
+            Debug.LogError("Turret: Nelze najít vlastníka zbranì! Zbraò nebude fungovat.");
+            return;
+        }
 
-    void Update()
-    {
-        shootingPoint = this.transform;
+        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
+        if (shootingPoint == null)
+        {
+            shootingPoint = transform;
+            Debug.LogWarning("Turret: shootingPoint nebyl nastaven, používám this.transform!");
+        }
     }
 
     public void Fire()
@@ -43,6 +47,18 @@ public class Turret : MonoBehaviour, IWeapon
         if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + fireRate;
+
+            if (projectilePrefab == null)
+            {
+                Debug.LogError("Turret: projectilePrefab není pøiøazen! Støelba zrušena.");
+                return;
+            }
+
+            if (shootingPoint == null)
+            {
+                Debug.LogError("Turret: shootingPoint je null! Støelba zrušena.");
+                return;
+            }
 
             targetDirection = GetNearestEnemyDirection();
             if (targetDirection == new Vector3(0,0,0)) { return; }
@@ -53,10 +69,7 @@ public class Turret : MonoBehaviour, IWeapon
             if (projectileScript != null)
             {
                 projectileScript.Initialize(owner, baseDamage);
-                if(targetDirection != null)
-                {
-                    projectileScript.SetDirection(targetDirection);
-                }                
+                projectileScript.SetDirection(targetDirection);
             }
         }
     }
