@@ -59,7 +59,6 @@ public class PlayerProgression : MonoBehaviour
         shipStats.XP -= shipStats.XpNextLevelUp;
         shipStats.XpNextLevelUp *= 1.5f; // Zvyšujeme požadavek na další úroveò (exponenciálnì)
         shipStats.Level++;
-        Debug.Log("Level Up to " + shipStats.Level + "! Choose an upgrade!");
         ShowUpgradeChoices();
     }
 

@@ -55,6 +55,9 @@ public class ShipStats : MonoBehaviour
     /** Maximální poèet zbraní. */
     [SerializeField] private int maxWeapons = 2;
 
+    /** Poèet projektilù. */
+    [SerializeField] private int projectilesCount = 2;
+
     /** Poèet vylepšení podle statù. */
     private Dictionary<StatType, int> statUpgradeCounts = new Dictionary<StatType, int>();
 
@@ -221,5 +224,11 @@ public class ShipStats : MonoBehaviour
     {
         get { return level; }
         set { level = Mathf.Max(0, value); }
+    }
+
+    public int ProjectilesCount
+    {
+        get { return projectilesCount; }
+        set { projectilesCount = value; }
     }
 }

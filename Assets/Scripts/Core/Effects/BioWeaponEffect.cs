@@ -38,7 +38,7 @@ public class BioWeaponEffect : MonoBehaviour
 
     public void Explode()
     {
-        int projectileCount = 5;
+        int projectileCount = owner.GetComponent<ShipStats>().ProjectilesCount;
         float spreadAngle = 360f;
 
         for (int i = 0; i < projectileCount; i++)
