@@ -4,12 +4,18 @@ public class ForceField : MonoBehaviour, IWeapon
 {
     public float damage = 5f;
     public float cooldownTime = 5f;
+    public float activationTime = 1f;
 
     private ShipStats shipStats;
     private Collider2D collider2D;
     private SpriteRenderer spriteRenderer;
     private bool isActive = false;
+    private bool isGrowing = false;
     private float cooldownTimer = 0f;
+    private float activationTimer = 0f;
+
+    /** Počáteční velikost štítu. */
+    private Vector3 initialScale; 
 
     private void Awake()
     {
@@ -19,6 +25,7 @@ public class ForceField : MonoBehaviour, IWeapon
 
         collider2D.enabled = false;
         spriteRenderer.enabled = false;
+        initialScale = transform.localScale;
     }
 
     private void Update()
@@ -36,6 +43,19 @@ public class ForceField : MonoBehaviour, IWeapon
         {
             ActivateShield();
         }
+
+        if (isGrowing)
+        {
+            activationTimer += Time.deltaTime;
+            float lerpFactor = Mathf.Clamp01(activationTimer / activationTime);
+
+            transform.localScale = Vector3.Lerp(initialScale * 0.2f, initialScale, lerpFactor);
+
+            if (lerpFactor >= 1f)
+            {
+                isGrowing = false;
+            }
+        }
     }
 
     private void ActivateShield()
@@ -43,6 +63,8 @@ public class ForceField : MonoBehaviour, IWeapon
         isActive = true;
         collider2D.enabled = true;
         spriteRenderer.enabled = true;
+        isGrowing = true;
+        activationTimer = 0f;
     }
 
     private void DeactivateShield()
