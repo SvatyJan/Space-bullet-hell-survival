@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6630900620250075867}
   - component: {fileID: 294805897262152833}
   - component: {fileID: 1137017218432819352}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spitter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -234,12 +234,14 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 10
+  detectionRadius: 1
   attractionRadius: 5
   attractionSpeed: 2
   xp: 50
   xpNextlevelUp: 15
   level: 1
   maxWeapons: 2
+  projectilesCount: 2
   maxStatUpgrades: 3
 --- !u!114 &1137017218432819352
 MonoBehaviour:

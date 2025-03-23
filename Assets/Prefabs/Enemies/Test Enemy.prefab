@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 305145242660462728}
   - component: {fileID: 6630900620250075867}
   - component: {fileID: 294805897262152833}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Test Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ Transform:
   m_Children:
   - {fileID: 2512922300153659316}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7558883994398324240
 SpriteRenderer:
@@ -227,13 +227,18 @@ MonoBehaviour:
   rotationSpeed: 100
   acceleration: 2
   deceleration: 2
-  maxHealth: 100
-  currentHealth: 100
+  maxHealth: 5000
+  currentHealth: 5000
   baseDamage: 10
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 10
+  detectionRadius: 1
   attractionRadius: 5
   attractionSpeed: 2
   xp: 2
   xpNextlevelUp: 15
+  level: 1
+  maxWeapons: 2
+  projectilesCount: 2
+  maxStatUpgrades: 3

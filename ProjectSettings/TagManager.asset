@@ -11,6 +11,7 @@ TagManager:
   - FrontShootingPoint
   - LeftShootingPoint
   - RightShootingPoint
+  - Debris
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Debris
+  - Enemy
   - 
   - 
   - 
