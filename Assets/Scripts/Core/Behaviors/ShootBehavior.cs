@@ -54,10 +54,4 @@ public class ShootBehavior : EnemyBehaviorBase
     {
         transform.position += direction * shipStats.Speed * Time.deltaTime;
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-        Gizmos.DrawSphere(transform.position, shipStats.AttackRadius);
-    }
 }
