@@ -32,19 +32,11 @@ public class ArmySpawner : MonoBehaviour
         foreach (Transform spawnPoint in spawnPoints)
         {
             GameObject armyInstance = Instantiate(armyPrefab, spawnPoint.position, spawnPoint.rotation);
-            StartCoroutine(DetachAndDestroy(armyInstance));
+            foreach (Transform enemy in armyInstance.transform)
+            {
+                enemy.SetParent(null);
+            }
+            Destroy(armyInstance);
         }
-    }
-
-    private IEnumerator DetachAndDestroy(GameObject armyInstance)
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        foreach (Transform enemy in armyInstance.transform)
-        {
-            enemy.SetParent(null);
-        }
-
-        Destroy(armyInstance);
     }
 }
