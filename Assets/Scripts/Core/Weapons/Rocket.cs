@@ -1,39 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Rocket : MonoBehaviour
 {
-    /** Rychlost rakety. */
     public float speed = 15f;
-
-    /** Maximální vzdálenost letu. */
     public float maxDistance = 10f;
-
-    /** Rádius exploze. */
     public float explosionRadius = 2f;
-
-    /** Směr pohybu rakety. */
     private Vector3 direction;
-
-    /** Odkaz na entitu, která raketu vystřelila. */
     public SpaceEntity owner;
-
-    /** Seznam tagů, se kterými raketa může kolidovat. */
     [SerializeField] private List<string> collisionTags;
-
-    /** Poškození rakety. */
     private float rocketDamage;
-
-    /** Počáteční pozice rakety. */
     private Vector3 startPosition;
 
-    /** Nastavení směru pohybu rakety. */
     public void SetDirection(Vector3 direction)
     {
         this.direction = direction.normalized;
     }
 
-    /** Inicializace vlastníka rakety a poškození. */
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
@@ -45,7 +29,6 @@ public class Rocket : MonoBehaviour
     {
         transform.position += direction * speed * Time.deltaTime;
 
-        // Kontrola, zda raketa nepřekročila maximální vzdálenost.
         if (Vector3.Distance(startPosition, transform.position) >= maxDistance)
         {
             Explode();
@@ -54,28 +37,26 @@ public class Rocket : MonoBehaviour
 
     private void Start()
     {
-        // Automatické zničení rakety po 5 sekundách.
         Destroy(gameObject, 5f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Zkontroluj, zda tag objektu je v seznamu povolených kolizí
         if (collisionTags.Contains(other.tag))
         {
-            // Najdi komponentu SpaceEntity na objektu, se kterým jsme kolidovali
             SpaceEntity target = other.GetComponent<SpaceEntity>();
-            if (target != null && target != owner) // Zajistíme, že nezraníme vlastníka
+            if (target != null && target != owner)
             {
-                Explode(); // Spustíme explozi
+                Explode();
             }
         }
     }
 
-    /** Najde všechny objekty v rádiusu exploze a udělí poškození objektům, které mají komponentu SpaceEntity. */
     private void Explode()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
+        Vector3 explosionPosition = transform.position;
+
+        Collider2D[] hits = Physics2D.OverlapCircleAll(explosionPosition, explosionRadius);
 
         foreach (Collider2D hit in hits)
         {
@@ -86,7 +67,40 @@ public class Rocket : MonoBehaviour
             }
         }
 
+        StartCoroutine(DrawExplosionIndicator(explosionPosition));
+
         Destroy(gameObject);
+    }
+
+    private IEnumerator DrawExplosionIndicator(Vector3 explosionPosition)
+    {
+        GameObject explosionEffect = new GameObject("ExplosionIndicator");
+        explosionEffect.transform.position = explosionPosition;
+
+        LineRenderer lineRenderer = explosionEffect.AddComponent<LineRenderer>();
+        lineRenderer.startWidth = 0.1f;
+        lineRenderer.endWidth = 0.1f;
+        lineRenderer.loop = true;
+        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        lineRenderer.startColor = Color.red;
+        lineRenderer.endColor = Color.red;
+        lineRenderer.useWorldSpace = true;
+
+        int segments = 50;
+        float angleStep = 360f / segments;
+        Vector3[] positions = new Vector3[segments];
+
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = Mathf.Deg2Rad * i * angleStep;
+            positions[i] = explosionPosition + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * explosionRadius;
+        }
+
+        lineRenderer.positionCount = segments;
+        lineRenderer.SetPositions(positions);
+
+        Destroy(explosionEffect, 1f);
+        yield return new WaitForSeconds(1f);
     }
 
     private void OnDrawGizmos()

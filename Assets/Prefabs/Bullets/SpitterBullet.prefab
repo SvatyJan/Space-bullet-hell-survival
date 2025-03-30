@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5026876218978405938}
   - component: {fileID: 3294721760115392176}
   - component: {fileID: 5483572977609177022}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpitterBullet
   m_TagString: Enemy Projectile
   m_Icon: {fileID: 0}
@@ -161,7 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee4228977f596e488c30cf6f4e0552a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
   owner: {fileID: 0}
+  speed: 6
   collisionTags:
   - Player
+  projectileDamage: 10
+  projectileDuration: 5
