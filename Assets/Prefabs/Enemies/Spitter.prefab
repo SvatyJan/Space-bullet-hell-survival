@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 7558883994398324240}
   - component: {fileID: 7362432778834893374}
   - component: {fileID: 305145242660462728}
-  - component: {fileID: 6630900620250075867}
   - component: {fileID: 294805897262152833}
+  - component: {fileID: 6630900620250075867}
   - component: {fileID: 1137017218432819352}
   m_Layer: 7
   m_Name: Spitter
@@ -196,6 +196,37 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
+--- !u!114 &294805897262152833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488209312567463031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e18b0bef5e0a14295d1069fdc731ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  rotationSpeed: 100
+  acceleration: 1
+  deceleration: 1
+  maxHealth: 20
+  currentHealth: 20
+  baseDamage: 10
+  velocity: {x: 0, y: 0, z: 0}
+  fireRate: 1
+  attackRadius: 10
+  detectionRadius: 0
+  attractionRadius: 0
+  attractionSpeed: 0
+  xp: 0
+  xpNextlevelUp: 0
+  level: 1
+  maxWeapons: 1
+  projectilesCount: 1
+  maxStatUpgrades: 0
 --- !u!114 &6630900620250075867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,37 +244,6 @@ MonoBehaviour:
   behavior: {fileID: 1137017218432819352}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
   damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
---- !u!114 &294805897262152833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8488209312567463031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e18b0bef5e0a14295d1069fdc731ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  rotationSpeed: 100
-  acceleration: 2
-  deceleration: 2
-  maxHealth: 15
-  currentHealth: 15
-  baseDamage: 10
-  velocity: {x: 0, y: 0, z: 0}
-  fireRate: 1
-  attackRadius: 10
-  detectionRadius: 1
-  attractionRadius: 5
-  attractionSpeed: 2
-  xp: 50
-  xpNextlevelUp: 15
-  level: 1
-  maxWeapons: 2
-  projectilesCount: 2
-  maxStatUpgrades: 3
 --- !u!114 &1137017218432819352
 MonoBehaviour:
   m_ObjectHideFlags: 0
