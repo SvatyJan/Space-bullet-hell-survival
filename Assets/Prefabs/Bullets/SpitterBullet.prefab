@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5026876218978405938}
   - component: {fileID: 3294721760115392176}
   - component: {fileID: 5483572977609177022}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: SpitterBullet
   m_TagString: Enemy Projectile
   m_Icon: {fileID: 0}

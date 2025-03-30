@@ -106,6 +106,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 3128685163572038352}
   behavior: {fileID: 3013589223619252054}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
+  damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
 --- !u!50 &1241567042731068014
 Rigidbody2D:
   serializedVersion: 4

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyShip : SpaceEntity, IController
 {
@@ -6,6 +8,12 @@ public class EnemyShip : SpaceEntity, IController
 
     [SerializeField] public EnemyBehaviorBase behavior;
     [SerializeField] private GameObject XpOrbPrefab;
+    [SerializeField] private GameObject damagePopUpPrefab;
+
+    private float lastDamagePopupTime = 0f;
+    private float damagePopupCooldown = 0.1f;
+    private static Queue<GameObject> popupPool = new Queue<GameObject>();
+    private static int maxPopups = 25;
 
     private void Awake()
     {
@@ -38,19 +46,52 @@ public class EnemyShip : SpaceEntity, IController
     public override void TakeDamage(float damage)
     {
         shipStats.CurrentHealth -= damage;
+
+        // Zobraz popup jen pokud od posledního uběhlo alespoň 0,1s
+        if (Time.time - lastDamagePopupTime >= damagePopupCooldown)
+        {
+            ShowDamagePopup(damage);
+            lastDamagePopupTime = Time.time;
+        }
+
         if (shipStats.CurrentHealth <= 0)
         {
             BioWeaponEffect bioWeaponEffect = GetComponentInChildren<BioWeaponEffect>();
             if (bioWeaponEffect != null)
             {
-
-                bioWeaponEffect.GetComponent<BioWeaponEffect>()?.Explode();
+                bioWeaponEffect.Explode();
             }
 
             GameObject xpOrb = Instantiate(XpOrbPrefab, transform.position, transform.rotation);
             xpOrb.GetComponent<XPOrb>().xpAmount = shipStats.XP;
 
             Destroy(gameObject);
+        }
+    }
+
+    private void ShowDamagePopup(float damage)
+    {
+        GameObject popup;
+
+        if (popupPool.Count < maxPopups)
+        {
+            popup = Instantiate(damagePopUpPrefab);
+        }
+        else
+        {
+            popup = popupPool.Dequeue();
+        }
+
+        if(popup == null)
+        {
+            return;
+        }
+        else
+        {
+            popup.transform.position = transform.position;
+            popup.GetComponent<DamagePopup>().Setup(damage);
+
+            popupPool.Enqueue(popup);
         }
     }
 }

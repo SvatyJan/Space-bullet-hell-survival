@@ -61,12 +61,12 @@ Transform:
   m_GameObject: {fileID: 8488209312567463031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.31, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_LocalScale: {x: 4.1902475, y: 2.7934985, z: 2.7934985}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2512922300153659316}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7558883994398324240
 SpriteRenderer:
@@ -211,6 +211,7 @@ MonoBehaviour:
   shootingPoint: {fileID: 2512922300153659316}
   behavior: {fileID: 0}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
+  damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
 --- !u!114 &294805897262152833
 MonoBehaviour:
   m_ObjectHideFlags: 0
