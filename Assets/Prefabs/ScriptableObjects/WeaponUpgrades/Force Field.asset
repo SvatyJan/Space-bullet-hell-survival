@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: Laser Upgrade
+  m_Name: Force Field
   m_EditorClassIdentifier: 
-  description: Laser
-  weaponName: Laser
-  weaponPrefab: {fileID: 8801340662031954782, guid: c31e15913575fb742b423ebe88906d18, type: 3}
+  description: Force Field
+  weaponName: Force Field
+  weaponPrefab: {fileID: 3037188654441705350, guid: d49a6f38698ad5548a27ebec00eadbdd, type: 3}

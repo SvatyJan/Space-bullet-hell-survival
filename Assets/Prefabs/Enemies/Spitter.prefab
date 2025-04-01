@@ -221,7 +221,7 @@ MonoBehaviour:
   detectionRadius: 0
   attractionRadius: 0
   attractionSpeed: 0
-  xp: 0
+  xp: 2
   xpNextlevelUp: 0
   level: 1
   maxWeapons: 1

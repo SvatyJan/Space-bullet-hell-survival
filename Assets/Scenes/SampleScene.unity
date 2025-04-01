@@ -1578,7 +1578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523913758150132518, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1750,6 +1750,10 @@ PrefabInstance:
     - target: {fileID: 2421121736342730838, guid: 5b47613cbe08b9d4b999abc50d20ad26, type: 3}
       propertyPath: m_Name
       value: BOSS Leviathan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2421121736342730838, guid: 5b47613cbe08b9d4b999abc50d20ad26, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2421786365021958461, guid: 5b47613cbe08b9d4b999abc50d20ad26, type: 3}
       propertyPath: m_RootOrder
@@ -1955,7 +1959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8079108110824404816, guid: 679c4186afb19f2418fc50296d99f11b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8608128877028016114, guid: 679c4186afb19f2418fc50296d99f11b, type: 3}
       propertyPath: spawnInterval

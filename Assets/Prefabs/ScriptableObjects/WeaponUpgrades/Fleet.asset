@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: Turret Upgrade
+  m_Name: Fleet
   m_EditorClassIdentifier: 
-  description: Turret Upgrade
-  weaponName: Turret Upgrade
-  weaponPrefab: {fileID: 7766916691272431245, guid: 12fcdd56e205ef448a4c36b1dd356205, type: 3}
+  description: Fleet
+  weaponName: Fleet
+  weaponPrefab: {fileID: 4957801454098901893, guid: e3c7399013fe3144cb0db54dda2bb784, type: 3}

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: Blaster Upgrade
+  m_Name: Laser
   m_EditorClassIdentifier: 
-  description: Blaster Upgrade
-  weaponName: Blaster
-  weaponPrefab: {fileID: 578313417102426796, guid: 315149b18482d664c92fdedc07e29d25, type: 3}
+  description: Laser
+  weaponName: Laser
+  weaponPrefab: {fileID: 8801340662031954782, guid: c31e15913575fb742b423ebe88906d18, type: 3}
