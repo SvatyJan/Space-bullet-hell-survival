@@ -1706,6 +1706,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 7287441090773214423, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: fireRate
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradePanel
       value: 
