@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class NovaExplosion : MonoBehaviour
@@ -33,9 +35,17 @@ public class NovaExplosion : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collisionTags.Contains(collision.tag))
-        {
-            SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
-            enemy.TakeDamage(damage);
+        {            
+            try
+            {
+                SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
+                enemy.TakeDamage(damage);
+            }
+            catch(NullReferenceException)
+            {
+                Destroy(collision.gameObject);
+                return;
+            }
         }
     }
 }

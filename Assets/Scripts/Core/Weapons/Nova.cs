@@ -41,12 +41,12 @@ public class Nova : MonoBehaviour, IWeapon
 
     public void Upgrade()
     {
-        fireRate = Mathf.Max(8f, fireRate - 8f); // Snižuje cooldown, ale minimálnì na 8 sekund
+        fireRate = Mathf.Max(8f, fireRate - 8f);
         baseDamage += 10f;
     }
 
     public void Evolve()
     {
-        fireRate = 30f; // Evolve snižuje cooldown na 30s
+        fireRate = 30f;
     }
 }
