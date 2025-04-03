@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8523913758150132518
+--- !u!1 &986810218447542644
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6330156806340656184}
-  - component: {fileID: 7544144081977636552}
+  - component: {fileID: 2738588353402560000}
+  - component: {fileID: 5928412553797118027}
   m_Layer: 0
-  m_Name: Enemy Spawner
+  m_Name: Electrizator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6330156806340656184
+--- !u!4 &2738588353402560000
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8523913758150132518}
+  m_GameObject: {fileID: 986810218447542644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,25 +32,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7544144081977636552
+--- !u!114 &5928412553797118027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8523913758150132518}
+  m_GameObject: {fileID: 986810218447542644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f8daa1eeda7484ab83c05e60f41c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d93546d666e0be4cbac77c28406702a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 4507033410055292894, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
-  - {fileID: 8488209312567463031, guid: 7c495df5384491243b8fb6d3c072a2f7, type: 3}
-  player: {fileID: 0}
-  spawnRadius: 15
-  safeRadius: 10
-  spawnInterval: 3
-  invalidSpawnLayers:
-    serializedVersion: 2
-    m_Bits: 64
+  lightningFx: {fileID: 414820797383758702, guid: 39910dd0de0b3b54486528941cf7e22c, type: 3}
+  TestPrefab: {fileID: 8554220825735960879, guid: 901e3e5a408656845b04be0ec7dc3a3c, type: 3}
+  TestPrefab2: {fileID: 3837022466294384400, guid: cb988e307e1910a4285073f4ff2eead8, type: 3}
+  fireRate: 1
+  baseDamage: 5
+  baseRadius: 8
+  baseChainCount: 5
+  lightningDelay: 0.1
+  hitTargets: []
+  collisionTags:
+  - Enemy

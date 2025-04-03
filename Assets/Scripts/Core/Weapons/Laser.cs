@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,12 +47,10 @@ public class Laser : MonoBehaviour, IWeapon
 
         RaycastHit2D hit = Physics2D.Raycast(startPosition, laserFirePoint.up, defaultRayDistance, hitLayers);
 
-        // Pokud je zásah a cíl je poškozovatelný
         if (hit.collider != null && damageableTags.Contains(hit.collider.tag))
         {
             endPosition = hit.point;
 
-            // Aktivujeme laser pouze pokud nìco trefíme
             if (!lineRenderer.enabled)
                 lineRenderer.enabled = true;
 
@@ -62,7 +61,6 @@ public class Laser : MonoBehaviour, IWeapon
             {
                 target.TakeDamage((damagePerSecond + owner.GetComponent<ShipStats>().BaseDamage) * Time.deltaTime);
 
-                // Pokud nepøítel je znièen, deaktivujeme laser
                 if (target.GetComponent<ShipStats>().CurrentHealth <= 0)
                 {
                     lineRenderer.enabled = false;
@@ -71,7 +69,6 @@ public class Laser : MonoBehaviour, IWeapon
         }
         else
         {
-            // Pokud nic netrefíme, laser se skryje
             if (lineRenderer.enabled)
                 lineRenderer.enabled = false;
         }
@@ -85,4 +82,9 @@ public class Laser : MonoBehaviour, IWeapon
 
     public void Upgrade() { throw new System.NotImplementedException(); }
     public void Evolve() { throw new System.NotImplementedException(); }
+
+    internal void Initialize(SpaceEntity spaceEntity, float baseDamage)
+    {
+        throw new NotImplementedException();
+    }
 }
