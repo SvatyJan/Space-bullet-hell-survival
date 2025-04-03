@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: RocketLauncher Upgrade
+  m_Name: RocketLauncher
   m_EditorClassIdentifier: 
   description: Rocket Launcher Upgrade
   weaponName: Rocket Launcher
