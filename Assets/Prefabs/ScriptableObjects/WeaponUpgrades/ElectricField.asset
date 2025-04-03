@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: EchoWeapon
+  m_Name: ElectricField
   m_EditorClassIdentifier: 
-  description: Echo Weapon
-  weaponName: Echo Weapon
-  weaponPrefab: {fileID: 3676529170873869385, guid: 2d6f7caad56767c40aae4155d5e42766, type: 3}
+  description: ElectricField
+  weaponName: ElectricField
+  weaponPrefab: {fileID: 7728026859949422946, guid: a1c336caa97299642844203c9e4961e2, type: 3}

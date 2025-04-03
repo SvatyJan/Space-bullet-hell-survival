@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerShip : SpaceEntity, IController
 {
@@ -73,14 +74,48 @@ public class PlayerShip : SpaceEntity, IController
      */
     public override void TakeDamage(float damage)
     {
+        if (ReturnBeforeTakeDamage())
+        {
+            return;
+        }
+
         shipStats.CurrentHealth -= damage;
+        Debug.Log(this.gameObject.name + " took damage: " + damage);
+
         if (shipStats.CurrentHealth <= 0)
         {
-            Debug.Log(this.gameObject.name + " took damage: " + damage);
-            controlsEnabled = false;
+            DestroyShip();
         }
     }
+    
+    /**
+     * Volá akce, které se stanou před tím, než hráč dostane poškožení.
+     */
+    private bool ReturnBeforeTakeDamage()
+    {
+        ThermalShield shield = GetComponentInChildren<ThermalShield>();
 
+        if (shield != null && shield.getActiveShield())
+        {
+            shield.TriggerExplosion();
+            shield.setActiveShield(false);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void DestroyShip()
+    {
+        controlsEnabled = false;
+
+        ThermalShield shield = GetComponentInChildren<ThermalShield>();
+
+        if(shield != null)
+        {
+            shield.gameObject.SetActive(false);
+        }
+    }
 
     /** Vrátí true jestli je nepřítel v okolí, jinak false. */
     private bool IsEnemyNearby()
@@ -110,14 +145,5 @@ public class PlayerShip : SpaceEntity, IController
                 xpOrb.transform.position += direction * shipStats.AttractionSpeed * Time.deltaTime;
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, shipStats.AttractionRadius);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, shipStats.DetectionRadius);
     }
 }

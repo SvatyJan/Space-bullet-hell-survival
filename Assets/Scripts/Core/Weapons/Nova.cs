@@ -3,13 +3,13 @@ using UnityEngine;
 public class Nova : MonoBehaviour, IWeapon
 {
     /** Prefab výbuchu Novy. */
-    public GameObject novaExplosionPrefab;
+    [SerializeField] private GameObject novaExplosionPrefab;
 
     /** Interval mezi výbuchy. */
-    public float fireRate = 60f;
+    [SerializeField] private float fireRate = 60f;
 
     /** Èas pro pøíští aktivaci. */
-    private float nextFireTime = 0f;
+    [SerializeField] private float nextFireTime = 0f;
 
     /** Poškození zbranì. */
     private float baseDamage;
@@ -21,6 +21,8 @@ public class Nova : MonoBehaviour, IWeapon
     {
         owner = GetComponentInParent<SpaceEntity>();
         baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
+
+        nextFireTime = Time.time;
     }
 
     public void Fire()

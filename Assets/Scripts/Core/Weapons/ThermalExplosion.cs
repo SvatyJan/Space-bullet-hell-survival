@@ -2,19 +2,24 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NovaExplosion : MonoBehaviour
+public class ThermalExplosion : MonoBehaviour
 {
-    [SerializeField] private float maxSize = 15f;
-    [SerializeField] private float expansionSpeed = 10f;
+    [SerializeField] private float maxSize;
+    [SerializeField] private float expansionSpeed;
     [SerializeField] private float damage;
-    [SerializeField] private float baseDamage = 20f;
+
+    public ThermalShield thermalShield;
 
     /** Seznam tagù, se kterými projektil mùže kolidovat. */
     [SerializeField] private List<string> collisionTags;
 
-    public void Initialize(float entityDamage)
+    public void Initialize(float entityDamage, float entitySize, ThermalShield entityThermalShield, float entityMaxSize, float entityExpansionSpeed)
     {
-        damage = baseDamage + entityDamage;
+        damage += entityDamage;
+        maxSize += entitySize;
+        thermalShield = entityThermalShield;
+        maxSize = entityMaxSize;
+        expansionSpeed = entityExpansionSpeed;
         transform.localScale = Vector3.zero;
     }
 
@@ -27,6 +32,7 @@ public class NovaExplosion : MonoBehaviour
         }
         else
         {
+            thermalShield.CleanupExplosion();
             Destroy(gameObject);
         }
     }
@@ -34,13 +40,13 @@ public class NovaExplosion : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collisionTags.Contains(collision.tag))
-        {            
+        {
             try
             {
                 SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
                 enemy.TakeDamage(damage);
             }
-            catch(NullReferenceException)
+            catch (NullReferenceException)
             {
                 Destroy(collision.gameObject);
                 return;

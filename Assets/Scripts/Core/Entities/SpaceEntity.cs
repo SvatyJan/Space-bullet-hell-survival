@@ -20,14 +20,14 @@ public abstract class SpaceEntity : MonoBehaviour, IController
     /** Ovládání, implementované chování. */
     public abstract void Controll();
 
-    public ShipStats getShipStats()
-    {
-        return shipStats;
-    }
-
     /**
      * Odečte životy.
      * Pokud má entita méně životů než 0, tak je zničena.
      */
     public abstract void TakeDamage(float damage);
+
+    public ShipStats getShipStats()
+    {
+        return shipStats;
+    }
 }
