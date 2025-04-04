@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rocketPrefab: {fileID: 2129507558778322961, guid: 72c65cb467ef785448c04819e64c1c11, type: 3}
-  leftLaunchPoint: {fileID: 0}
-  rightLaunchPoint: {fileID: 0}
+  shootingPoint: {fileID: 0}
+  owner: {fileID: 0}
   fireRate: 2
+  baseDamage: 10
+  baseRadius: 5
+  fireRocketsDelay: 0.1
+  collisionTags:
+  - Enemy

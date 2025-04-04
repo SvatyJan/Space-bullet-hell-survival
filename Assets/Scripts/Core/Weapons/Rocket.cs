@@ -4,30 +4,47 @@ using System.Collections;
 
 public class Rocket : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 5f;
     public float maxDistance = 10f;
     public float explosionRadius = 2f;
-    private Vector3 direction;
+    public float rotateSpeed = 200f;
+
+    private GameObject target;
     public SpaceEntity owner;
     [SerializeField] private List<string> collisionTags;
     private float rocketDamage;
     private Vector3 startPosition;
+    private Rigidbody2D rb;
 
-    public void SetDirection(Vector3 direction)
+    private void Start()
     {
-        this.direction = direction.normalized;
+        rb = GetComponent<Rigidbody2D>();
+        startPosition = transform.position;
+        Destroy(gameObject, 5f);
+    }
+
+    public void SetTarget(GameObject target)
+    {
+        this.target = target;
     }
 
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
         this.rocketDamage = damage;
-        this.startPosition = transform.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position += direction * speed * Time.deltaTime;
+        if (target == null) return;
+
+        Vector2 direction = ((Vector2)target.transform.position - rb.position).normalized;
+
+        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        float angle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotateSpeed * Time.fixedDeltaTime);
+        rb.MoveRotation(angle);
+
+        rb.velocity = transform.up * speed;
 
         if (Vector3.Distance(startPosition, transform.position) >= maxDistance)
         {
@@ -35,17 +52,12 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        Destroy(gameObject, 5f);
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (collisionTags.Contains(other.tag))
         {
-            SpaceEntity target = other.GetComponent<SpaceEntity>();
-            if (target != null && target != owner)
+            SpaceEntity hitEntity = other.GetComponent<SpaceEntity>();
+            if (hitEntity != null && hitEntity != owner)
             {
                 Explode();
             }
@@ -55,20 +67,18 @@ public class Rocket : MonoBehaviour
     private void Explode()
     {
         Vector3 explosionPosition = transform.position;
-
         Collider2D[] hits = Physics2D.OverlapCircleAll(explosionPosition, explosionRadius);
 
         foreach (Collider2D hit in hits)
         {
-            SpaceEntity target = hit.GetComponent<SpaceEntity>();
-            if (target != null && target != owner)
+            SpaceEntity hitEntity = hit.GetComponent<SpaceEntity>();
+            if (hitEntity != null && hitEntity != owner)
             {
-                target.TakeDamage(rocketDamage);
+                hitEntity.TakeDamage(rocketDamage);
             }
         }
 
         StartCoroutine(DrawExplosionIndicator(explosionPosition));
-
         Destroy(gameObject);
     }
 
