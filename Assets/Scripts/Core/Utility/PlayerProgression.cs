@@ -65,46 +65,69 @@ public class PlayerProgression : MonoBehaviour
     /** Ukáže možnosti vylepšení. */
     private void ShowUpgradeChoices()
     {
-        // Zastavíme hru
         Time.timeScale = 0f;
-
-        // Zobrazíme panel
         upgradePanel.SetActive(true);
 
         List<UpgradeOption> options = new List<UpgradeOption>();
 
-        // Pøidáme dostupné statové upgrady
+        // 1. Stat upgrady - jen pokud není na max levelu a hráè nemá max poèet atributù
         foreach (var statUpgrade in statUpgrades)
         {
-            if (shipStats.CanAddStatUpgrade(statUpgrade.statType))
+            if (shipStats.CanAddStatUpgrade(statUpgrade.statType) && !shipStats.IsStatMaxed(statUpgrade.statType))
             {
                 options.Add(statUpgrade);
             }
         }
 
-        // Pøidáme dostupné zbraòové upgrady
+        // 2. Weapon upgrady - jen pokud:
+        // - hráè nemá plný poèet zbraní a nemá tu zbraò
+        // - nebo už ji má, ale není na max levelu
+        // - nebo má zbraò a její kombinující stat na max, a mùže provést evoluci
         foreach (var weaponUpgrade in weaponUpgrades)
         {
-            if (shipStats.CanAddWeapon(weaponUpgrade.weaponName))
+            if (shipStats.HasWeapon(weaponUpgrade.weaponName))
+            {
+                int weaponLevel = shipStats.GetWeaponLevel(weaponUpgrade.weaponName);
+                bool isWeaponMaxed = weaponLevel >= 5;
+
+                if (!isWeaponMaxed)
+                {
+                    options.Add(weaponUpgrade);
+                }
+                else if (isWeaponMaxed && shipStats.CanEvolveWeapon(weaponUpgrade.weaponName))
+                {
+                    options.Add(weaponUpgrade); // Evoluce nabídky
+                }
+            }
+            else if (!shipStats.HasMaxWeapons())
             {
                 options.Add(weaponUpgrade);
             }
         }
 
-        // Vybereme 3 náhodné vylepšení
+        // Náhodný výbìr 3 možností
         List<UpgradeOption> upgradeChoices = GetRandomUpgrades(options, 3);
 
-        // Nastavíme popisy a callbacky na kartièky
-        for (int i = 0; i < upgradeChoices.Count; i++)
+        // Nastavení UI
+        for (int i = 0; i < upgradeCards.Length; i++)
         {
-            int index = i;
-            upgradeCards[i].SetActive(true);
-            upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
-            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.RemoveAllListeners();
-            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
-            upgradeCards[i].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(CloseUpgradePanel);
+            if (i < upgradeChoices.Count)
+            {
+                int index = i;
+                upgradeCards[i].SetActive(true);
+                upgradeDescriptions[i].text = $"{upgradeChoices[i].name}\n{upgradeChoices[i].description}";
+                var button = upgradeCards[i].GetComponent<UnityEngine.UI.Button>();
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
+                button.onClick.AddListener(CloseUpgradePanel);
+            }
+            else
+            {
+                upgradeCards[i].SetActive(false); // Skryj prázdné kartièky
+            }
         }
     }
+
 
     /** Vrátí náhodné možné vylepšení. */
     private List<UpgradeOption> GetRandomUpgrades(List<UpgradeOption> options, int count)

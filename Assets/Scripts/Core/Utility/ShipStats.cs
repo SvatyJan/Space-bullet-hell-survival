@@ -22,6 +22,9 @@ public class ShipStats : MonoBehaviour
     /** Aktuální zdraví lodi. */
     [SerializeField] private float currentHealth = 100f;
 
+    /** Rychlost regenerace zdraví za sekundu. */
+    [SerializeField] private float healthRegen = 0f;
+
     /** Základní poškození lodi. */
     [SerializeField] private float baseDamage = 10f;
 
@@ -72,7 +75,6 @@ public class ShipStats : MonoBehaviour
 
     private void Awake()
     {
-        // Inicializace poètu vylepšení pro každý StatType
         foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
         {
             statUpgradeCounts[stat] = 0;
@@ -82,7 +84,6 @@ public class ShipStats : MonoBehaviour
     /** Kontrola jestli mùže pøidat vylepšení pro atribut. */
     public bool CanAddStatUpgrade(StatType statType)
     {
-        // Zkontrolujeme, zda poèet vylepšení pro tento stat nepøekroèil maximum
         return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] < maxStatUpgrades;
     }
 
@@ -130,6 +131,75 @@ public class ShipStats : MonoBehaviour
         }
     }
 
+    /** Vrátí true, pokud má hráè danou zbraò. */
+    public bool HasWeapon(string weaponName)
+    {
+        return equippedWeapons.Contains(weaponName);
+    }
+
+    /** Vrátí true, pokud má hráè maximální poèet zbraní. */
+    public bool HasMaxWeapons()
+    {
+        return equippedWeapons.Count >= maxWeapons;
+    }
+
+    /** Vrátí úroveò zbranì (zatím jednoduše: poèet výskytù dané zbranì v listu). */
+    public int GetWeaponLevel(string weaponName)
+    {
+        int level = 0;
+        foreach (var weapon in equippedWeapons)
+        {
+            if (weapon == weaponName) level++;
+        }
+        return level;
+    }
+
+    /** Pøidá úroveò zbranì (i opakovanì). */
+    public void UpgradeWeapon(string weaponName)
+    {
+        if (HasWeapon(weaponName))
+        {
+            equippedWeapons.Add(weaponName);
+        }
+        else if (!HasMaxWeapons())
+        {
+            equippedWeapons.Add(weaponName);
+        }
+    }
+
+    /** Vrátí true, pokud je zbraò na max levelu (napø. 5). */
+    public bool IsWeaponMaxed(string weaponName)
+    {
+        return GetWeaponLevel(weaponName) >= 5;
+    }
+
+    /** Vrátí true, pokud je stat na max úrovni. */
+    public bool IsStatMaxed(StatType statType)
+    {
+        return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] >= 5;
+    }
+
+    /** Vrátí true, pokud zbraò mùže být evolvována – má zbraò i její potøebný stat na max. */
+    public bool CanEvolveWeapon(string weaponName)
+    {
+        if (!IsWeaponMaxed(weaponName)) return false;
+
+        StatType requiredStat = GetLinkedStat(weaponName);
+        return IsStatMaxed(requiredStat);
+    }
+
+    /** Vrátí typ stat upgrade, který danou zbraò umožòuje evolvovat. */
+    private StatType GetLinkedStat(string weaponName)
+    {
+        switch (weaponName)
+        {
+            case "Laser": return StatType.FireRate;
+            case "Blaster": return StatType.FireRate;
+            default: return StatType.None;
+        }
+    }
+
+
     public float Speed
     {
         get { return speed; }
@@ -164,6 +234,12 @@ public class ShipStats : MonoBehaviour
     {
         get { return maxHealth; }
         set { maxHealth = Mathf.Max(0, value); }
+    }    
+
+    public float HealthRegen
+    {
+        get { return healthRegen; }
+        set { healthRegen = Mathf.Max(0, value); }
     }
 
     public float CurrentHealth

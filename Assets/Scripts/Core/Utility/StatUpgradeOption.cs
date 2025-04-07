@@ -65,5 +65,6 @@ public enum StatType
     Damage,
     FireRate,
     XP,
-    AttractRadius
+    AttractRadius,
+    None
 }

@@ -9,6 +9,7 @@ public class PlayerShip : SpaceEntity, IController
     private void Update()
     {
         Controll();
+        HealthRegen();
     }
 
     /** Ovládání. */
@@ -146,4 +147,14 @@ public class PlayerShip : SpaceEntity, IController
             }
         }
     }
+
+    private void HealthRegen()
+    {
+        if (shipStats.CurrentHealth < shipStats.MaxHealth)
+        {
+            float amount = shipStats.HealthRegen * Time.deltaTime;
+            shipStats.CurrentHealth = Mathf.Min(shipStats.CurrentHealth + amount, shipStats.MaxHealth);
+        }
+    }
+
 }
