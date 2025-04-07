@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8779135055296280992}
   - component: {fileID: 8325460350171649937}
   - component: {fileID: 4647849489768216968}
+  - component: {fileID: 6091547694127965936}
   - component: {fileID: 4396548690546568947}
   - component: {fileID: 7045229386058817717}
   m_Layer: 9
@@ -40,7 +41,7 @@ Transform:
   - {fileID: 5333658175925473365}
   - {fileID: 5507573292304848602}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2413761636758888703
 SpriteRenderer:
@@ -135,7 +136,7 @@ MonoBehaviour:
   detectionRadius: 15
   attractionRadius: 15
   attractionSpeed: 2
-  xp: 1
+  xp: 0
   xpNextlevelUp: 5
   level: 1
   maxWeapons: 8
@@ -194,6 +195,23 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   fillIHealthmage: {fileID: 0}
   backgroundHealthImage: {fileID: 0}
+  shipStats: {fileID: 8779135055296280992}
+--- !u!114 &6091547694127965936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187343540806454267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee56b32775a8f5444a2e9b3320444933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpSlider: {fileID: 0}
+  fillIXpmage: {fileID: 0}
+  backgroundXpImage: {fileID: 0}
+  level: {fileID: 0}
   shipStats: {fileID: 8779135055296280992}
 --- !u!50 &4396548690546568947
 Rigidbody2D:
@@ -391,11 +409,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2688190932274843500}
+  - {fileID: 360552127144996019}
   m_Father: {fileID: 5969517081146512659}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1153600523481019528
+--- !u!1001 &3480375168794908503
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -456,8 +474,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c31e15913575fb742b423ebe88906d18, type: 3}
---- !u!4 &2688190932274843500 stripped
+--- !u!4 &360552127144996019 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3840505026931948516, guid: c31e15913575fb742b423ebe88906d18, type: 3}
-  m_PrefabInstance: {fileID: 1153600523481019528}
+  m_PrefabInstance: {fileID: 3480375168794908503}
   m_PrefabAsset: {fileID: 0}

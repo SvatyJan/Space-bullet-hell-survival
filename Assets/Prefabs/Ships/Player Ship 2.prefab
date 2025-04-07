@@ -38,7 +38,7 @@ Transform:
   - {fileID: 9191026098908908886}
   - {fileID: 3834346317970927007}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6765171628190677946
 SpriteRenderer:
@@ -137,7 +137,7 @@ MonoBehaviour:
   xpNextlevelUp: 5
   level: 1
   maxWeapons: 5
-  projectilesCount: 1
+  projectilesCount: 3
   maxStatUpgrades: 5
 --- !u!114 &6316320340758467632
 MonoBehaviour:
