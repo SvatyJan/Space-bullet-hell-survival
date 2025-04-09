@@ -84,7 +84,7 @@ public class ShipStats : MonoBehaviour
     /** Kontrola jestli mùže pøidat vylepšení pro atribut. */
     public bool CanAddStatUpgrade(StatType statType)
     {
-        return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] < maxStatUpgrades;
+        return statUpgradeCounts.ContainsKey(statType);
     }
 
     /** Pøidá vylepšení atrubutu. */
@@ -115,21 +115,27 @@ public class ShipStats : MonoBehaviour
         }
     }
 
+    /** Vrátí true, pokud je stat na max úrovni. */
+    public bool IsStatMaxed(StatType statType)
+    {
+        return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] >= 5;
+    }
+
     /** Kontrola zda mùže pøidat zbraò. */
-    public bool CanAddWeapon(string weaponName)
+    /*public bool CanAddWeapon(string weaponName)
     {
         return equippedWeapons.Count < maxWeapons && !equippedWeapons.Contains(weaponName);
-    }
+    }*/
 
 
     /** Pøidá zbraò. */
-    public void AddWeapon(string weaponName)
+    /*public void AddWeapon(string weaponName)
     {
         if (CanAddWeapon(weaponName))
         {
             equippedWeapons.Add(weaponName);
         }
-    }
+    }*/
 
     /** Vrátí true, pokud má hráè danou zbraò. */
     public bool HasWeapon(string weaponName)
@@ -171,12 +177,6 @@ public class ShipStats : MonoBehaviour
     public bool IsWeaponMaxed(string weaponName)
     {
         return GetWeaponLevel(weaponName) >= 5;
-    }
-
-    /** Vrátí true, pokud je stat na max úrovni. */
-    public bool IsStatMaxed(StatType statType)
-    {
-        return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] >= 5;
     }
 
     /** Vrátí true, pokud zbraò mùže být evolvována – má zbraò i její potøebný stat na max. */

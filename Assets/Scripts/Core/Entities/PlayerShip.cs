@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerShip : SpaceEntity, IController
 {
     [SerializeField] private bool controlsEnabled = true;
-    [SerializeField] private GameObject Weapons;
+    [SerializeField] public GameObject Weapons;
 
     private void Update()
     {
@@ -81,7 +81,7 @@ public class PlayerShip : SpaceEntity, IController
         }
 
         shipStats.CurrentHealth -= damage;
-        Debug.Log(this.gameObject.name + " took damage: " + damage);
+        //Debug.Log(this.gameObject.name + " took damage: " + damage);
 
         if (shipStats.CurrentHealth <= 0)
         {

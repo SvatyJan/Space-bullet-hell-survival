@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Health Increase 5
   statType: 1
-  increaseAmount: 5
+  increaseAmount: 1

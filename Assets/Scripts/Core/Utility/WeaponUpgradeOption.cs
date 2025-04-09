@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewWeaponUpgradeOption", menuName = "Upgrades/WeaponUpgradeOption")]
-public class WeaponUpgradeOption : ScriptableObject, UpgradeOption
+public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
 {
     /** Popis vylepšení. */
     public string description;
@@ -13,28 +13,36 @@ public class WeaponUpgradeOption : ScriptableObject, UpgradeOption
     public GameObject weaponPrefab;
 
     /** Pøiøazení popisu vylepšení. */
-    string UpgradeOption.description => description;
+    string IUpgradeOption.description => description;
+
+    public StatType requiredStat;
+
+    private GameObject activeInstance;
 
     /** Aplikuje zmìny. */
-    public void Apply(ShipStats stats)
+    public GameObject? Apply(ShipStats stats)
     {
-        if (stats.CanAddWeapon(weaponName))
+        Transform weaponsContainer = stats.GetComponent<PlayerShip>().Weapons.transform;
+        if (weaponsContainer != null)
         {
-            stats.AddWeapon(weaponName);
-
-            // Najdeme podobjekt Weapons
-            Transform weaponsContainer = stats.transform.Find("Weapons");
-            if (weaponsContainer != null)
-            {
-                // Instanciujeme zbraò jako dítì objektu Weapons
-                Instantiate(weaponPrefab, weaponsContainer);
-            }
-            else
-            {
-                Debug.LogWarning("Weapons container not found on player ship. Weapon cannot be added.");
-            }
-
+            GameObject weaponInstance = Instantiate(weaponPrefab, weaponsContainer);
+            weaponInstance.transform.parent = weaponsContainer.transform;
+            activeInstance = weaponInstance;
             Debug.Log($"Weapon {weaponName} added to ship.");
+            return weaponInstance;
         }
+        else
+        {
+            Debug.LogWarning("Weapons container not found on player ship. Weapon cannot be added.");
+        }
+
+        Debug.Log("Vracim null?");
+        return null;
+    }
+
+    /** Vrátí aktivní instaci zbranì. */
+    public GameObject? GetActiveInstance()
+    {
+        return activeInstance;
     }
 }

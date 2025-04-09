@@ -59,11 +59,15 @@ public class Blaster : MonoBehaviour, IWeapon
 
     public void Upgrade()
     {
-        throw new System.NotImplementedException();
+        baseDamage += 5f;
+        fireRate *= 0.9f;
+        Debug.Log($"Blaster upgraded: Damage = {baseDamage}, FireRate = {fireRate}");
     }
 
     public void Evolve()
     {
-        throw new System.NotImplementedException();
+        baseDamage *= 2f;
+        fireRate *= 0.5f;
+        Debug.Log("Blaster evolved!");
     }
 }

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Speed Increase 5
   statType: 0
-  increaseAmount: 5
+  increaseAmount: 1
