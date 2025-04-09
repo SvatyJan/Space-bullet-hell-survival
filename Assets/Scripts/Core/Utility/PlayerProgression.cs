@@ -34,6 +34,8 @@ public class PlayerProgression : MonoBehaviour
     /** Reprezentuje instace zbraní které již existují. */
     private List<GameObject> weaponInstances = new List<GameObject>();
 
+    [SerializeField] private WeaponUpgradeOption? startingWeapon;
+
     [Header("UI Elements")]
     /** Upgrade menu. */
     public GameObject upgradePanel;
@@ -55,6 +57,16 @@ public class PlayerProgression : MonoBehaviour
         if (upgradePanel != null)
         {
             upgradePanel.SetActive(false);
+        }
+
+        if(startingWeapon != null)
+        {
+            GameObject weaponGO = startingWeapon.Apply(shipStats);
+            if (weaponGO != null)
+            {
+                weaponInstances.Add(weaponGO);
+                weaponLevels[startingWeapon] = 1;
+            }
         }
 
         foreach(StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
@@ -184,7 +196,7 @@ public class PlayerProgression : MonoBehaviour
         {
             if (statLevels.ContainsKey(statUpgrade.statType) && statLevels[statUpgrade.statType] >= maxStatUpgrade)
             {
-                return;
+                continue;
             }
             options.Add(statUpgrade);
         }
@@ -197,7 +209,7 @@ public class PlayerProgression : MonoBehaviour
         {
             if (weaponLevels.ContainsKey(weaponUpgrade) && weaponLevels[weaponUpgrade] >= maxWeaponUpgrade)
             {
-                return;
+                continue;
             }
             options.Add(weaponUpgrade);
         }

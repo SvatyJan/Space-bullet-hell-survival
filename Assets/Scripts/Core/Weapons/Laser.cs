@@ -80,11 +80,14 @@ public class Laser : MonoBehaviour, IWeapon
         lineRenderer.SetPosition(1, endPosition);
     }
 
-    public void Upgrade() { throw new System.NotImplementedException(); }
-    public void Evolve() { throw new System.NotImplementedException(); }
-
-    internal void Initialize(SpaceEntity spaceEntity, float baseDamage)
+    public void Upgrade()
     {
-        throw new NotImplementedException();
+        damagePerSecond += 1f;
+        defaultRayDistance += 1f;
+    }
+    public void Evolve()
+    {
+        damagePerSecond += 5f;
+        defaultRayDistance += 5f;
     }
 }
