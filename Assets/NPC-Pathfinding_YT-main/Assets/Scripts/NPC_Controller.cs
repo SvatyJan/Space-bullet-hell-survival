@@ -24,7 +24,7 @@ namespace Game.Dev.Garnet.YT
 
         public StateMachine currentState;
 
-        public PlayerController player;
+        public GameObject player;
 
         public float speed = 3f;
 

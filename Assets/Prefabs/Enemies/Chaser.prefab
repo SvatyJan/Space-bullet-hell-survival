@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8897413080187619402}
   - component: {fileID: 2250614650544976586}
   - component: {fileID: 3013589223619252054}
-  - component: {fileID: -6759874059511958442}
   m_Layer: 7
   m_Name: Chaser
   m_TagString: Enemy
@@ -37,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 3128685163572038352}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7138000407911266023
 SpriteRenderer:
@@ -228,28 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4340b457f532e064fa117db85dae1ddd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!195 &-6759874059511958442
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4507033410055292894}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.5
-  m_BaseOffset: 0.25
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!1 &8436370243359218994
 GameObject:
   m_ObjectHideFlags: 0
