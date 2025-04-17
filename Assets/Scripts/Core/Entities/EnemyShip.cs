@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyShip : SpaceEntity, IController
 {
-    private Transform target;
-
+    [SerializeField] public Transform target;
     [SerializeField] public EnemyBehaviorBase behavior;
     [SerializeField] private GameObject XpOrbPrefab;
     [SerializeField] private GameObject damagePopUpPrefab;
