@@ -68,7 +68,22 @@ public class Grid
         return GetValue(x, y);
     }
 
-    private void GetXY(Vector3 worldPosition, out int x, out int y)
+    public PathNode GetGridObject(int x, int y)
+    {
+        return new PathNode(this, x, y);
+    }
+
+    public int GetHeight()
+    {
+        return height;
+    }
+
+    public int GetWidth()
+    {
+        return width;
+    }
+
+    public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
