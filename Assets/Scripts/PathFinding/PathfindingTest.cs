@@ -7,19 +7,22 @@ public class PathfindingTest : MonoBehaviour
 
     void Start()
     {
-        pathfinding = new Pathfinding(10, 10);
+        pathfinding = new Pathfinding(10, 5);
     }
 
     private void Update()
     {
         if(Input.GetMouseButton(0))
         {
+            Debug.Log("click");
             Vector3 mouseWorldPosition = GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
 
             List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
-            if(path != null)
+            Debug.Log(path);
+            if (path != null)
             {
+                Debug.Log("Cesta existuje!");
                 for (int i = 0; i < path.Count; i++)
                 {
                     Debug.Log(path[i].x + "," + path[i].y);

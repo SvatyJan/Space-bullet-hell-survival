@@ -43,12 +43,16 @@ public class Pathfinding
         startNode.hCost = CalculateDistance(startNode, endNode);
         startNode.CalculateFCost();
 
-        while(openList.Count > 0)
+        Debug.Log($"StartNode: {startNode.x},{startNode.y} EndNode: {endNode.x},{endNode.y}");
+        while (openList.Count > 0)
         {
             PathNode currentNode = GetLowestFCostNode(openList);
-            if(currentNode == endNode)
+            Debug.Log($"Checking node {currentNode.x},{currentNode.y}");
+
+            if (currentNode == endNode)
             {
                 // Reached final node
+                Debug.Log("Path found!");
                 return CalculatePath(endNode);
             }
 
