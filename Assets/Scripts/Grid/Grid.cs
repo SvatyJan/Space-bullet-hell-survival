@@ -28,7 +28,7 @@ public class Grid
                 pathNodeArray[x, y] = new PathNode(this, x, y);
 
                 Vector3 worldPosition = GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f;
-                debugTextArray[x, y] = CreateWorldText(gridArray[x,y].ToString(), Color.white, null, worldPosition, 40, TextAnchor.MiddleCenter);
+                debugTextArray[x, y] = CreateWorldText(pathNodeArray[x,y].ToString(), Color.white, null, worldPosition, 40, TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }

@@ -12,7 +12,7 @@ public class Pathfinding
 
     public Pathfinding(int width, int height)
     {
-        this.grid = new Grid(width, height, 10, Vector3.zero);
+        grid = new Grid(width, height, 10, Vector3.zero);
     }
 
     public Grid GetGrid()
@@ -43,16 +43,13 @@ public class Pathfinding
         startNode.hCost = CalculateDistance(startNode, endNode);
         startNode.CalculateFCost();
 
-        Debug.Log($"StartNode: {startNode.x},{startNode.y} EndNode: {endNode.x},{endNode.y}");
         while (openList.Count > 0)
         {
             PathNode currentNode = GetLowestFCostNode(openList);
-            Debug.Log($"Checking node {currentNode.x},{currentNode.y}");
 
             if (currentNode == endNode)
             {
                 // Reached final node
-                Debug.Log("Path found!");
                 return CalculatePath(endNode);
             }
 
@@ -90,17 +87,17 @@ public class Pathfinding
     {
         List<PathNode> neighbourList  = new List<PathNode>();
 
-        if(currentNode.x -1 >= 0)
+        if (currentNode.x - 1 >= 0)
         {
             // LEFT
             neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y));
             // LEFT DOWN
-            if (currentNode.y - 1 >= 0 ) 
+            if (currentNode.y - 1 >= 0)
             {
-                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
+                neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y - 1));
             }
             // LEFT UP
-            if(currentNode.y + 1 < grid.GetHeight())
+            if (currentNode.y + 1 < grid.GetHeight())
             {
                 neighbourList.Add(GetNode(currentNode.x - 1, currentNode.y + 1));
             }
@@ -123,12 +120,12 @@ public class Pathfinding
         // DOWN
         if (currentNode.y - 1 >= 0)
         {
-            neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y - 1));
+            neighbourList.Add(GetNode(currentNode.x, currentNode.y - 1));
         }
         // UP
         if (currentNode.y + 1 < grid.GetHeight())
         {
-            neighbourList.Add(GetNode(currentNode.x + 1, currentNode.y + 1));
+            neighbourList.Add(GetNode(currentNode.x, currentNode.y + 1));
         }
 
         return neighbourList;

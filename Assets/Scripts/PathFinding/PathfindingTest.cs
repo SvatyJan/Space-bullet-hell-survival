@@ -14,19 +14,19 @@ public class PathfindingTest : MonoBehaviour
     {
         if(Input.GetMouseButton(0))
         {
-            Debug.Log("click");
             Vector3 mouseWorldPosition = GetMouseWorldPosition();
             pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
 
-            List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
-            Debug.Log(path);
-            if (path != null)
+            if (x >= 0 && y >= 0 && x < pathfinding.GetGrid().GetWidth() && y < pathfinding.GetGrid().GetHeight())
             {
-                Debug.Log("Cesta existuje!");
-                for (int i = 0; i < path.Count; i++)
+                List<PathNode> path = pathfinding.FindPath(0, 2, x, y);
+                if (path != null)
                 {
-                    Debug.Log(path[i].x + "," + path[i].y);
-                    Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i+1].x, path[i+1].y) * 10f + Vector3.one * 5f);
+                    for (int i = 0; i < path.Count - 1; i++)
+                    {
+                        //Debug.Log(path[i].x + "," + path[i].y);
+                        Debug.DrawLine(new Vector3(path[i].x, path[i].y) * 10f + Vector3.one * 5f, new Vector3(path[i + 1].x, path[i + 1].y) * 10f + Vector3.one * 5f);
+                    }
                 }
             }
         }        
