@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeAttackBehavior : EnemyBehaviorBase
@@ -5,13 +6,75 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     private Vector3 direction;
     private float lastAttackTime = 0f;
 
+    private List<PathNode> currentPath;
+    private int pathIndex = 0;
+
     public override void Execute()
     {
         if (target == null) return;
-        RotateTowardsTarget();
-        MoveForward();
-        AttackPlayerInRange();
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if (distance > shipStats.DetectionRadius)
+        {
+            FollowPathToTarget();  // není v dosahu nebo pøekážka — jdi pøes pathfinding
+        }
+        else
+        {
+            // Jsem v dosahu a mohu støílet
+            RotateTowardsTarget();
+            MoveForward();
+            AttackPlayerInRange();
+            currentPath = null;   // zruš aktuální cestu, zastav.
+        }
     }
+
+    /** Hledá cestu k cíli. */
+    private void FollowPathToTarget()
+    {
+        Pathfinding pathfinding = PathfindingManager.Instance.pathfinding;
+        pathfinding.GetGrid().GetXY(transform.position, out int startX, out int startY);
+        pathfinding.GetGrid().GetXY(target.position, out int endX, out int endY);
+
+        Debug.Log($"Start Node: {startX},{startY} | End Node: {endX},{endY}");
+
+        if (currentPath == null || pathIndex >= currentPath.Count)
+        {
+            currentPath = pathfinding.FindPath(startX, startY, endX, endY);
+            pathIndex = 0;
+
+            if (currentPath == null || currentPath.Count == 0)
+            {
+                direction = Vector3.zero;
+                return;
+            }
+        }
+
+        if (currentPath != null && pathIndex < currentPath.Count)
+        {
+            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * 10f + Vector3.one * 5f;
+            direction = (nodePosition - transform.position).normalized;
+
+            if (direction.magnitude > 0.01f)
+            {
+                transform.position += direction * shipStats.Speed * Time.deltaTime;
+
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            }
+
+            if (Vector3.Distance(transform.position, nodePosition) < 0.1f)
+            {
+                pathIndex++;
+            }
+        }
+        else
+        {
+            direction = Vector3.zero; // cesta skonèila
+        }
+    }
+
+
 
     /** Otáèí se smìrem targetu. */
     private void RotateTowardsTarget()
@@ -53,7 +116,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         if (shootingPoint != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(shootingPoint.position, shipStats.AttackRadius);
+            Gizmos.DrawWireSphere(shootingPoint.position, shipStats.DetectionRadius);
         }
     }
 }

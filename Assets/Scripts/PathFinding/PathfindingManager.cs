@@ -9,6 +9,7 @@ public class PathfindingManager : MonoBehaviour
 
     [SerializeField] private int width = 100;
     [SerializeField] private int height = 100;
+    [SerializeField] private float cellSize = 10f;
 
     private void Awake()
     {
@@ -19,9 +20,9 @@ public class PathfindingManager : MonoBehaviour
         }
         Instance = this;
 
-        Vector3 vector = new Vector3(-(width/2), -(height/2), 0);
-        pathfinding = new Pathfinding(width, height, 1, vector);
+        pathfinding = new Pathfinding(width, height, cellSize);
     }
+
 
     public static Vector3 GetMouseWorldPosition()
     {

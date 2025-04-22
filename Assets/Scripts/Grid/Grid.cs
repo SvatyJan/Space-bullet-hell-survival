@@ -9,7 +9,6 @@ public class Grid
     private int[,] gridArray;
     private TextMesh[,] debugTextArray;
     private PathNode[,] pathNodeArray;
-    bool worldText;
 
     public Grid(int width, int height, float cellSize, Vector3 originPosition, bool worldText = false)
     {
@@ -17,7 +16,6 @@ public class Grid
         this.height = height;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
-        this.worldText = worldText;
 
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
@@ -40,7 +38,6 @@ public class Grid
         }
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
-        this.worldText = worldText;
     }
 
     public void SetValue(int x, int y, int value)
@@ -95,8 +92,8 @@ public class Grid
 
     public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
-        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
-        y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
+        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize)/10;
+        y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize)/10;
     }
 
     private Vector3 GetWorldPosition(int x, int y)

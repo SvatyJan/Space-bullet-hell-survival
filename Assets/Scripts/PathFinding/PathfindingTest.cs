@@ -7,7 +7,7 @@ public class PathfindingTest : MonoBehaviour
 
     void Start()
     {
-        pathfinding = new Pathfinding(10, 5, 1, Vector3.zero);
+        pathfinding = new Pathfinding(10, 5, 1);
     }
 
     private void Update()
