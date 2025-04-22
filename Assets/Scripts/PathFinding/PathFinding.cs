@@ -10,9 +10,9 @@ public class Pathfinding
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
-    public Pathfinding(int width, int height)
+    public Pathfinding(int width, int height, int cellSize, Vector3 originPosition)
     {
-        grid = new Grid(width, height, 10, Vector3.zero);
+        grid = new Grid(width, height, cellSize, originPosition);
     }
 
     public Grid GetGrid()

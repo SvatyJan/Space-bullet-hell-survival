@@ -9,13 +9,15 @@ public class Grid
     private int[,] gridArray;
     private TextMesh[,] debugTextArray;
     private PathNode[,] pathNodeArray;
+    bool worldText;
 
-    public Grid(int width, int height, float cellSize, Vector3 originPosition)
+    public Grid(int width, int height, float cellSize, Vector3 originPosition, bool worldText = false)
     {
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
         this.originPosition = originPosition;
+        this.worldText = worldText;
 
         gridArray = new int[width, height];
         debugTextArray = new TextMesh[width, height];
@@ -28,13 +30,17 @@ public class Grid
                 pathNodeArray[x, y] = new PathNode(this, x, y);
 
                 Vector3 worldPosition = GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f;
-                debugTextArray[x, y] = CreateWorldText(pathNodeArray[x,y].ToString(), Color.white, null, worldPosition, 40, TextAnchor.MiddleCenter);
+                if(worldText)
+                {
+                    debugTextArray[x, y] = CreateWorldText(pathNodeArray[x, y].ToString(), Color.white, null, worldPosition, 40, TextAnchor.MiddleCenter);
+                }
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }
         }
         Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
         Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+        this.worldText = worldText;
     }
 
     public void SetValue(int x, int y, int value)
