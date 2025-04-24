@@ -9,7 +9,7 @@ public class PathfindingManager : MonoBehaviour
 
     [SerializeField] private int width = 100;
     [SerializeField] private int height = 100;
-    [SerializeField] private float cellSize = 10f;
+    [SerializeField] private float cellSize = 1f;
 
     private void Awake()
     {

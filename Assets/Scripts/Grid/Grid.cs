@@ -90,10 +90,15 @@ public class Grid
         return width;
     }
 
+    public float GetCellSize()
+    {
+        return cellSize;
+    }
+
     public void GetXY(Vector3 worldPosition, out int x, out int y)
     {
-        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize)/10;
-        y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize)/10;
+        x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
+        y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
 
     private Vector3 GetWorldPosition(int x, int y)

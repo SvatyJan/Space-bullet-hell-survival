@@ -36,7 +36,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         pathfinding.GetGrid().GetXY(transform.position, out int startX, out int startY);
         pathfinding.GetGrid().GetXY(target.position, out int endX, out int endY);
 
-        Debug.Log($"Start Node: {startX},{startY} | End Node: {endX},{endY}");
+        //Debug.Log($"Start Node: {startX},{startY} | End Node: {endX},{endY}");
 
         if (currentPath == null || pathIndex >= currentPath.Count)
         {
@@ -52,7 +52,8 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
 
         if (currentPath != null && pathIndex < currentPath.Count)
         {
-            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * 10f + Vector3.one * 5f;
+            float cellSize = pathfinding.GetGrid().GetCellSize();
+            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * cellSize + Vector3.one * cellSize/2;
             direction = (nodePosition - transform.position).normalized;
 
             if (direction.magnitude > 0.01f)
