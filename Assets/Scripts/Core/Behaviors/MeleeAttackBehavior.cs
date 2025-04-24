@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class MeleeAttackBehavior : EnemyBehaviorBase
 {
+    /** Smìr. */
     private Vector3 direction;
+
+    /** Èas posledního útoku. */
     private float lastAttackTime = 0f;
 
+    /** Aktuální cesta. */
     private List<PathNode> currentPath;
+
+    /** Index akutální cesty. */
     private int pathIndex = 0;
 
     /** LayerMask, který ignorujeme. */
@@ -17,13 +23,9 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         if (target == null) return;
 
         float distance = Vector3.Distance(transform.position, target.position);
-        bool canSeePlayer = HasLineOfSight();
-
-        //Debug.Log("Distance too far: " + (distance > shipStats.DetectionRadius));
-        //Debug.Log("Can see player: " + canSeePlayer);
 
         // Pokud je hráè mimo dosah, nebo je v dosahu ale není vidìt – následuj ho
-        if (distance > shipStats.DetectionRadius || !canSeePlayer)
+        if (distance > shipStats.DetectionRadius || !HasLineOfSight())
         {
             FollowPathToTarget();
         }
@@ -47,23 +49,20 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
 
         if (hit.collider != null)
         {
-            Debug.Log($"Raycast hit: {hit.collider.name}");
-
             if (hit.collider.CompareTag("Player"))
             {
-                return true; // èistý výhled
+                // èistý výhled
+                return true;
             }
             else
             {
-                return false; // nìco jiného v cestì
+                // nìco jiného v cestì
+                return false;
             }
         }
 
         return false;
     }
-
-
-
 
     /** Hledá cestu k cíli. */
     private void FollowPathToTarget()
@@ -107,11 +106,10 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         }
         else
         {
-            direction = Vector3.zero; // cesta skonèila
+            // cesta skonèila
+            direction = Vector3.zero;
         }
     }
-
-
 
     /** Otáèí se smìrem targetu. */
     private void RotateTowardsTarget()
