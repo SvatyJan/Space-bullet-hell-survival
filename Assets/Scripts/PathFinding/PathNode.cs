@@ -10,6 +10,8 @@ public class PathNode
     public int hCost;
     public int fCost;
 
+    public bool isWalkable = true;
+
     public PathNode cameFromNode;
     
     public PathNode(Grid grid, int x, int y)

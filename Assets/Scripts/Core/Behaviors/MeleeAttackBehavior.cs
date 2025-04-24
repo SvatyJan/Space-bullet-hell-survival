@@ -9,25 +9,61 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     private List<PathNode> currentPath;
     private int pathIndex = 0;
 
+    /** LayerMask, který ignorujeme. */
+    [SerializeField] private LayerMask blockingVisionLayers;
+
     public override void Execute()
     {
         if (target == null) return;
 
         float distance = Vector3.Distance(transform.position, target.position);
+        bool canSeePlayer = HasLineOfSight();
 
-        if (distance > shipStats.DetectionRadius)
+        //Debug.Log("Distance too far: " + (distance > shipStats.DetectionRadius));
+        //Debug.Log("Can see player: " + canSeePlayer);
+
+        // Pokud je hráè mimo dosah, nebo je v dosahu ale není vidìt – následuj ho
+        if (distance > shipStats.DetectionRadius || !canSeePlayer)
         {
-            FollowPathToTarget();  // není v dosahu nebo pøekážka — jdi pøes pathfinding
+            FollowPathToTarget();
         }
         else
         {
-            // Jsem v dosahu a mohu støílet
+            // Je blízko a vidím ho – útoè
             RotateTowardsTarget();
             MoveForward();
             AttackPlayerInRange();
-            currentPath = null;   // zruš aktuální cestu, zastav.
+            currentPath = null;
         }
     }
+
+    /** Vrací pøíznak, zda má výhled na cíl nebo ne. */
+    private bool HasLineOfSight()
+    {
+        Vector2 directionToTarget = (target.position - transform.position).normalized;
+        float distanceToTarget = Vector2.Distance(transform.position, target.position);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, directionToTarget, distanceToTarget, blockingVisionLayers);
+
+        if (hit.collider != null)
+        {
+            Debug.Log($"Raycast hit: {hit.collider.name}");
+
+            if (hit.collider.CompareTag("Player"))
+            {
+                return true; // èistý výhled
+            }
+            else
+            {
+                return false; // nìco jiného v cestì
+            }
+        }
+
+        return false;
+    }
+
+
+
 
     /** Hledá cestu k cíli. */
     private void FollowPathToTarget()
@@ -112,7 +148,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (shootingPoint != null)
         {

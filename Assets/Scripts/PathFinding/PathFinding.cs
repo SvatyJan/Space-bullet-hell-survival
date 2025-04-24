@@ -58,7 +58,7 @@ public class Pathfinding
 
             foreach (PathNode neighbourNode in GetNeighbourList(currentNode))
             {
-                if(closedList.Contains(neighbourNode))
+                if(closedList.Contains(neighbourNode) || !neighbourNode.isWalkable)
                 {
                     continue;
                 }

@@ -32,6 +32,13 @@ public class Grid
                 {
                     debugTextArray[x, y] = CreateWorldText(pathNodeArray[x, y].ToString(), Color.white, null, worldPosition, 40, TextAnchor.MiddleCenter);
                 }
+
+                Collider2D hit = Physics2D.OverlapBox(worldPosition, Vector2.one * cellSize * 0.9f, 0f, LayerMask.GetMask("Debris"));
+                if (hit != null && hit.CompareTag("Debris"))
+                {
+                    pathNodeArray[x, y].isWalkable = false;
+                }
+
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }
@@ -124,4 +131,20 @@ public class Grid
         textMesh.color = color;
         return textMesh;
     }
+
+    public void DrawGizmos()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                PathNode node = pathNodeArray[x, y];
+                Vector3 pos = GetWorldPosition(x, y) + Vector3.one * cellSize * 0.5f;
+
+                Gizmos.color = node.isWalkable ? new Color(0f, 1f, 0f, 0.15f) : new Color(1f, 0f, 0f, 0.15f);
+                Gizmos.DrawCube(pos, Vector3.one * (cellSize * 0.9f));
+            }
+        }
+    }
+
 }

@@ -42,4 +42,12 @@ public class PathfindingManager : MonoBehaviour
         mousePosition.z = 10f; // vzdálenost od kamery
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
+
+    private void OnDrawGizmos()
+    {
+        if (pathfinding != null)
+        {
+            pathfinding.GetGrid().DrawGizmos();
+        }
+    }
 }
