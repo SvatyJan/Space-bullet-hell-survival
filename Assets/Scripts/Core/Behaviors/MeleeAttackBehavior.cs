@@ -9,14 +9,15 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     /** Èas posledního útoku. */
     private float lastAttackTime = 0f;
 
+    [Header("Pathfinding")]
+    /** LayerMask, který ignorujeme. */
+    [SerializeField] private LayerMask blockingVisionLayers;
+
     /** Aktuální cesta. */
     private List<PathNode> currentPath;
 
     /** Index akutální cesty. */
     private int pathIndex = 0;
-
-    /** LayerMask, který ignorujeme. */
-    [SerializeField] private LayerMask blockingVisionLayers;
 
     public override void Execute()
     {
@@ -88,7 +89,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         if (currentPath != null && pathIndex < currentPath.Count)
         {
             float cellSize = pathfinding.GetGrid().GetCellSize();
-            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * cellSize + Vector3.one * cellSize/2;
+            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * cellSize + Vector3.one * cellSize / 2;
             direction = (nodePosition - transform.position).normalized;
 
             if (direction.magnitude > 0.01f)
@@ -111,7 +112,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
         }
     }
 
-    /** Otáèí se smìrem targetu. */
+    /** Otáèí se smìrem cíli. */
     private void RotateTowardsTarget()
     {
         direction = (target.position - transform.position).normalized;

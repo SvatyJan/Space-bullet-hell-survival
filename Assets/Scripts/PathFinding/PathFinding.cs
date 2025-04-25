@@ -22,6 +22,13 @@ public class Pathfinding
 
     public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
     {
+        // Ovìøení, že start a end jsou v rámci gridu
+        if (!IsInBounds(startX, startY) || !IsInBounds(endX, endY))
+        {
+            Debug.LogWarning("Pathfinding: Start nebo End pozice je mimo grid.");
+            return null;
+        }
+
         PathNode startNode = grid.GetGridObject(startX, startY);
         PathNode endNode = grid.GetGridObject(endX, endY);
 
@@ -81,6 +88,12 @@ public class Pathfinding
 
         // Out of nodes on the openList - path does not exist.
         return null;
+    }
+
+    /** Kontroluje, zda cesta je v rozmezí. */
+    private bool IsInBounds(int x, int y)
+    {
+        return x >= 0 && y >= 0 && x < grid.GetWidth() && y < grid.GetHeight();
     }
 
     private List<PathNode> GetNeighbourList(PathNode currentNode)

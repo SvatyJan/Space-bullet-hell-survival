@@ -255,11 +255,12 @@ MonoBehaviour:
   deceleration: 1
   maxHealth: 30
   currentHealth: 30
+  healthRegen: 0
   baseDamage: 5
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 4
-  detectionRadius: 0
+  detectionRadius: 10
   attractionRadius: 0
   attractionSpeed: 0
   xp: 3
@@ -282,6 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipStats: {fileID: 7618559750933191034}
   shootingPoint: {fileID: 3882774638331698923}
+  target: {fileID: 0}
   behavior: {fileID: 1260604254877110314}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
   damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
