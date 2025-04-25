@@ -66,6 +66,10 @@ public class Laser : MonoBehaviour, IWeapon
                     lineRenderer.enabled = false;
                 }
             }
+            else
+            {
+                lineRenderer.enabled = false;
+            }
         }
         else
         {
