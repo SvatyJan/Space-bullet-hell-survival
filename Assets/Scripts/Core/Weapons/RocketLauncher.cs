@@ -25,6 +25,9 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     /** Základní poškození zbraně. */
     private float baseDamage = 10f;
 
+    /** Základní počet střel. */
+    private int baseProjectilesCount = 1;
+
     /** Seznam tagů, na které může být projektil vystřelen. */
     [SerializeField] private List<string> collisionTags;
 
@@ -35,7 +38,21 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     private void Start()
     {
         shootingPoint = transform;
-        owner = GetComponentInParent<SpaceEntity>();
+
+        if (owner == null)
+        {
+            owner = GetComponentInParent<SpaceEntity>();
+
+            if (owner == null)
+            {
+                owner = transform.root.GetComponentInChildren<SpaceEntity>();
+            }
+
+            if (owner == null)
+            {
+                Debug.LogError($"{gameObject.name}: SpaceEntity nebyl nalezen ani v předcích ani v rootu.");
+            }
+        }
     }
 
     public void Fire()
@@ -47,23 +64,14 @@ public class RocketLauncher : MonoBehaviour, IWeapon
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0f;
 
-            int rocketsShot = owner.getShipStats().ProjectilesCount;
-
-            for (int i = 0; i < rocketsShot; i++)
-            {
-                StartFiringRockets(shootingPoint, mousePosition);
-            }
+            int rocketsShot = baseProjectilesCount + owner.getShipStats().ProjectilesCount;
+            StartCoroutine(FireRocketsCoroutine(shootingPoint, mousePosition, rocketsShot));
         }
     }
 
-    public void StartFiringRockets(Transform launchPoint, Vector3 targetPosition)
+    private IEnumerator FireRocketsCoroutine(Transform launchPoint, Vector3 targetPosition, int rocketCount)
     {
-        StartCoroutine(FireRocketsCoroutine(launchPoint, targetPosition));
-    }
-
-    private IEnumerator FireRocketsCoroutine(Transform launchPoint, Vector3 targetPosition)
-    {
-        for (int i = 0; i < owner.getShipStats().ProjectilesCount; i++)
+        for (int i = 0; i < rocketCount; i++)
         {
             GameObject rocketInstance = Instantiate(rocketPrefab, launchPoint.position, launchPoint.rotation);
             Rocket rocketScript = rocketInstance.GetComponent<Rocket>();
@@ -71,13 +79,14 @@ public class RocketLauncher : MonoBehaviour, IWeapon
             GameObject closestEnemy = FindClosestEnemyFromPosition(targetPosition);
             if (rocketScript != null)
             {
-                rocketScript.Initialize(GetComponentInParent<SpaceEntity>(), baseDamage);
+                rocketScript.Initialize(owner, baseDamage);
                 rocketScript.SetTarget(closestEnemy);
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(fireRocketDelay);
         }
     }
+
 
 
     private GameObject FindClosestEnemyFromPosition(Vector2 position)
@@ -104,11 +113,12 @@ public class RocketLauncher : MonoBehaviour, IWeapon
 
     public void Upgrade()
     {
-        throw new System.NotImplementedException();
+        baseRadius += 1f;
     }
 
     public void Evolve()
     {
-        throw new System.NotImplementedException();
+        baseRadius += 2f;
+        baseProjectilesCount += 3;
     }
 }
