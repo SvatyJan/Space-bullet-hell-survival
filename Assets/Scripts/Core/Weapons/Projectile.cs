@@ -18,6 +18,9 @@ public class Projectile : MonoBehaviour
     /** Poškození projektilu. */
     [SerializeField] private float projectileDamage = 10f;
 
+    /** Kritická šance poškození projektilu. */
+    [SerializeField] private float projectileCritChance = 0f;
+
     /** Doba, jak dlouho vydrží projektil než se znièí. */
     [SerializeField] private float projectileDuration = 5f;
 
@@ -45,6 +48,7 @@ public class Projectile : MonoBehaviour
     {
         this.owner = owner;
         this.projectileDamage = projectileDamage + damage;
+        this.projectileCritChance = owner.GetComponent<ShipStats>().CriticalChance;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -55,7 +59,7 @@ public class Projectile : MonoBehaviour
             SpaceEntity target = other.GetComponent<SpaceEntity>();
             if (target != null && target != owner)
             {
-                target.TakeDamage(projectileDamage);
+                target.TakeDamage(projectileDamage, projectileCritChance);
                 Destroy(gameObject);
             }
         }

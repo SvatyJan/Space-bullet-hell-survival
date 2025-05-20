@@ -55,6 +55,10 @@ MonoBehaviour:
   - Enemy
   - Debris
   damagePerSecond: 5
+  waveAmplitude: 0.5
+  waveFrequency: 2
+  segmentTargetRadius: 2
+  segmentBendStrength: 2
   owner: {fileID: 0}
 --- !u!120 &7961279032188257498
 LineRenderer:

@@ -4,6 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class ShipStats : MonoBehaviour
 {
+    /** Násobizel kritického poškození. */
+    public const float BASE_CRITICAL_MULTIPLIER = 1.5f;
+
     /** Maximální rychlost. */
     [SerializeField] private float speed = 10f;
 
@@ -27,6 +30,13 @@ public class ShipStats : MonoBehaviour
 
     /** Základní poškození lodi. */
     [SerializeField] private float baseDamage = 10f;
+
+    /** 
+     * Kritické poškození lodi.
+     * 0-100 je 1,5x multiplier
+     * 100-200 je 2x multiplier.
+     */
+    [SerializeField] private float criticalChance = 0f;
 
     /** Rychlost pohybu. */
     [SerializeField] private Vector3 velocity;
@@ -121,22 +131,6 @@ public class ShipStats : MonoBehaviour
         return statUpgradeCounts.ContainsKey(statType) && statUpgradeCounts[statType] >= 5;
     }
 
-    /** Kontrola zda mùže pøidat zbraò. */
-    /*public bool CanAddWeapon(string weaponName)
-    {
-        return equippedWeapons.Count < maxWeapons && !equippedWeapons.Contains(weaponName);
-    }*/
-
-
-    /** Pøidá zbraò. */
-    /*public void AddWeapon(string weaponName)
-    {
-        if (CanAddWeapon(weaponName))
-        {
-            equippedWeapons.Add(weaponName);
-        }
-    }*/
-
     /** Vrátí true, pokud má hráè danou zbraò. */
     public bool HasWeapon(string weaponName)
     {
@@ -228,6 +222,12 @@ public class ShipStats : MonoBehaviour
     {
         get { return baseDamage; }
         set { baseDamage = value; }
+    }
+
+    public float CriticalChance
+    {
+        get { return criticalChance; }
+        set { criticalChance = value; }
     }
 
     public float MaxHealth

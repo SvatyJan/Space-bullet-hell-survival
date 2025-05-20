@@ -73,7 +73,7 @@ public class PlayerShip : SpaceEntity, IController
      * Odečte životy.
      * Pokud má entita méně životů než 0, tak je zničena.
      */
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, float? criticalStrike = null)
     {
         if (ReturnBeforeTakeDamage())
         {

@@ -15,3 +15,4 @@ MonoBehaviour:
   description: Fleet
   weaponName: Fleet
   weaponPrefab: {fileID: 4957801454098901893, guid: e3c7399013fe3144cb0db54dda2bb784, type: 3}
+  requiredStat: 2

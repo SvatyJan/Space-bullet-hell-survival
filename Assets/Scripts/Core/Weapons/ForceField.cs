@@ -108,17 +108,17 @@ public class ForceField : MonoBehaviour, IWeapon
 
     public void Fire()
     {
-        // Není potřeba manuální aktivace
+        // Není implementováno
     }
 
     public void Upgrade()
     {
-        damage += 2f; // Zvýšení poškození
+        damage += 2f;
         cooldownTime -= 0.5f;
     }
 
     public void Evolve()
     {
-        transform.localScale *= 1.5f; // Zvýšení velikosti štítu
+        initialScale *= 1.5f;
     }
 }

@@ -23,15 +23,23 @@ public class Turret : MonoBehaviour, IWeapon
     /** Cíl støelby. */
     private Vector3 targetDirection;
 
-    [SerializeField] float detectionRadius = 10f;
+    [SerializeField] float baseDetectionRadius = 10f;
 
     void Start()
     {
-        owner = GetComponentInParent<SpaceEntity>();
         if (owner == null)
         {
-            Debug.LogError("Turret: Nelze najít vlastníka zbranì! Zbraò nebude fungovat.");
-            return;
+            owner = GetComponentInParent<SpaceEntity>();
+
+            if (owner == null)
+            {
+                owner = transform.root.GetComponentInChildren<SpaceEntity>();
+            }
+
+            if (owner == null)
+            {
+                Debug.LogError($"{gameObject.name}: SpaceEntity nebyl nalezen ani v pøedcích ani v rootu.");
+            }
         }
 
         baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
@@ -76,6 +84,7 @@ public class Turret : MonoBehaviour, IWeapon
 
     private Vector3 GetNearestEnemyDirection()
     {
+        float detectionRadius = baseDetectionRadius + owner.GetComponent<ShipStats>().DetectionRadius;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         foreach (Collider2D collider in colliders)
@@ -94,11 +103,12 @@ public class Turret : MonoBehaviour, IWeapon
 
     public void Upgrade()
     {
-        throw new System.NotImplementedException();
+        fireRate -= 0.05f;
     }
 
     public void Evolve()
     {
-        throw new System.NotImplementedException();
+        fireRate -= 0.5f;
+        baseDamage += 5f;
     }
 }

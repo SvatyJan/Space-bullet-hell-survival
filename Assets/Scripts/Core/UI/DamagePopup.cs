@@ -10,14 +10,14 @@ public class DamagePopup : MonoBehaviour
     private Color textColor;
     private float timer;
 
-    public void Setup(float damage)
+    public void Setup(float damage, Color color)
     {
         textMesh = GetComponent<TextMeshPro>();
 
         float displayedDamage = damage > 0 ? Mathf.Ceil(damage) : 0;
 
         textMesh.text = displayedDamage.ToString("F0");
-        textColor = textMesh.color;
+        textColor = color;
 
         Destroy(gameObject, fadeOutTime);
     }
@@ -25,12 +25,12 @@ public class DamagePopup : MonoBehaviour
     private void Update()
     {
         transform.position += new Vector3(0, moveSpeed * Time.deltaTime, 0);
+        textMesh.color = textColor;
         timer += Time.deltaTime;
 
         if (timer > fadeOutTime * 0.5f)
         {
             textColor.a -= Time.deltaTime / fadeOutTime;
-            textMesh.color = textColor;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,14 +43,16 @@ public class EnemyShip : SpaceEntity, IController
      * Odečte životy.
      * Pokud má entita méně životů než 0, tak je zničena.
      */
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, float? criticalStrike = null)
     {
-        shipStats.CurrentHealth -= damage;
+        var (actualDamage, critColor) = CombatUtils.CalculateCriticalDamage(damage, criticalStrike);
+
+        shipStats.CurrentHealth -= actualDamage;
 
         // Zobraz popup jen pokud od posledního uběhlo alespoň 0,1s
         if (Time.time - lastDamagePopupTime >= damagePopupCooldown)
         {
-            ShowDamagePopup(damage);
+            ShowDamagePopup(actualDamage, critColor);
             lastDamagePopupTime = Time.time;
         }
 
@@ -71,7 +74,7 @@ public class EnemyShip : SpaceEntity, IController
         }
     }
 
-    private void ShowDamagePopup(float damage)
+    private void ShowDamagePopup(float damage, Color critColor)
     {
         GameObject popup;
 
@@ -91,7 +94,7 @@ public class EnemyShip : SpaceEntity, IController
         else
         {
             popup.transform.position = transform.position;
-            popup.GetComponent<DamagePopup>().Setup(damage);
+            popup.GetComponent<DamagePopup>().Setup(damage, critColor);
 
             popupPool.Enqueue(popup);
         }
