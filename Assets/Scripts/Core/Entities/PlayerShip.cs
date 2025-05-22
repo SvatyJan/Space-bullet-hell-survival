@@ -1,10 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class PlayerShip : SpaceEntity, IController
 {
     [SerializeField] private bool controlsEnabled = true;
     [SerializeField] public GameObject Weapons;
+    [SerializeField] private ParticleSystem engineEffect;
+    private ParticleSystem.EmissionModule emission;
+
+    private void Start()
+    {
+        if (engineEffect != null)
+        {
+            emission = engineEffect.emission;
+            emission.rateOverTime = 0f;
+            engineEffect.Play();
+        }
+    }
 
     private void Update()
     {
@@ -28,10 +41,18 @@ public class PlayerShip : SpaceEntity, IController
         if (Input.GetMouseButton(0))
         {
             shipStats.Velocity += transform.up * shipStats.Acceleration * Time.deltaTime;
+            if(engineEffect != null)
+            {
+                emission.rateOverTime = 50f;
+            }
         }
         else
         {
             shipStats.Velocity = Vector3.Lerp(shipStats.Velocity, Vector3.zero, shipStats.Deceleration * Time.deltaTime);
+            if (engineEffect != null)
+            {
+                emission.rateOverTime = 0f;
+            }
         }
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
