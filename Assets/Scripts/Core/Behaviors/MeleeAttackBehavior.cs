@@ -3,6 +3,35 @@ using UnityEngine;
 public class MeleeAttackBehavior : EnemyBehaviorBase
 {
     private float lastAttackTime = 0f;
+    private Animator animator;
+
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+    }
+
+    public override void Execute()
+    {
+        if (target == null)
+        {
+            animator?.Play("Chaser idle");
+            return;
+        }
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if (distance > shipStats.DetectionRadius || !HasLineOfSight())
+        {
+            animator?.Play("Chaser move");
+            FollowPathToTarget();
+        }
+        else
+        {
+            currentPath = null;
+            ActWhenTargetReached();
+        }
+    }
 
     protected override void ActWhenTargetReached()
     {
@@ -35,6 +64,7 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
                     SpaceEntity player = hit.GetComponent<SpaceEntity>();
                     if (player != null)
                     {
+                        animator?.Play("Chaser attack");
                         player.TakeDamage(shipStats.BaseDamage);
                         lastAttackTime = Time.time;
                     }
