@@ -1712,9 +1712,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
-      propertyPath: enemyPrefabs.Array.data[2]
+      propertyPath: enemyPrefabs.Array.data[0]
       value: 
       objectReference: {fileID: 2728146481288062039, guid: 5f242a79c3429824891697158c371575, type: 3}
+    - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
+      propertyPath: enemyPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8488209312567463031, guid: 7c495df5384491243b8fb6d3c072a2f7, type: 3}
+    - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
+      propertyPath: enemyPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8488209312567463031, guid: 7c495df5384491243b8fb6d3c072a2f7, type: 3}
     - target: {fileID: 8523913758150132518, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
       propertyPath: m_Name
       value: Enemy Spawner
