@@ -158,12 +158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8113cd2dc5a27614fa2e7df5be6898b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statUpgrades:
-  - {fileID: 11400000, guid: a8e916fc47eb60f418b8d12df3171551, type: 2}
+  statUpgrades: []
   weaponUpgrades: []
   maxStatUpgrade: 5
   maxWeaponUpgrade: 5
-  startingWeapon: {fileID: 11400000, guid: b8f7b12f859cf5c4097af2a4d0431379, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 5840b16bd74cea046b81ebb8f83fe7c0, type: 2}
   upgradePanel: {fileID: 0}
   upgradeCards:
   - {fileID: 0}
@@ -232,7 +231,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &8160558058799497453
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
