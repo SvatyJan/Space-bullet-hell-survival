@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Android;
 
 public class PlayerShip : SpaceEntity, IController
 {
@@ -8,6 +7,8 @@ public class PlayerShip : SpaceEntity, IController
     [SerializeField] public GameObject Weapons;
     [SerializeField] private ParticleSystem engineEffect;
     private ParticleSystem.EmissionModule emission;
+
+    private float particlesPerSecond = 50f;
 
     private void Start()
     {
@@ -43,7 +44,7 @@ public class PlayerShip : SpaceEntity, IController
             shipStats.Velocity += transform.up * shipStats.Acceleration * Time.deltaTime;
             if(engineEffect != null)
             {
-                emission.rateOverTime = 50f;
+                emission.rateOverTime = particlesPerSecond;
             }
         }
         else

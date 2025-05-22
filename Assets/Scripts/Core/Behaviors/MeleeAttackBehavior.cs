@@ -19,6 +19,15 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     /** Index akutální cesty. */
     private int pathIndex = 0;
 
+    /** Interval èasu hledání cesty. */
+    [SerializeField] private float pathCooldown = 0.5f;
+
+    /** Pomocná promìnná pro uložení èasu naposledy hledání cesty. */
+    private float lastPathTime = 0f;
+
+    /** Pøíznak zda èeká na cestu èi nikoliv. */
+    private bool waitingForPath = false;
+
     public override void Execute()
     {
         if (target == null) return;
@@ -68,48 +77,70 @@ public class MeleeAttackBehavior : EnemyBehaviorBase
     /** Hledá cestu k cíli. */
     private void FollowPathToTarget()
     {
+        if (waitingForPath || (currentPath != null && pathIndex < currentPath.Count))
+        {
+            MoveAlongPath();
+            return;
+        }
+
+        if (Time.time - lastPathTime < pathCooldown)
+            return;
+
         Pathfinding pathfinding = PathfindingManager.Instance.pathfinding;
         pathfinding.GetGrid().GetXY(transform.position, out int startX, out int startY);
         pathfinding.GetGrid().GetXY(target.position, out int endX, out int endY);
 
-        //Debug.Log($"Start Node: {startX},{startY} | End Node: {endX},{endY}");
+        var endNode = pathfinding.GetGrid().GetGridObject(endX, endY);
+        if (endNode == null || !endNode.isWalkable)
+        {
+            direction = Vector3.zero;
+            return;
+        }
 
+        waitingForPath = true;
+        lastPathTime = Time.time;
+
+        PathfindingManager.Instance.RequestPath(startX, startY, endX, endY, OnPathFound);
+    }
+
+    private void MoveAlongPath()
+    {
         if (currentPath == null || pathIndex >= currentPath.Count)
         {
-            currentPath = pathfinding.FindPath(startX, startY, endX, endY);
-            pathIndex = 0;
-
-            if (currentPath == null || currentPath.Count == 0)
-            {
-                direction = Vector3.zero;
-                return;
-            }
-        }
-
-        if (currentPath != null && pathIndex < currentPath.Count)
-        {
-            float cellSize = pathfinding.GetGrid().GetCellSize();
-            Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * cellSize + Vector3.one * cellSize / 2;
-            direction = (nodePosition - transform.position).normalized;
-
-            if (direction.magnitude > 0.01f)
-            {
-                transform.position += direction * shipStats.Speed * Time.deltaTime;
-
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
-            }
-
-            if (Vector3.Distance(transform.position, nodePosition) < 0.1f)
-            {
-                pathIndex++;
-            }
-        }
-        else
-        {
-            // cesta skonèila
             direction = Vector3.zero;
+            return;
         }
+
+        float cellSize = PathfindingManager.Instance.pathfinding.GetGrid().GetCellSize();
+        Vector3 nodePosition = new Vector3(currentPath[pathIndex].x, currentPath[pathIndex].y) * cellSize + Vector3.one * cellSize / 2;
+        direction = (nodePosition - transform.position).normalized;
+
+        if (direction.magnitude > 0.01f)
+        {
+            transform.position += direction * shipStats.Speed * Time.deltaTime;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+        }
+
+        if (Vector3.Distance(transform.position, nodePosition) < 0.1f)
+        {
+            pathIndex++;
+        }
+    }
+
+    private void OnPathFound(List<PathNode> path)
+    {
+        waitingForPath = false;
+
+        if (path == null || path.Count == 0)
+        {
+            direction = Vector3.zero;
+            currentPath = null;
+            return;
+        }
+
+        currentPath = path;
+        pathIndex = 0;
     }
 
     /** Otáèí se smìrem cíli. */

@@ -1704,8 +1704,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 418740126}
     - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
+      propertyPath: spawnInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
       propertyPath: enemyPrefabs.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7544144081977636552, guid: 379abad04ef6a6a40bb440c9b628acda, type: 3}
       propertyPath: enemyPrefabs.Array.data[2]
@@ -1793,30 +1797,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 276008972821107881, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 293613919068506182, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: playOnAwake
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 293613919068506182, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: moveWithTransform
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 293613919068506182, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: InitialModule.gravitySource
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 293613919068506182, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: InheritVelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 293613919068506182, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 1187343540806454267, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: m_Name
       value: Player Ship
@@ -2158,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8079108110824404816, guid: 679c4186afb19f2418fc50296d99f11b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
