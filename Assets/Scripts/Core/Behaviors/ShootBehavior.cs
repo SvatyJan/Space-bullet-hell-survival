@@ -5,17 +5,29 @@ public class ShootBehavior : EnemyBehaviorBase
     [Header("Shooting")]
     public GameObject projectilePrefab;
     private float nextFireTime = 0f;
+    private Animator animator;
+
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+    }
 
     public override void Execute()
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            animator?.Play("Spitter move");
+            return;
+        }
 
         float distance = Vector3.Distance(transform.position, target.position);
         bool hasSight = HasLineOfSight();
 
         if (!hasSight)
         {
-            FollowPathToTarget(); // Base implementace
+            animator?.Play("Spitter move");
+            FollowPathToTarget();
             return;
         }
 
@@ -23,10 +35,12 @@ public class ShootBehavior : EnemyBehaviorBase
 
         if (distance > shipStats.AttackRadius)
         {
+            animator?.Play("Spitter move");
             ChaseTarget();
         }
         else
         {
+            animator?.Play("Spitter attack");
             ActWhenTargetReached();
             currentPath = null;
         }

@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 294805897262152833}
   - component: {fileID: 6630900620250075867}
   - component: {fileID: 1137017218432819352}
+  - component: {fileID: 4806308622071606778}
   m_Layer: 7
   m_Name: Spitter
   m_TagString: Enemy
@@ -62,12 +63,12 @@ Transform:
   m_GameObject: {fileID: 8488209312567463031}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.31, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2512922300153659316}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7558883994398324240
 SpriteRenderer:
@@ -110,8 +111,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.5408287, a: 1}
+  m_Sprite: {fileID: -1854185337, guid: 1bb65044716034c4aad34a08fe778209, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -183,8 +184,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.28866667}
-    oldSize: {x: 1, y: 1}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -216,6 +217,7 @@ MonoBehaviour:
   currentHealth: 20
   healthRegen: 0
   baseDamage: 10
+  criticalChance: 0
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 10
@@ -258,7 +260,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22aeaf37b963dbe45bc948a77c82222d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2777960311145917976, guid: 671230cbd353e63489a6f2e59ecda675, type: 3}
+  pathCooldown: 0.5
   blockingVisionLayers:
     serializedVersion: 2
     m_Bits: 576
+  projectilePrefab: {fileID: 2777960311145917976, guid: 671230cbd353e63489a6f2e59ecda675, type: 3}
+--- !u!95 &4806308622071606778
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488209312567463031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dee65c267fa7c2f4b8161307b6fca8dc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
