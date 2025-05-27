@@ -8,10 +8,13 @@ public class ShootLaserBehavior : EnemyBehaviorBase
     [SerializeField] private float damagePerSecond;
     [SerializeField] private List<string> damageableTags;
     [SerializeField] private LayerMask hitLayers;
-
     [SerializeField] private Transform laserFirePoint;
 
+    private Rigidbody2D rb;
     private LineRenderer lineRenderer;
+    private Animator animator;
+
+    private bool isAttacking = false;
 
     protected override void Start()
     {
@@ -26,12 +29,21 @@ public class ShootLaserBehavior : EnemyBehaviorBase
         lineRenderer.startWidth = 0.2f;
         lineRenderer.endWidth = 0.5f;
         lineRenderer.enabled = false;
+
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void Execute()
     {
+        // Nastavení parametrù pro Animator
+        float currentSpeed = rb.velocity.magnitude;
+        animator.SetFloat("speed", currentSpeed);
+        animator.SetBool("attacking", isAttacking);
+
         if (target == null)
         {
+            isAttacking = false;
             DisableLaser();
             return;
         }
@@ -41,6 +53,7 @@ public class ShootLaserBehavior : EnemyBehaviorBase
 
         if (!hasSight)
         {
+            isAttacking = false;
             DisableLaser();
             FollowPathToTarget(); // base implementation
             return;
@@ -50,11 +63,13 @@ public class ShootLaserBehavior : EnemyBehaviorBase
 
         if (distance > shipStats.AttackRadius)
         {
+            isAttacking = false;
             DisableLaser();
             ChaseTarget();
         }
         else
         {
+            isAttacking = true;
             ActWhenTargetReached();
             currentPath = null;
         }

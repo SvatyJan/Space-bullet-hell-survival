@@ -78,6 +78,10 @@ public class Laser : MonoBehaviour, IWeapon
                 }
             }
         }
+        else
+        {
+            lineRenderer.enabled = false;
+        }
 
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, start);
