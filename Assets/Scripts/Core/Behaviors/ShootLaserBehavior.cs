@@ -5,7 +5,7 @@ public class ShootLaserBehavior : EnemyBehaviorBase
 {
     [Header("Laser Settings")]
     [SerializeField] private float defaultRayDistance = 10f;
-    [SerializeField] private float damagePerSecond;
+    [SerializeField] private float damagePerSecond = 10f;
     [SerializeField] private List<string> damageableTags;
     [SerializeField] private LayerMask hitLayers;
     [SerializeField] private Transform laserFirePoint;
@@ -20,56 +20,48 @@ public class ShootLaserBehavior : EnemyBehaviorBase
     {
         base.Start();
 
-        if (laserFirePoint == null) laserFirePoint = transform;
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+
+        if (laserFirePoint == null)
+            laserFirePoint = transform;
 
         lineRenderer = GetComponent<LineRenderer>();
         if (lineRenderer == null)
             lineRenderer = gameObject.AddComponent<LineRenderer>();
-
         lineRenderer.startWidth = 0.2f;
         lineRenderer.endWidth = 0.5f;
         lineRenderer.enabled = false;
-
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void Execute()
     {
-        // Nastavení parametrù pro Animator
-        float currentSpeed = rb.velocity.magnitude;
-        animator.SetFloat("speed", currentSpeed);
-        animator.SetBool("attacking", isAttacking);
-
         if (target == null)
         {
-            isAttacking = false;
-            DisableLaser();
-            return;
-        }
-
-        float distance = Vector3.Distance(transform.position, target.position);
-        bool hasSight = HasLineOfSight();
-
-        if (!hasSight)
-        {
-            isAttacking = false;
-            DisableLaser();
-            FollowPathToTarget(); // base implementation
+            SetState(false);
             return;
         }
 
         AimAtTarget();
+        UpdateAnimatorParameters();
+
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        if (!HasLineOfSight())
+        {
+            SetState(false);
+            FollowPathToTarget();
+            return;
+        }
 
         if (distance > shipStats.AttackRadius)
         {
-            isAttacking = false;
-            DisableLaser();
+            SetState(false);
             ChaseTarget();
         }
         else
         {
-            isAttacking = true;
+            SetState(true);
             ActWhenTargetReached();
             currentPath = null;
         }
@@ -78,6 +70,20 @@ public class ShootLaserBehavior : EnemyBehaviorBase
     protected override void ActWhenTargetReached()
     {
         TryShootLaser();
+    }
+
+    private void SetState(bool attacking)
+    {
+        isAttacking = attacking;
+        animator?.SetBool("attacking", isAttacking);
+
+        if (!isAttacking)
+            DisableLaser();
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        animator?.SetFloat("speed", rb.velocity.magnitude);
     }
 
     private void AimAtTarget()
@@ -109,13 +115,13 @@ public class ShootLaserBehavior : EnemyBehaviorBase
         }
     }
 
-    private void EnableLaser(Vector2 startPosition, Vector2 endPosition)
+    private void EnableLaser(Vector2 start, Vector2 end)
     {
         if (!lineRenderer.enabled)
             lineRenderer.enabled = true;
 
-        lineRenderer.SetPosition(0, startPosition);
-        lineRenderer.SetPosition(1, endPosition);
+        lineRenderer.SetPosition(0, start);
+        lineRenderer.SetPosition(1, end);
     }
 
     private void DisableLaser()
@@ -124,17 +130,14 @@ public class ShootLaserBehavior : EnemyBehaviorBase
             lineRenderer.enabled = false;
     }
 
-    private void DealDamage(Collider2D collider)
+    private void DealDamage(Collider2D hitCollider)
     {
-        SpaceEntity target = collider.GetComponent<SpaceEntity>();
-        if (target != null)
-        {
-            target.TakeDamage(damagePerSecond * Time.deltaTime);
+        SpaceEntity targetEntity = hitCollider.GetComponent<SpaceEntity>();
+        if (targetEntity == null) return;
 
-            if (target.GetComponent<ShipStats>().CurrentHealth <= 0)
-            {
-                DisableLaser();
-            }
-        }
+        targetEntity.TakeDamage(damagePerSecond * Time.deltaTime);
+
+        if (targetEntity.GetComponent<ShipStats>().CurrentHealth <= 0)
+            DisableLaser();
     }
 }
