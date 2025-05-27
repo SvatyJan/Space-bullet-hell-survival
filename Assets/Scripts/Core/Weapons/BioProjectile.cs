@@ -48,7 +48,8 @@ public class BioProjectile : MonoBehaviour
 
     private void ApplyDamageAndEffect(SpaceEntity target)
     {
-        target.TakeDamage(projectileDamage);
+        float? critChance = owner?.GetComponent<ShipStats>()?.CriticalChance;
+        target.TakeDamage(projectileDamage, critChance);
 
         if (bioWeaponEffectPrefab != null)
         {

@@ -61,13 +61,11 @@ public class Blaster : MonoBehaviour, IWeapon
     {
         baseDamage += 5f;
         fireRate *= 0.9f;
-        Debug.Log($"Blaster upgraded: Damage = {baseDamage}, FireRate = {fireRate}");
     }
 
     public void Evolve()
     {
         baseDamage *= 2f;
         fireRate *= 0.5f;
-        Debug.Log("Blaster evolved!");
     }
 }

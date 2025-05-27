@@ -53,13 +53,13 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Zkontroluj, zda tag objektu je v seznamu povolených kolizí
         if (collisionTags.Contains(other.tag))
         {
             SpaceEntity target = other.GetComponent<SpaceEntity>();
             if (target != null && target != owner)
             {
-                target.TakeDamage(projectileDamage, projectileCritChance);
+                float? critChance = owner?.GetComponent<ShipStats>()?.CriticalChance;
+                target.TakeDamage(projectileDamage, critChance);
                 Destroy(gameObject);
             }
         }

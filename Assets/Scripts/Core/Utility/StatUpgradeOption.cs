@@ -31,17 +31,23 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
                 stats.MaxHealth += increaseAmount;
                 stats.CurrentHealth += increaseAmount;
                 break;
+            case StatType.HealthRegen:
+                stats.HealthRegen += increaseAmount;
+                break;
             case StatType.Damage:
                 stats.BaseDamage += increaseAmount;
                 break;
-            case StatType.FireRate:
-                stats.FireRate += increaseAmount;
+            case StatType.CriticalChance:
+                stats.CriticalChance += increaseAmount;
                 break;
-            case StatType.XP:
-                stats.XP += increaseAmount;
+            case StatType.FireRate:
+                stats.FireRate -= increaseAmount;
                 break;
             case StatType.AttractRadius:
                 stats.AttractionRadius += increaseAmount;
+                break;
+            case StatType.XP:
+                stats.XP += increaseAmount;
                 break;
             case StatType.ProjectilesCount:
                 stats.ProjectilesCount += (int)increaseAmount;

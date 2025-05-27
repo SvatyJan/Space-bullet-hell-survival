@@ -11,29 +11,28 @@ public class CombatUtils
         float actualDamage = baseDamage;
         Color critColor = Color.white;
 
-        if (criticalChance != null)
+        if (criticalChance == null || criticalChance <= 0f)
+            return (actualDamage, critColor);
+
+        int level = Mathf.FloorToInt((float)criticalChance / CRITICAL_CEILING);
+        float min = level * CRITICAL_CEILING;
+        float max = min + CRITICAL_CEILING;
+
+        float roll = Random.Range(min, max);
+        Debug.Log("ROLL: " + roll);
+
+        if (roll >= criticalChance)
         {
-            float maxCritRange = ((float)criticalChance / CRITICAL_CEILING) * 100f;
+            float multiplier = BASE_CRITICAL_MULTIPLIER + (level * ADDITIONAL_CRITICAL_MULTIPLIER);
+            actualDamage = baseDamage * multiplier;
 
-            System.Random random = new System.Random();
-            float critRoll = random.Next(0, (int)maxCritRange);
-
-            int critLevel = (int)(critRoll / 100f);
-
-            float actualCriticalMultiplier = 1f;
-            if (critLevel >= 0)
+            critColor = level switch
             {
-                actualCriticalMultiplier = BASE_CRITICAL_MULTIPLIER + (critLevel * ADDITIONAL_CRITICAL_MULTIPLIER);
-            }
-
-            actualDamage = baseDamage * actualCriticalMultiplier;
-
-            if (critLevel == 1)
-                critColor = Color.yellow;
-            else if (critLevel == 2)
-                critColor = new Color(1f, 0.5f, 0f);
-            else if (critLevel >= 3)
-                critColor = Color.red;
+                0 => Color.yellow,
+                1 => new Color(1f, 0.5f, 0f),
+                2 => Color.red,
+                _ => new Color(0.8f, 0f, 1f)
+            };
         }
 
         return (actualDamage, critColor);
