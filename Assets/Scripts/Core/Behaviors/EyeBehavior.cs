@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootLaserBehavior : EnemyBehaviorBase
+public class EyeBehavior : EnemyBehaviorBase
 {
     [Header("Laser Settings")]
     [SerializeField] private float defaultRayDistance = 10f;
