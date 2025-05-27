@@ -1,32 +1,37 @@
 using UnityEngine;
 
-public class ShootBehavior : EnemyBehaviorBase
+public class SpitterBehavior : EnemyBehaviorBase
 {
     [Header("Shooting")]
     public GameObject projectilePrefab;
+
     private float nextFireTime = 0f;
     private Animator animator;
+    private Rigidbody2D rb;
+    private bool isAttacking = false;
 
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void Execute()
     {
+        UpdateAnimatorParameters();
+
         if (target == null)
         {
-            animator?.Play("Spitter move");
+            SetAttacking(false);
             return;
         }
 
         float distance = Vector3.Distance(transform.position, target.position);
-        bool hasSight = HasLineOfSight();
 
-        if (!hasSight)
+        if (!HasLineOfSight())
         {
-            animator?.Play("Spitter move");
+            SetAttacking(false);
             FollowPathToTarget();
             return;
         }
@@ -35,12 +40,12 @@ public class ShootBehavior : EnemyBehaviorBase
 
         if (distance > shipStats.AttackRadius)
         {
-            animator?.Play("Spitter move");
+            SetAttacking(false);
             ChaseTarget();
         }
         else
         {
-            animator?.Play("Spitter attack");
+            SetAttacking(true);
             ActWhenTargetReached();
             currentPath = null;
         }
@@ -49,6 +54,19 @@ public class ShootBehavior : EnemyBehaviorBase
     protected override void ActWhenTargetReached()
     {
         AttackPlayerInRange();
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        float speed = rb != null ? rb.velocity.magnitude : 0f;
+        animator?.SetFloat("speed", speed);
+        animator?.SetBool("attacking", isAttacking);
+    }
+
+    private void SetAttacking(bool value)
+    {
+        isAttacking = value;
+        animator?.SetBool("attacking", isAttacking);
     }
 
     private void RotateTowardsTarget()

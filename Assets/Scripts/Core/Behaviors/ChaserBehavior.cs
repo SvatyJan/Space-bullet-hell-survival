@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MeleeAttackBehavior : EnemyBehaviorBase
+public class ChaserBehavior : EnemyBehaviorBase
 {
     private float lastAttackTime = 0f;
     private Animator animator;
