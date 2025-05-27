@@ -15,3 +15,4 @@ MonoBehaviour:
   description: Echo Weapon
   weaponName: Echo Weapon
   weaponPrefab: {fileID: 3676529170873869385, guid: 2d6f7caad56767c40aae4155d5e42766, type: 3}
+  requiredStat: 8

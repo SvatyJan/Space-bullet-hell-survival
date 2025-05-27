@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6293cd1d8921bab47ac52a25a28721c2, type: 3}
-  m_Name: Health Increase
+  m_Name: Health
   m_EditorClassIdentifier: 
-  description: Health Increase 5
+  description: Health Increase by 5
   statType: 1
-  increaseAmount: 1
+  increaseAmount: 5

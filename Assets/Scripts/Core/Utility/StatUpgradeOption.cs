@@ -43,6 +43,9 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
             case StatType.AttractRadius:
                 stats.AttractionRadius += increaseAmount;
                 break;
+            case StatType.ProjectilesCount:
+                stats.ProjectilesCount += (int)increaseAmount;
+                break;
             default:
                 Debug.LogWarning("Unknown stat type!");
                 break;

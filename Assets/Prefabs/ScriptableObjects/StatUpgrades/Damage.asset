@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
-  m_Name: Fleet
+  m_Script: {fileID: 11500000, guid: 6293cd1d8921bab47ac52a25a28721c2, type: 3}
+  m_Name: Damage
   m_EditorClassIdentifier: 
-  description: Fleet
-  weaponName: Fleet
-  weaponPrefab: {fileID: 4957801454098901893, guid: e3c7399013fe3144cb0db54dda2bb784, type: 3}
-  requiredStat: 6
+  description: Damage Increase by 1
+  statType: 2
+  increaseAmount: 1

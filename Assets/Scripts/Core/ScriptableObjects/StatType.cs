@@ -3,10 +3,12 @@ public enum StatType
 {
     Speed,
     Health,
+    HealthRegen,
     Damage,
-    CriticalStrike,
+    CriticalChance,
     FireRate,
-    XP,
     AttractRadius,
+    XP,
+    ProjectilesCount,
     None
 }

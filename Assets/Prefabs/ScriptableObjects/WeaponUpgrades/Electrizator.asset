@@ -15,3 +15,4 @@ MonoBehaviour:
   description: Electrizator
   weaponName: Electrizator
   weaponPrefab: {fileID: 986810218447542644, guid: 30faf497b671b7447a1016544c2092f2, type: 3}
+  requiredStat: 4

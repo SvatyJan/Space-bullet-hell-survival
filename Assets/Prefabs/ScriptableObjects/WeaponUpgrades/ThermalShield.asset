@@ -15,3 +15,4 @@ MonoBehaviour:
   description: ThermalShield
   weaponName: ThermalShield
   weaponPrefab: {fileID: 4860084971306698811, guid: 6743682558f0f164eadb004b8ca748a3, type: 3}
+  requiredStat: 2

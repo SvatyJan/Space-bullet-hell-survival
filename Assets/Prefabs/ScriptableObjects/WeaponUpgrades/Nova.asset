@@ -15,3 +15,4 @@ MonoBehaviour:
   description: Nova
   weaponName: Nova
   weaponPrefab: {fileID: 6876600066296017307, guid: c201ce57b8b45a948a48d9cd4b8da399, type: 3}
+  requiredStat: 6

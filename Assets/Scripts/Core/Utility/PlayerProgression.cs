@@ -59,17 +59,23 @@ public class PlayerProgression : MonoBehaviour
             upgradePanel.SetActive(false);
         }
 
-        if(startingWeapon != null)
+        if (startingWeapon != null)
         {
             GameObject weaponGO = startingWeapon.Apply(shipStats);
             if (weaponGO != null)
             {
                 weaponInstances.Add(weaponGO);
                 weaponLevels[startingWeapon] = 1;
+
+                if (!weaponUpgrades.Contains(startingWeapon))
+                {
+                    weaponUpgrades.Add(startingWeapon);
+                    options.Add(startingWeapon);
+                }
             }
         }
 
-        foreach(StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
+        foreach (StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
         foreach(WeaponUpgradeOption weaponUpgrade in weaponUpgrades) { options.Add(weaponUpgrade); }
     }
 
@@ -207,13 +213,17 @@ public class PlayerProgression : MonoBehaviour
     {
         foreach (WeaponUpgradeOption weaponUpgrade in weaponUpgrades)
         {
-            if (weaponLevels.ContainsKey(weaponUpgrade) && weaponLevels[weaponUpgrade] >= maxWeaponUpgrade)
+            if (!weaponLevels.ContainsKey(weaponUpgrade))
             {
-                continue;
+                options.Add(weaponUpgrade);
             }
-            options.Add(weaponUpgrade);
+            else if (weaponLevels[weaponUpgrade] < maxWeaponUpgrade)
+            {
+                options.Add(weaponUpgrade);
+            }
         }
     }
+
 
     /** Vrátí poèet možných evolvù. */
     private int CheckAvailableEvolves()

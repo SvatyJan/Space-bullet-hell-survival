@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6293cd1d8921bab47ac52a25a28721c2, type: 3}
   m_Name: FireRate
   m_EditorClassIdentifier: 
-  description: FireRate Increase 5
-  statType: 3
+  description: FireRate Increase 1
+  statType: 5
   increaseAmount: 1

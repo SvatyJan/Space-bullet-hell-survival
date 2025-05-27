@@ -15,3 +15,4 @@ MonoBehaviour:
   description: ElectricField
   weaponName: ElectricField
   weaponPrefab: {fileID: 7728026859949422946, guid: a1c336caa97299642844203c9e4961e2, type: 3}
+  requiredStat: 1

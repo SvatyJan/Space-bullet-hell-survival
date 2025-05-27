@@ -15,3 +15,4 @@ MonoBehaviour:
   description: BioLauncher
   weaponName: BioLauncher
   weaponPrefab: {fileID: 9043178360200690608, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
+  requiredStat: 8

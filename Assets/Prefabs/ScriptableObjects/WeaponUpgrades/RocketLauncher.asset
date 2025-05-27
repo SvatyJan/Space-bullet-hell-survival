@@ -15,4 +15,4 @@ MonoBehaviour:
   description: Rocket Launcher Upgrade
   weaponName: Rocket Launcher
   weaponPrefab: {fileID: 2952294909944776331, guid: 91943cb07c622294c8f3fc92ccffaf45, type: 3}
-  requiredStat: 2
+  requiredStat: 3

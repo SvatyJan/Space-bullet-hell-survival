@@ -3,29 +3,16 @@ using System.Collections.Generic;
 
 public class BioProjectile : MonoBehaviour
 {
-    /** Odkaz na staty hráèe nebo nepøítele, který projekt vystøelil. */
-    private ShipStats shipStats;
-
-    /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
-    public SpaceEntity owner;
-
-    /** Rychlost støely. */
-    [SerializeField] public float speed = 10f;
-
-    /** Seznam tagù, se kterými projektil mùže kolidovat. */
+    [Header("Config")]
+    [SerializeField] private float speed = 10f;
+    [SerializeField] private float projectileDuration = 5f;
+    [SerializeField] private GameObject bioWeaponEffectPrefab;
     [SerializeField] private List<string> collisionTags;
 
-    /** Poškození projektilu. */
-    [SerializeField] private float projectileDamage = 10f;
-
-    /** Doba, jak dlouho vydrží projektil než se znièí. */
-    [SerializeField] private float projectileDuration = 5f;
-
-    /** Prefab efektu bio zbranì. */
-    [SerializeField] private GameObject bioWeaponEffectPrefab;
-
-    /** Smìr pohybu støely. */
+    [Header("Runtime")]
     private Vector3 direction;
+    private float projectileDamage;
+    private SpaceEntity owner;
 
     private void Start()
     {
@@ -37,43 +24,41 @@ public class BioProjectile : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    // Nastavení smìru pohybu støely
-    public void SetDirection(Vector3 direction)
+    public void SetDirection(Vector3 dir)
     {
-        this.direction = direction.normalized;
+        direction = dir.normalized;
     }
 
-    // Nastavení vlastnictví a poškození
     public void Initialize(SpaceEntity owner, float damage)
     {
         this.owner = owner;
-        this.projectileDamage = projectileDamage + damage;
+        this.projectileDamage = damage;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Zkontroluj, zda tag objektu je v seznamu povolených kolizí
-        if (collisionTags.Contains(other.tag))
-        {
-            SpaceEntity target = other.GetComponent<SpaceEntity>();
-            if (target != null && target != owner)
-            {
-                ApplyBioEffect(target);
-                target.TakeDamage(projectileDamage);
-                Destroy(gameObject);
-            }
-        }
+        if (!collisionTags.Contains(other.tag)) return;
+
+        SpaceEntity target = other.GetComponent<SpaceEntity>();
+        if (target == null || target == owner) return;
+
+        ApplyDamageAndEffect(target);
+        Destroy(gameObject);
     }
 
-    private void ApplyBioEffect(SpaceEntity target)
+    private void ApplyDamageAndEffect(SpaceEntity target)
     {
-        GameObject bioWeaponEffect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity);
-        bioWeaponEffect.transform.SetParent(target.transform);
+        target.TakeDamage(projectileDamage);
 
-        BioWeaponEffect bioWeaponScript = bioWeaponEffect.GetComponent<BioWeaponEffect>();
-        if (bioWeaponScript != null)
+        if (bioWeaponEffectPrefab != null)
         {
-            bioWeaponScript.ApplyBioWeaponEffect(target, this.owner);
+            GameObject effect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity, target.transform);
+
+            BioWeaponEffect effectScript = effect.GetComponent<BioWeaponEffect>();
+            if (effectScript != null)
+            {
+                effectScript.ApplyBioWeaponEffect(target, owner);
+            }
         }
     }
 }

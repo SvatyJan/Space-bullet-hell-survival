@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6293cd1d8921bab47ac52a25a28721c2, type: 3}
-  m_Name: Damage Increase
+  m_Name: CriticalChance
   m_EditorClassIdentifier: 
-  description: Damage Increase 5
-  statType: 2
-  increaseAmount: 1
+  description: Critical chance increase by 10%
+  statType: 4
+  increaseAmount: 10
