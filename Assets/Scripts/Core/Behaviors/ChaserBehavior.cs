@@ -4,18 +4,23 @@ public class ChaserBehavior : EnemyBehaviorBase
 {
     private float lastAttackTime = 0f;
     private Animator animator;
+    private Rigidbody2D rb;
+    private bool isAttacking = false;
 
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void Execute()
     {
+        UpdateAnimatorParameters();
+
         if (target == null)
         {
-            animator?.Play("Chaser idle");
+            SetAttacking(false);
             return;
         }
 
@@ -23,7 +28,7 @@ public class ChaserBehavior : EnemyBehaviorBase
 
         if (distance > shipStats.DetectionRadius || !HasLineOfSight())
         {
-            animator?.Play("Chaser move");
+            SetAttacking(false);
             FollowPathToTarget();
         }
         else
@@ -61,15 +66,32 @@ public class ChaserBehavior : EnemyBehaviorBase
             {
                 if (hit.CompareTag("Player"))
                 {
+                    SetAttacking(true);
                     SpaceEntity player = hit.GetComponent<SpaceEntity>();
                     if (player != null)
                     {
-                        animator?.Play("Chaser attack");
                         player.TakeDamage(shipStats.BaseDamage);
                         lastAttackTime = Time.time;
                     }
                 }
+                else
+                {
+                    SetAttacking(false);
+                }
             }
         }
+    }
+
+    private void UpdateAnimatorParameters()
+    {
+        float currentSpeed = rb != null ? rb.velocity.magnitude : 0f;
+        animator?.SetFloat("speed", currentSpeed);
+        animator?.SetBool("attacking", isAttacking);
+    }
+
+    private void SetAttacking(bool value)
+    {
+        isAttacking = value;
+        animator?.SetBool("attacking", isAttacking);
     }
 }
