@@ -58,8 +58,7 @@ public class Projectile : MonoBehaviour
             SpaceEntity target = other.GetComponent<SpaceEntity>();
             if (target != null && target != owner)
             {
-                float? critChance = owner?.GetComponent<ShipStats>()?.CriticalChance;
-                target.TakeDamage(projectileDamage, critChance);
+                target.TakeDamage(projectileDamage, projectileCritChance);
                 Destroy(gameObject);
             }
         }

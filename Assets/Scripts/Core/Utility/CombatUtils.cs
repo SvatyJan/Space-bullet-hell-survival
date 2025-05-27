@@ -19,7 +19,6 @@ public class CombatUtils
         float max = min + CRITICAL_CEILING;
 
         float roll = Random.Range(min, max);
-        Debug.Log("ROLL: " + roll);
 
         if (roll >= criticalChance)
         {

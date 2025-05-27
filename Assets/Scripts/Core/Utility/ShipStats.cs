@@ -83,6 +83,9 @@ public class ShipStats : MonoBehaviour
     /** List vylepšených atributù. */
     private List<string> upgradedStats = new List<string>();
 
+    /** Pole bodù ze kterých loï mùže støílet. */
+    [SerializeField] public Transform[] ShootingPoints;
+
     private void Awake()
     {
         foreach (StatType stat in System.Enum.GetValues(typeof(StatType)))
@@ -192,7 +195,6 @@ public class ShipStats : MonoBehaviour
             default: return StatType.None;
         }
     }
-
 
     public float Speed
     {

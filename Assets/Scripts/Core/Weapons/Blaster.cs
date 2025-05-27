@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Blaster : MonoBehaviour, IWeapon
@@ -9,7 +10,7 @@ public class Blaster : MonoBehaviour, IWeapon
     public Transform shootingPoint;
 
     /** Interval mezi výstøely. */
-    public float fireRate = 0.5f;
+    public float baseFireRate = 1f;
 
     /** Èas pro pøíští výstøel. */
     private float nextFireTime = 0f;
@@ -20,52 +21,76 @@ public class Blaster : MonoBehaviour, IWeapon
     /** Odkaz na vlastníka zbranì. */
     public SpaceEntity owner;
 
+    /** Odkaz na atributy vlastníka zbranì. */
+    private ShipStats shipStats;
+
+    /** Pomocná promìnná pro práci s body výstøelu. */
+    private Transform[] shootingPoints;
+
+    /** Index urèující poøadí bodu výstøelu. */
+    private int currentPointIndex = 0;
+
     private void Awake()
     {
-        // Najdeme støelecký bod podle tagu
-        GameObject point = GameObject.FindGameObjectWithTag("FrontShootingPoint");
-        if (point != null)
+        owner = GetComponentInParent<SpaceEntity>();
+        shipStats = owner?.GetComponent<ShipStats>();
+
+        if (shipStats == null)
         {
-            shootingPoint = point.transform;
+            Debug.LogError("Blaster: ShipStats not found on parent!");
+        }
+
+        Transform[] points = shipStats?.ShootingPoints;
+        if (points == null || points.Length == 0)
+        {
+            shootingPoints = new Transform[] { transform };
+            Debug.LogWarning("Blaster: No shooting points in ShipStats, using self.");
         }
         else
         {
-            Debug.LogError("Blaster: FrontShootingPoint tag not found!");
+            shootingPoints = points;
         }
     }
 
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
-        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
+        shipStats = owner.GetComponent<ShipStats>();
+
+        baseDamage = shipStats.BaseDamage;
     }
 
     public void Fire()
     {
-        if (Time.time >= nextFireTime)
+        if (Time.time < nextFireTime) return;
+
+        float totalFireRate = Mathf.Max(0.05f, baseFireRate * shipStats.FireRate);
+
+        nextFireTime = Time.time + totalFireRate;
+
+        Transform firingPoint = shootingPoints[currentPointIndex];
+
+        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+
+        Projectile projectileScript = projectile.GetComponent<Projectile>();
+        if (projectileScript != null)
         {
-            nextFireTime = Time.time + fireRate;
-
-            GameObject projectile = Instantiate(projectilePrefab, shootingPoint.position, shootingPoint.rotation);
-
-            Projectile projectileScript = projectile.GetComponent<Projectile>();
-            if (projectileScript != null)
-            {
-                projectileScript.Initialize(owner, baseDamage);
-                projectileScript.SetDirection(shootingPoint.up);
-            }
+            projectileScript.Initialize(owner, baseDamage);
+            projectileScript.SetDirection(firingPoint.up);
         }
+
+        currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
     }
 
     public void Upgrade()
     {
         baseDamage += 5f;
-        fireRate *= 0.9f;
+        baseFireRate *= 0.9f;
     }
 
     public void Evolve()
     {
         baseDamage *= 2f;
-        fireRate *= 0.5f;
+        baseFireRate *= 0.5f;
     }
 }
