@@ -45,6 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orbPrefab: {fileID: 3087861867347112826, guid: 7500bab83b8718546a661c1c8491cb51, type: 3}
-  baseOrbCount: 1
   baseOrbitRadius: 5
-  baseOrbitSpeed: -100
+  baseOrbitSpeed: 100
