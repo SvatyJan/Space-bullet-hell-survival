@@ -99,10 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5099814b2cda26f42b0ab21c6d86a942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSize: 30
+  maxSize: 50
   expansionSpeed: 10
-  damage: 0
   baseDamage: 20
+  xpAttractRadius: 3
+  xpPullSpeed: 5
   collisionTags:
   - Enemy
   - Enemy Projectile

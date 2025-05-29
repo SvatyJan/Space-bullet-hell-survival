@@ -2,25 +2,37 @@ using UnityEngine;
 
 public class Nova : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
     /** Prefab výbuchu Novy. */
     [SerializeField] private GameObject novaExplosionPrefab;
 
+    [Header("Timing")]
     /** Interval mezi výbuchy. */
-    [SerializeField] private float fireRate = 60f;
+    [SerializeField] private float baseFireRate = 60f;
 
     /** Èas pro pøíští aktivaci. */
     [SerializeField] private float nextFireTime = 0f;
 
-    /** Poškození zbranì. */
-    private float baseDamage;
+    [Header("Attributes")]
+    /** Základní poškození zbranì. */
+    [SerializeField] private float baseDamage = 10f;
 
+    [Header("References")]
     /** Odkaz na vlastníka zbranì. */
-    public SpaceEntity owner;
+    private SpaceEntity owner;
+
+    /** Odkaz na statistiky vlastníka. */
+    private ShipStats shipStats;
+
+    /** Odkaz na PlayerProgression pro pøidávání XP. */
+    private PlayerProgression playerProgression;
 
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
-        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
+        shipStats = owner.GetComponent<ShipStats>();
+        baseDamage += shipStats.BaseDamage;
+        playerProgression = GetComponentInParent<PlayerProgression>();
 
         nextFireTime = Time.time;
     }
@@ -29,26 +41,29 @@ public class Nova : MonoBehaviour, IWeapon
     {
         if (Time.time >= nextFireTime)
         {
-            nextFireTime = Time.time + fireRate;
+            float cooldown = baseFireRate * shipStats.FireRate;
+            nextFireTime = Time.time + Mathf.Max(2f, cooldown);
 
             GameObject explosion = Instantiate(novaExplosionPrefab, owner.transform.position, Quaternion.identity);
             NovaExplosion novaExplosion = explosion.GetComponent<NovaExplosion>();
 
             if (novaExplosion != null)
             {
-                novaExplosion.Initialize(owner.GetComponent<ShipStats>().BaseDamage);
+                float damage = baseDamage + shipStats.BaseDamage;
+                float crit = shipStats.CriticalChance;
+                novaExplosion.Initialize(owner, damage, crit, playerProgression);
             }
         }
     }
 
     public void Upgrade()
     {
-        fireRate = Mathf.Max(8f, fireRate - 8f);
+        baseFireRate = Mathf.Max(8f, baseFireRate - 8f);
         baseDamage += 10f;
     }
 
     public void Evolve()
     {
-        fireRate = 30f;
+        baseFireRate = 30f;
     }
 }

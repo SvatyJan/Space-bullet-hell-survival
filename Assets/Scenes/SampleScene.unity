@@ -157,11 +157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8796239922549357186, guid: 89a7fd0bf2b39fe4689b058473279cb4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.43
+      value: 37.07
       objectReference: {fileID: 0}
     - target: {fileID: 8796239922549357186, guid: 89a7fd0bf2b39fe4689b058473279cb4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 50.08
+      value: 49.37
       objectReference: {fileID: 0}
     - target: {fileID: 8796239922549357186, guid: 89a7fd0bf2b39fe4689b058473279cb4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2058,7 +2058,7 @@ PrefabInstance:
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 96c4c6b022457b2409d5aae64c9f7416, type: 2}
+      objectReference: {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.size
       value: 1
@@ -2066,7 +2066,7 @@ PrefabInstance:
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9bbbe063d85c1f94d9357a0274deee1d, type: 2}
+      objectReference: {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCards.Array.data[0]
       value: 
