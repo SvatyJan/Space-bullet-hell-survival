@@ -2,12 +2,18 @@ using UnityEngine;
 
 public class Echo : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
     /** Prefab projektilu. */
     [SerializeField] private GameObject echoProjectilePrefab;
 
-    /** Výchozí bod støely. */
-    [SerializeField] private Transform shootingPoint;
+    [Header("Firing Points")]
+    /** Pole bodù, ze kterých mùže být vystøelen projektil. */
+    private Transform[] shootingPoints;
 
+    /** Index urèující poøadí bodu výstøelu. */
+    private int currentPointIndex = 0;
+
+    [Header("Attributes")]
     /** Interval mezi výstøely. */
     [SerializeField] private float fireRate = 2f;
 
@@ -20,52 +26,62 @@ public class Echo : MonoBehaviour, IWeapon
     /** Základní poškození zbranì. */
     [SerializeField] private float baseDamage;
 
-    /** Odkaz na vlastníka zbranì. */
-    private SpaceEntity owner;
-
+    [Header("Runtime")]
     /** Èas pro pøíští výstøel. */
     private float nextFireTime = 0f;
 
+    [Header("References")]
+    /** Odkaz na vlastníka zbranì. */
+    private SpaceEntity owner;
+
+    /** Odkaz na atributy vlastníka zbranì. */
+    private ShipStats shipStats;
+
     private void Awake()
     {
-        // Najdeme støelecký bod podle tagu
-        GameObject point = GameObject.FindGameObjectWithTag("FrontShootingPoint");
-        if (point != null)
+        owner = GetComponentInParent<SpaceEntity>();
+        shipStats = owner?.GetComponent<ShipStats>();
+
+        if (shipStats == null)
         {
-            shootingPoint = point.transform;
+            Debug.LogError("Echo: ShipStats not found on parent!");
+            shootingPoints = new Transform[] { transform };
+            return;
         }
-        else
-        {
-            Debug.LogError("EchoWeapon: FrontShootingPoint tag not found!");
-        }
+
+        Transform[] points = shipStats.ShootingPoints;
+        shootingPoints = (points != null && points.Length > 0) ? points : new Transform[] { transform };
     }
 
     private void Start()
     {
-        owner = GetComponentInParent<SpaceEntity>();
-        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
+        baseDamage = shipStats.BaseDamage;
     }
 
     public void Fire()
     {
-        if (Time.time >= nextFireTime)
-        {
-            nextFireTime = Time.time + fireRate;
-            FireEchoWave();
-        }
+        if (Time.time < nextFireTime) return;
+
+        nextFireTime = Time.time + fireRate;
+        FireEchoWave();
     }
 
     private void FireEchoWave()
     {
-        float startAngle = -spreadAngle / 2;
-        float angleStep = spreadAngle / (projectileCount - 1);
-        float baseRotation = shootingPoint.rotation.eulerAngles.z;
+        float startAngle = -spreadAngle / 2f;
+        float angleStep = spreadAngle / (Mathf.Max(projectileCount - 1, 1));
+
+        Transform firingPoint = shootingPoints[currentPointIndex];
+        currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+
+        float baseRotation = firingPoint.rotation.eulerAngles.z;
 
         for (int i = 0; i < projectileCount; i++)
         {
             float angle = baseRotation + startAngle + (i * angleStep);
             Quaternion projectileRotation = Quaternion.Euler(0, 0, angle);
-            GameObject projectile = Instantiate(echoProjectilePrefab, shootingPoint.position, projectileRotation);
+
+            GameObject projectile = Instantiate(echoProjectilePrefab, firingPoint.position, projectileRotation);
 
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             if (projectileScript != null)
@@ -80,11 +96,12 @@ public class Echo : MonoBehaviour, IWeapon
     {
         projectileCount += 2;
         baseDamage += 5f;
+        spreadAngle += 20f;
     }
 
     public void Evolve()
     {
-        spreadAngle = 180f;
+        spreadAngle = 360f;
         projectileCount += 3;
     }
 }

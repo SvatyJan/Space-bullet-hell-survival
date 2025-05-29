@@ -4,15 +4,29 @@ using UnityEngine;
 public class DefensiveOrb : MonoBehaviour, IWeapon
 {
     [Header("Orb Settings")]
+    /** Prefab orb projektilu. */
     public GameObject orbPrefab;
+
+    /** Výchozí vzdálenost obíhání kolem hráèe. */
     public float baseOrbitRadius = 2f;
+
+    /** Výchozí rychlost obíhání orbù. */
     public float baseOrbitSpeed = 180f;
 
+    [Header("Runtime")]
+    /** Aktuální seznam aktivních orbù. */
     private List<GameObject> orbs = new List<GameObject>();
+
+    /** Odkaz na ShipStats hráèe. */
     private ShipStats shipStats;
+
+    /** Odkaz na PlayerProgression pro pøidávání XP. */
     private PlayerProgression playerProgression;
 
+    /** Poslední známý poèet projektilù (orbù). */
     private int lastProjectileCount = -1;
+
+    /** Pøíznak, zda je orb ve stavu evoluce. */
     private bool isEvolved = false;
 
     private void Start()

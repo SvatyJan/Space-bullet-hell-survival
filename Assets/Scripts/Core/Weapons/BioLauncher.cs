@@ -3,29 +3,59 @@ using UnityEngine;
 public class BioLauncher : MonoBehaviour, IWeapon
 {
     [Header("Prefabs")]
+    /** Prefab projektilu. */
     public GameObject projectilePrefab;
 
-    [Header("Firing")]
-    [SerializeField] private Transform shootingPoint;
-    private float baseDamage = 10f;
-    private float nextFireTime = 0f;
+    [Header("Firing Points")]
+    /** Pole bodù, ze kterých mùže být vystøelen projektil. */
+    private Transform[] shootingPoints;
+
+    /** Index urèující poøadí bodu výstøelu. */
+    private int currentPointIndex = 0;
+
+    [Header("Attributes")]
+    /** Základní poškození zbranì. */
+    [SerializeField] private float baseDamage = 10f;
+
+    /** Statická hodnota urèující poèet projektilù pro efekty (napø. bio výbuch). */
     public static int baseProjectileCount = 1;
 
-    public SpaceEntity owner;
-    private ShipStats stats;
+    [Header("Runtime State")]
+    /** Èas pro pøíští výstøel. */
+    private float nextFireTime = 0f;
 
+    /** Zda je zbraò v evolvovaném stavu. */
     private bool evolved = false;
+
+    [Header("References")]
+    /** Odkaz na vlastníka zbranì. */
+    public SpaceEntity owner;
+
+    /** Odkaz na atributy vlastníka zbranì. */
+    private ShipStats stats;
 
     private void Awake()
     {
-        if (shootingPoint == null)
-            shootingPoint = transform;
-    }
-
-    private void Start()
-    {
         owner = GetComponentInParent<SpaceEntity>();
-        stats = owner.GetComponent<ShipStats>();
+        stats = owner?.GetComponent<ShipStats>();
+
+        if (stats == null)
+        {
+            Debug.LogError("BioLauncher: ShipStats not found!");
+            shootingPoints = new Transform[] { transform };
+            return;
+        }
+
+        Transform[] points = stats.ShootingPoints;
+        if (points == null || points.Length == 0)
+        {
+            shootingPoints = new Transform[] { transform };
+            Debug.LogWarning("BioLauncher: No shooting points assigned, using self.");
+        }
+        else
+        {
+            shootingPoints = points;
+        }
     }
 
     public void Fire()
@@ -34,7 +64,7 @@ public class BioLauncher : MonoBehaviour, IWeapon
 
         nextFireTime = Time.time + stats.FireRate;
 
-        int projectilesFired = (baseProjectileCount + stats.ProjectilesCount);
+        int projectilesFired = baseProjectileCount + stats.ProjectilesCount;
         int count = Mathf.Max(1, projectilesFired);
         float spreadAngle = evolved ? 20f : 10f;
         float totalAngle = spreadAngle * (count - 1);
@@ -42,9 +72,12 @@ public class BioLauncher : MonoBehaviour, IWeapon
         for (int i = 0; i < count; i++)
         {
             float angleOffset = -totalAngle / 2 + spreadAngle * i;
-            Quaternion rotation = shootingPoint.rotation * Quaternion.Euler(0, 0, angleOffset);
+            Transform firingPoint = shootingPoints[currentPointIndex];
+            currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
 
-            GameObject projectile = Instantiate(projectilePrefab, shootingPoint.position, rotation);
+            Quaternion rotation = firingPoint.rotation * Quaternion.Euler(0, 0, angleOffset);
+
+            GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, rotation);
             BioProjectile projectileScript = projectile.GetComponent<BioProjectile>();
             if (projectileScript != null)
             {

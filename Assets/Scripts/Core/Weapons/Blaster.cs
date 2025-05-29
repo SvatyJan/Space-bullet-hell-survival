@@ -1,34 +1,34 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Blaster : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
     /** Prefab projektilu. */
     public GameObject projectilePrefab;
 
-    /** Výchozí bod støely. */
-    public Transform shootingPoint;
-
-    /** Interval mezi výstøely. */
-    public float baseFireRate = 1f;
-
-    /** Èas pro pøíští výstøel. */
-    private float nextFireTime = 0f;
-
-    /** Základní poškození zbranì. */
-    private float baseDamage = 10f;
-
-    /** Odkaz na vlastníka zbranì. */
-    public SpaceEntity owner;
-
-    /** Odkaz na atributy vlastníka zbranì. */
-    private ShipStats shipStats;
-
-    /** Pomocná promìnná pro práci s body výstøelu. */
+    [Header("Firing Points")]
+    /** Pole bodù, ze kterých mùže být vystøelen projektil. */
     private Transform[] shootingPoints;
 
     /** Index urèující poøadí bodu výstøelu. */
     private int currentPointIndex = 0;
+
+    [Header("Attributes")]
+    /** Interval mezi výstøely. */
+    [SerializeField] public float baseFireRate = 1f;
+
+    /** Èas pro pøíští výstøel. */
+    [SerializeField] private float nextFireTime = 0f;
+
+    /** Základní poškození zbranì. */
+    [SerializeField] private float baseDamage = 10f;
+
+    [Header("References")]
+    /** Odkaz na vlastníka zbranì. */
+    private SpaceEntity owner;
+
+    /** Odkaz na atributy vlastníka zbranì. */
+    private ShipStats shipStats;
 
     private void Awake()
     {
