@@ -1,25 +1,35 @@
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
 public class ElectricField : MonoBehaviour, IWeapon
 {
+    [Header("Attributes")]
+    /** Základní poškození zbranì. */
     [SerializeField] private float baseDamage = 10f;
-    
-    /** Interval mezi výstøely. */
-    [SerializeField]  public float fireRate = 0.5f;
 
+    /** Interval mezi výstøely (èím nižší, tím rychlejší). */
+    [SerializeField] public float baseFireRate = 0.5f;
+
+    /** Velikost elektrického pole. */
+    [SerializeField] private float size = 6f;
+
+    [Header("Runtime")]
     /** Èas pro pøíští výstøel. */
     [SerializeField] private float nextFireTime = 0f;
 
-    [SerializeField] private float size = 6f;
-
-    [SerializeField] public GameObject electricFieldZonePrefab;
-
-    private SpaceEntity owner;
-
+    /** Aktivní instance elektrického pole. */
     [SerializeField] private GameObject activeFieldZone;
 
+    [Header("Prefabs")]
+    /** Prefab elektrického pole. */
+    [SerializeField] public GameObject electricFieldZonePrefab;
+
+    [Header("References")]
+    /** Odkaz na vlastníka zbranì. */
+    private SpaceEntity owner;
+
+    /** Odkaz na staty hráèe. */
+    private ShipStats stats;
 
     /** Seznam tagù, se kterými projektil mùže kolidovat. */
     [SerializeField] private List<string> collisionTags;
@@ -27,9 +37,11 @@ public class ElectricField : MonoBehaviour, IWeapon
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
-        if (owner == null)
+        stats = owner.GetComponent<ShipStats>();
+
+        if (owner == null || stats == null)
         {
-            Debug.LogError("ElectricField: Nenalezen vlastník!");
+            Debug.LogError("ElectricField: Nenalezen vlastník nebo ShipStats!");
         }
     }
 
@@ -37,22 +49,24 @@ public class ElectricField : MonoBehaviour, IWeapon
     {
         if (activeFieldZone == null)
         {
+            // Vytvoøení nové zóny
             activeFieldZone = Instantiate(electricFieldZonePrefab, transform.position, Quaternion.identity, transform);
             ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
             if (fieldZoneScript != null)
             {
-                fieldZoneScript.Initialize(baseDamage, size, collisionTags);
+                fieldZoneScript.Initialize(GetFinalDamage(), size, collisionTags);
             }
         }
         else
         {
             ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
+            float totalFireRate = Mathf.Max(0.05f, baseFireRate * stats.FireRate);
 
             if (Time.time >= nextFireTime)
             {
-                nextFireTime = Time.time + fireRate;
+                nextFireTime = Time.time + totalFireRate;
                 fieldZoneScript.DealDamage();
-            } 
+            }
         }
     }
 
@@ -60,33 +74,30 @@ public class ElectricField : MonoBehaviour, IWeapon
     {
         baseDamage += 10f;
         size += 1f;
-
-        ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
-        if (fieldZoneScript != null)
-        {
-            fieldZoneScript.Initialize(baseDamage, size, collisionTags);
-        }
-        else
-        {
-            Destroy(fieldZoneScript.gameObject);
-            fieldZoneScript.Initialize(baseDamage, size, collisionTags);
-        }    
+        ReinitializeFieldZone();
     }
 
     public void Evolve()
     {
         baseDamage += 50f;
         size += 5f;
+        ReinitializeFieldZone();
+    }
 
-        ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
-        if (fieldZoneScript != null)
+    private void ReinitializeFieldZone()
+    {
+        if (activeFieldZone != null)
         {
-            fieldZoneScript.Initialize(baseDamage, size, collisionTags);
+            ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
+            if (fieldZoneScript != null)
+            {
+                fieldZoneScript.Initialize(GetFinalDamage(), size, collisionTags);
+            }
         }
-        else
-        {
-            Destroy(fieldZoneScript.gameObject);
-            fieldZoneScript.Initialize(baseDamage, size, collisionTags);
-        }
+    }
+
+    private float GetFinalDamage()
+    {
+        return baseDamage + stats.BaseDamage;
     }
 }
