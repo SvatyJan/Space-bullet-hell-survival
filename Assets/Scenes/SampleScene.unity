@@ -2058,15 +2058,15 @@ PrefabInstance:
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 695ef98b8781d994ca7205a64b2b52b9, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 9bbbe063d85c1f94d9357a0274deee1d, type: 2}
+      objectReference: {fileID: 11400000, guid: fb0ee55d7da4f9a44be25e39be99ece2, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCards.Array.data[0]
       value: 
@@ -2091,6 +2091,10 @@ PrefabInstance:
       propertyPath: upgradeDescriptions.Array.data[2]
       value: 
       objectReference: {fileID: 395546649}
+    - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: criticalChance
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

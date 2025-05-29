@@ -4,25 +4,33 @@ using UnityEngine;
 
 public class Electrizator : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
     [SerializeField] private GameObject lightningFx;
+
+    [Header("Attributes")]
     [SerializeField] private float fireRate = 3f;
     [SerializeField] private float baseDamage = 5f;
     [SerializeField] private float baseRadius = 5f;
     [SerializeField] private int baseChainCount = 4;
     [SerializeField] private float lightningDelay = 0.1f;
 
+    [Header("Runtime")]
     [SerializeField] private List<GameObject> hitTargets = new List<GameObject>();
     private float nextFireTime = 0f;
 
-    /** Seznam tagù, se kterými projektil mùže kolidovat. */
+    [Header("Targeting")]
     [SerializeField] private List<string> collisionTags;
 
+    [Header("References")]
     private SpaceEntity owner;
+    private ShipStats shipStats;
 
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
-        baseDamage += owner.GetComponent<ShipStats>().BaseDamage;
+        shipStats = owner.GetComponent<ShipStats>();
+
+        baseDamage += shipStats.BaseDamage;
     }
 
     public void Fire()
@@ -35,15 +43,14 @@ public class Electrizator : MonoBehaviour, IWeapon
 
     private IEnumerator FireLightningSequence()
     {
-        SpaceEntity currentTarget = FindClosestEnemyFromPosition(new Vector2(transform.position.x, transform.position.y));
+        SpaceEntity currentTarget = FindClosestEnemyFromPosition(transform.position);
         int chainCount = baseChainCount;
-        Vector3 previousPosition = transform.position;
 
         for (int i = 0; i < chainCount; i++)
         {
             if (currentTarget != null)
             {
-                currentTarget.TakeDamage(baseDamage);
+                currentTarget.TakeDamage(baseDamage, shipStats.CriticalChance);
                 Debug.Log(currentTarget.name + " has been lightning struck!");
 
                 GameObject lightningEffect = Instantiate(lightningFx, currentTarget.transform.position, Quaternion.identity);
@@ -53,16 +60,14 @@ public class Electrizator : MonoBehaviour, IWeapon
 
                 yield return new WaitForSeconds(lightningDelay);
 
-                previousPosition = currentTarget.transform.position;
-
                 currentTarget = FindClosestEnemyFromPosition(currentTarget.transform.position);
             }
             else
             {
-                hitTargets.Clear();
                 break;
             }
         }
+
         hitTargets.Clear();
     }
 

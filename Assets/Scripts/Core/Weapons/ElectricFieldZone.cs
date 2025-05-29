@@ -8,6 +8,9 @@ public class ElectricFieldZone : MonoBehaviour
     /** Poškození aplikované na entitu. */
     private float baseDamage;
 
+    /** Kritické poškození aplikované na entitu. */
+    private float baseCriticalChance;
+
     /** Poloměr elektrického pole. */
     [SerializeField] private float radius = 1f;
 
@@ -18,9 +21,10 @@ public class ElectricFieldZone : MonoBehaviour
     /** Seznam entit uvnitř pole. */
     private HashSet<SpaceEntity> enemiesInField = new HashSet<SpaceEntity>();
 
-    public void Initialize(float damage, float entitySize, List<string> entityCollisionTags)
+    public void Initialize(float damage, float entityCriticalChance, float entitySize, List<string> entityCollisionTags)
     {
         this.baseDamage = damage;
+        this.baseCriticalChance = entityCriticalChance;
         collisionTags = entityCollisionTags;
 
         transform.localScale = new Vector3(entitySize, entitySize, 0);
@@ -32,7 +36,7 @@ public class ElectricFieldZone : MonoBehaviour
         {
             if (enemy != null)
             {
-                enemy.TakeDamage(baseDamage);
+                enemy.TakeDamage(baseDamage, baseCriticalChance);
             }
         }
     }
@@ -62,6 +66,5 @@ public class ElectricFieldZone : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, radius);
-
     }
 }
