@@ -4,14 +4,23 @@ using UnityEngine;
 
 public class ElectricFieldZone : MonoBehaviour
 {
-    private float damage;
+    [Header("Attributes")]
+    /** Poškození aplikované na entitu. */
+    private float baseDamage;
+
+    /** Poloměr elektrického pole. */
     [SerializeField] private float radius = 1f;
-    private HashSet<SpaceEntity> enemiesInField = new HashSet<SpaceEntity>();
+
+    [Header("Targeting")]
+    /** Tagy entit, které mohou být poškozeny. */
     private List<string> collisionTags;
 
-    public void Initialize(float baseDamage, float entitySize, List<string> entityCollisionTags)
+    /** Seznam entit uvnitř pole. */
+    private HashSet<SpaceEntity> enemiesInField = new HashSet<SpaceEntity>();
+
+    public void Initialize(float damage, float entitySize, List<string> entityCollisionTags)
     {
-        damage = baseDamage;
+        this.baseDamage = damage;
         collisionTags = entityCollisionTags;
 
         transform.localScale = new Vector3(entitySize, entitySize, 0);
@@ -23,7 +32,7 @@ public class ElectricFieldZone : MonoBehaviour
         {
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(baseDamage);
             }
         }
     }
