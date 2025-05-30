@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerProgression : MonoBehaviour
 {
@@ -100,7 +101,7 @@ public class PlayerProgression : MonoBehaviour
     private void LevelUp()
     {
         shipStats.XP -= shipStats.XpNextLevelUp;
-        //shipStats.XpNextLevelUp *= 1.1f; // Exponenciálnì zvyšujeme požadavek na další úroveò
+        shipStats.XpNextLevelUp *= 1.1f; // Exponenciálnì zvyšujeme požadavek na další úroveò
         shipStats.Level++;
         ShowUpgradeChoices();
     }

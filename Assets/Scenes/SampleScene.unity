@@ -2031,8 +2031,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 395546649}
     - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: maxWeapons
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: criticalChance
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: maxStatUpgrades
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2047,10 +2055,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 834250637424093098, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
-      propertyPath: m_text
-      value: X
-      objectReference: {fileID: 0}
     - target: {fileID: 2166985654535624846, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
