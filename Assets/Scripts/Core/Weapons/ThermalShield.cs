@@ -3,39 +3,68 @@ using UnityEngine;
 
 public class ThermalShield : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
+    /** Prefab termální exploze. */
     [SerializeField] private GameObject explosionPrefab;
+
+    [Header("Attributes")]
+    /** Výchozí recharge èas mezi aktivacemi. */
     [SerializeField] private float rechargeTime = 12f;
+
+    /** Výchozí velikost exploze. */
     [SerializeField] private float size = 2f;
+
+    /** Maximální velikost výbuchu. */
+    [SerializeField] private float maxSize = 10f;
+
+    /** Rychlost rùstu výbuchu. */
+    [SerializeField] private float expansionSpeed = 50f;
+
+    /** Základní poškození výbuchu. */
+    [SerializeField] private float baseDamage = 10f;
+
+    [Header("Runtime")]
+    /** Stav aktivace štítu. */
     [SerializeField] private bool activeShield = true;
 
-    [SerializeField] private float maxSize = 10f;
-    [SerializeField] private float expansionSpeed = 50f;
-    [SerializeField] private float damage = 10f;
-
+    /** Aktivní instance exploze. */
     private GameObject activeExplosion;
 
+    [Header("References")]
+    /** Odkaz na entitu hráèe. */
     private SpaceEntity owner;
+
+    /** Odkaz na komponentu hráèské lodì. */
     private PlayerShip player;
+
+    /** Atributy hráèe. */
+    private ShipStats shipStats;
 
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
+        player = GetComponentInParent<PlayerShip>();
+        shipStats = owner?.GetComponent<ShipStats>();
+
         if (owner == null)
         {
             Debug.LogError("ThermalShield: Nelze najít vlastníka (SpaceEntity)!");
-            return;
         }
 
-        player = GetComponentInParent<PlayerShip>();
         if (player == null)
         {
             Debug.LogError("ThermalShield: Tento skript lze použít pouze na PlayerShip!");
-            return;
+        }
+
+        if (shipStats == null)
+        {
+            Debug.LogError("ThermalShield: Chybí ShipStats!");
         }
     }
+
     public void Fire()
     {
-        return;
+        // ThermalShield nevyužívá aktivní støelbu.
     }
 
     public void TriggerExplosion()
@@ -44,8 +73,16 @@ public class ThermalShield : MonoBehaviour, IWeapon
 
         setActiveShield(false);
 
+        float finalDamage = baseDamage + shipStats.BaseDamage;
+        float critChance = shipStats.CriticalChance;
+
         activeExplosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity, transform);
-        activeExplosion.GetComponent<ThermalExplosion>().Initialize(owner.getShipStats().BaseDamage, size, this, maxSize, expansionSpeed);
+        ThermalExplosion explosionScript = activeExplosion.GetComponent<ThermalExplosion>();
+
+        if (explosionScript != null)
+        {
+            explosionScript.Initialize(finalDamage, critChance, size, this, maxSize, expansionSpeed);
+        }
     }
 
     public void Upgrade()
@@ -56,6 +93,9 @@ public class ThermalShield : MonoBehaviour, IWeapon
     public void Evolve()
     {
         rechargeTime = Mathf.Max(1f, rechargeTime - 2f);
+        size += 1f;
+        maxSize += 2f;
+        baseDamage += 10f;
     }
 
     public void setActiveShield(bool state)
@@ -70,20 +110,22 @@ public class ThermalShield : MonoBehaviour, IWeapon
 
     public void CleanupExplosion()
     {
-        Destroy(activeExplosion);
-        activeExplosion = null;
+        if (activeExplosion != null)
+        {
+            Destroy(activeExplosion);
+            activeExplosion = null;
+        }
 
         if (!activeShield)
         {
-            Debug.Log("Thermal Shield není aktivní! Nabíjím...");
-            StartCoroutine(ResetShieldAfterCooldown());
-            return;
+            float adjustedCooldown = Mathf.Max(1f, rechargeTime * shipStats.FireRate);
+            StartCoroutine(ResetShieldAfterCooldown(adjustedCooldown));
         }
     }
 
-    private IEnumerator ResetShieldAfterCooldown()
+    private IEnumerator ResetShieldAfterCooldown(float cooldown)
     {
-        yield return new WaitForSeconds(rechargeTime);
+        yield return new WaitForSeconds(cooldown);
         setActiveShield(true);
         Debug.Log("Thermal Shield je znovu nabitý!");
     }

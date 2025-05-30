@@ -1,25 +1,39 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ThermalExplosion : MonoBehaviour
 {
+    [Header("Explosion Settings")]
+    /** Maximální velikost výbuchu. */
     [SerializeField] private float maxSize;
+
+    /** Rychlost expanze výbuchu. */
     [SerializeField] private float expansionSpeed;
+
+    /** Základní poškození výbuchu. */
     [SerializeField] private float damage;
 
+    /** Kritická šance výbuchu. */
+    private float criticalChance;
+
+    [Header("References")]
+    /** Odkaz na ThermalShield, který výbuch vytvoøil. */
     public ThermalShield thermalShield;
 
-    /** Seznam tagù, se kterými projektil mùže kolidovat. */
+    [Header("Collision")]
+    /** Seznam tagù, se kterými mùže výbuch kolidovat. */
     [SerializeField] private List<string> collisionTags;
 
-    public void Initialize(float entityDamage, float entitySize, ThermalShield entityThermalShield, float entityMaxSize, float entityExpansionSpeed)
+    public void Initialize(float entityDamage, float critChance, float entitySize, ThermalShield sourceShield, float entityMaxSize, float entityExpansionSpeed)
     {
-        damage += entityDamage;
-        maxSize += entitySize;
-        thermalShield = entityThermalShield;
+        damage = entityDamage;
+        criticalChance = critChance;
+
         maxSize = entityMaxSize;
         expansionSpeed = entityExpansionSpeed;
+
+        thermalShield = sourceShield;
+
         transform.localScale = Vector3.zero;
     }
 
@@ -32,24 +46,19 @@ public class ThermalExplosion : MonoBehaviour
         }
         else
         {
-            thermalShield.CleanupExplosion();
+            thermalShield?.CleanupExplosion();
             Destroy(gameObject);
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collisionTags.Contains(collision.tag))
         {
-            try
+            SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
+            if (enemy != null)
             {
-                SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
-                enemy.TakeDamage(damage);
-            }
-            catch (NullReferenceException)
-            {
-                Destroy(collision.gameObject);
-                return;
+                enemy.TakeDamage(damage, criticalChance);
             }
         }
     }
