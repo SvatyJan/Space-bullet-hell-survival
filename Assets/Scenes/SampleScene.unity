@@ -2106,7 +2106,7 @@ PrefabInstance:
       objectReference: {fileID: 418740126}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.size
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[0].lockTime
@@ -2118,7 +2118,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[4].lockTime
-      value: 0
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[6].lockTime
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[7].lockTime
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[1].unlockTime
@@ -2142,11 +2150,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[6].unlockTime
-      value: 100
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[7].unlockTime
-      value: 60
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[8].unlockTime
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[9].unlockTime
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[10].unlockTime
+      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[3].enemyPrefab
@@ -2167,7 +2187,19 @@ PrefabInstance:
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[7].enemyPrefab
       value: 
-      objectReference: {fileID: 8384564211731344221, guid: e2ffbff4503e28046a09ad0175daa8fd, type: 3}
+      objectReference: {fileID: 6415720992155733756, guid: 284676886654d0f4ebe10bb482b3a6d5, type: 3}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[8].enemyPrefab
+      value: 
+      objectReference: {fileID: 8946727491293231898, guid: fe8d1e0555e88f34c83b568086b74705, type: 3}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[9].enemyPrefab
+      value: 
+      objectReference: {fileID: 6415720992155733756, guid: 284676886654d0f4ebe10bb482b3a6d5, type: 3}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[10].enemyPrefab
+      value: 
+      objectReference: {fileID: 4507033410055292894, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[0].spawnsPerSecond
       value: 1
@@ -2198,7 +2230,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
       propertyPath: timedEnemies.Array.data[7].spawnsPerSecond
-      value: 0.1666667
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[8].spawnsPerSecond
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[9].spawnsPerSecond
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526601916026526060, guid: 917c28dfa4924ac48b33e6816f0a050b, type: 3}
+      propertyPath: timedEnemies.Array.data[10].spawnsPerSecond
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

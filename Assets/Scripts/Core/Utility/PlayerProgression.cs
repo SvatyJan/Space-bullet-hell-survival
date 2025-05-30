@@ -200,34 +200,36 @@ public class PlayerProgression : MonoBehaviour
     {
         foreach (StatUpgradeOption statUpgrade in statUpgrades)
         {
-            if (!shipStats.CanAddStatUpgrade(statUpgrade.statType.ToString())) continue;
+            bool canAdd = shipStats.CanAddStatUpgrade(statUpgrade.statType.ToString());
+            bool alreadyExists = statLevels.ContainsKey(statUpgrade.statType);
+            bool isMaxed = alreadyExists && statLevels[statUpgrade.statType] >= maxStatUpgrade;
 
-            if (statLevels.ContainsKey(statUpgrade.statType) && statLevels[statUpgrade.statType] >= maxStatUpgrade)
+            if (canAdd && !isMaxed)
             {
-                continue;
+                options.Add(statUpgrade);
             }
-            options.Add(statUpgrade);
         }
     }
+
 
     /** Vrátí možné vylepšení zbraní. */
     private void CheckAvailableWeapons()
     {
+        bool hasMaxWeapons = shipStats.HasMaxWeapons();
+
         foreach (WeaponUpgradeOption weaponUpgrade in weaponUpgrades)
         {
-            if (!weaponLevels.ContainsKey(weaponUpgrade) && shipStats.HasMaxWeapons()) continue;
+            bool alreadyHasWeapon = weaponLevels.ContainsKey(weaponUpgrade);
+            bool canEvolve = CanEvolve(weaponUpgrade);
 
-            if (!weaponLevels.ContainsKey(weaponUpgrade))
-            {
-                options.Add(weaponUpgrade);
-            }
-            else if (weaponLevels[weaponUpgrade] < maxWeaponUpgrade)
+            if (!alreadyHasWeapon && hasMaxWeapons) continue;
+
+            if ((alreadyHasWeapon && weaponLevels[weaponUpgrade] < maxWeaponUpgrade) || canEvolve)
             {
                 options.Add(weaponUpgrade);
             }
         }
     }
-
 
     /** Vrátí poèet možných evolvù. */
     private int CheckAvailableEvolves()
