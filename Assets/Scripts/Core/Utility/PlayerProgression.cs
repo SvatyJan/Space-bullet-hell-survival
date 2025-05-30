@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerProgression : MonoBehaviour
 {
@@ -201,6 +200,8 @@ public class PlayerProgression : MonoBehaviour
     {
         foreach (StatUpgradeOption statUpgrade in statUpgrades)
         {
+            if (!shipStats.CanAddStatUpgrade(statUpgrade.statType.ToString())) continue;
+
             if (statLevels.ContainsKey(statUpgrade.statType) && statLevels[statUpgrade.statType] >= maxStatUpgrade)
             {
                 continue;
@@ -214,6 +215,8 @@ public class PlayerProgression : MonoBehaviour
     {
         foreach (WeaponUpgradeOption weaponUpgrade in weaponUpgrades)
         {
+            if (!weaponLevels.ContainsKey(weaponUpgrade) && shipStats.HasMaxWeapons()) continue;
+
             if (!weaponLevels.ContainsKey(weaponUpgrade))
             {
                 options.Add(weaponUpgrade);
