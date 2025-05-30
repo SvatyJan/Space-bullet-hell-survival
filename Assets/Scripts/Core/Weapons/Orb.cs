@@ -2,16 +2,33 @@ using UnityEngine;
 
 public class Orb : MonoBehaviour
 {
+    [Header("Orbit Settings")]
+    /** Polomìr obìhu kolem lodi. */
     [SerializeField] private float orbitRadius = 5f;
+
+    /** Rychlost otáèení kolem lodi (ve stupních za sekundu). */
     [SerializeField] private float orbitSpeed = 180f;
-    [SerializeField] private float baseDamage = 5f;
-    private Transform ship;
-    [SerializeField] private bool isEvolved = false;
+
+    /** Poèáteèní úhel orbity. */
     private float angle;
 
+    /** Základní poškození zpùsobené kolizí. */
+    [SerializeField] private float baseDamage = 5f;
+
+    /** Referenèní odkaz na loï, kolem které orb obíhá. */
+    private Transform ship;
+
+    /** Pøíznak, zda je orb v evolvovaném stavu. */
+    [SerializeField] private bool isEvolved = false;
+
     [Header("XP Attraction (only when evolved)")]
+    /** Polomìr, ve kterém orb pøitahuje XP pøi evoluci. */
     [SerializeField] private float xpAttractRadius = 5f;
+
+    /** Rychlost, jakou se XP pøitahují smìrem k orbu. */
     [SerializeField] private float xpPullSpeed = 5f;
+
+    /** Odkaz na komponentu, která spravuje XP hráèe. */
     private PlayerProgression playerProgression;
 
     private void Update()

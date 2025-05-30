@@ -1,20 +1,43 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
 public class Rocket : MonoBehaviour
 {
-    public float speed = 5f;
-    public float maxDistance = 10f;
-    public float explosionRadius = 2f;
-    public float rotateSpeed = 200f;
+    [Header("Attributes")]
+    /** Rychlost rakety. */
+    [SerializeField] private float speed = 5f;
 
+    /** Maximální vzdálenost, kterou může raketa urazit. */
+    [SerializeField] private float maxDistance = 10f;
+
+    /** Poloměr exploze. */
+    [SerializeField] private float explosionRadius = 2f;
+
+    /** Rychlost otáčení rakety. */
+    [SerializeField] private float rotateSpeed = 200f;
+
+    [Header("References")]
+    /** Odkaz na cílový objekt. */
     private GameObject target;
+
+    /** Odkaz na entitu, která raketu vystřelila. */
     public SpaceEntity owner;
+
+    /** Seznam tagů, se kterými může raketa kolidovat. */
     [SerializeField] private List<string> collisionTags;
-    private float rocketDamage;
-    private Vector3 startPosition;
+
+    /** Rigidbody rakety. */
     private Rigidbody2D rb;
+
+    [Header("Runtime")]
+    /** Poškození rakety. */
+    private float rocketDamage;
+
+    /** Kritická šance rakety. */
+    private float rocketCritChance;
+
+    /** Počáteční pozice rakety. */
+    private Vector3 startPosition;
 
     private void Start()
     {
@@ -32,6 +55,7 @@ public class Rocket : MonoBehaviour
     {
         this.owner = owner;
         this.rocketDamage = damage;
+        this.rocketCritChance = owner.GetComponent<ShipStats>().CriticalChance;
     }
 
     private void FixedUpdate()
@@ -74,48 +98,10 @@ public class Rocket : MonoBehaviour
             SpaceEntity hitEntity = hit.GetComponent<SpaceEntity>();
             if (hitEntity != null && hitEntity != owner)
             {
-                hitEntity.TakeDamage(rocketDamage);
+                hitEntity.TakeDamage(rocketDamage, rocketCritChance);
             }
         }
 
-        StartCoroutine(DrawExplosionIndicator(explosionPosition));
         Destroy(gameObject);
-    }
-
-    private IEnumerator DrawExplosionIndicator(Vector3 explosionPosition)
-    {
-        GameObject explosionEffect = new GameObject("ExplosionIndicator");
-        explosionEffect.transform.position = explosionPosition;
-
-        LineRenderer lineRenderer = explosionEffect.AddComponent<LineRenderer>();
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
-        lineRenderer.loop = true;
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
-        lineRenderer.useWorldSpace = true;
-
-        int segments = 50;
-        float angleStep = 360f / segments;
-        Vector3[] positions = new Vector3[segments];
-
-        for (int i = 0; i < segments; i++)
-        {
-            float angle = Mathf.Deg2Rad * i * angleStep;
-            positions[i] = explosionPosition + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * explosionRadius;
-        }
-
-        lineRenderer.positionCount = segments;
-        lineRenderer.SetPositions(positions);
-
-        Destroy(explosionEffect, 1f);
-        yield return new WaitForSeconds(1f);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);
-        Gizmos.DrawSphere(transform.position, explosionRadius);
     }
 }

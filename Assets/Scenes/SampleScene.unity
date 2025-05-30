@@ -2058,7 +2058,7 @@ PrefabInstance:
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
+      objectReference: {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.size
       value: 1
@@ -2066,7 +2066,7 @@ PrefabInstance:
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: statUpgrades.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}
+      objectReference: {fileID: 11400000, guid: 45921c6d309d7a24f96e513d1215d9d4, type: 2}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCards.Array.data[0]
       value: 

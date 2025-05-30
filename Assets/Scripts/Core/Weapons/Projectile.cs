@@ -3,17 +3,13 @@ using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour
 {
-    /** Odkaz na staty hráèe nebo nepøítele, který projekt vystøelil. */
-    private ShipStats shipStats;
-
+    [Header("References")]
     /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
     public SpaceEntity owner;
 
+    [Header("Attributes")]
     /** Rychlost støely. */
     [SerializeField] public float speed = 10f;
-
-    /** Seznam tagù, se kterými projektil mùže kolidovat. */
-    [SerializeField] private List<string> collisionTags;
 
     /** Poškození projektilu. */
     [SerializeField] private float projectileDamage = 10f;
@@ -24,8 +20,14 @@ public class Projectile : MonoBehaviour
     /** Doba, jak dlouho vydrží projektil než se znièí. */
     [SerializeField] private float projectileDuration = 5f;
 
+    [Header("Collision")]
+    /** Seznam tagù, se kterými projektil mùže kolidovat. */
+    [SerializeField] private List<string> collisionTags;
+
+    [Header("Runtime")]
     /** Smìr pohybu støely. */
     private Vector3 direction;
+
 
     private void Start()
     {
