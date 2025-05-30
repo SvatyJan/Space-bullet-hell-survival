@@ -2,113 +2,128 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour, IWeapon
 {
+    [Header("Prefabs")]
     /** Prefab projektilu. */
     public GameObject projectilePrefab;
 
-    /** Výchozí bod støely. */
-    public Transform shootingPoint;
+    [Header("Firing Points")]
+    /** Pole bodù, ze kterých mùže být vystøelen projektil. */
+    private Transform[] shootingPoints;
 
+    /** Index urèující poøadí bodu výstøelu. */
+    private int currentPointIndex = 0;
+
+    [Header("Attributes")]
     /** Interval mezi výstøely. */
-    public float fireRate = 0.5f;
+    [SerializeField] private float fireRate = 0.5f;
 
     /** Èas pro pøíští výstøel. */
     private float nextFireTime = 0f;
 
     /** Základní poškození zbranì. */
-    private float baseDamage = 10f;
+    [SerializeField] private float baseDamage = 10f;
 
+    /** Základní detekèní rádius pro hledání cíle. */
+    [SerializeField] private float baseDetectionRadius = 10f;
+
+    [Header("References")]
     /** Odkaz na vlastníka zbranì. */
-    public SpaceEntity owner;
+    private SpaceEntity owner;
 
+    /** Atributy vlastníka zbranì. */
+    private ShipStats shipStats;
+
+    [Header("Targeting")]
     /** Cíl støelby. */
     private Vector3 targetDirection;
 
-    [SerializeField] float baseDetectionRadius = 10f;
-
-    void Start()
+    private void Start()
     {
-        if (owner == null)
+        // Najdi vlastníka
+        owner = GetComponentInParent<SpaceEntity>();
+        shipStats = owner?.GetComponent<ShipStats>();
+
+        if (owner == null || shipStats == null)
         {
-            owner = GetComponentInParent<SpaceEntity>();
-
-            if (owner == null)
-            {
-                owner = transform.root.GetComponentInChildren<SpaceEntity>();
-            }
-
-            if (owner == null)
-            {
-                Debug.LogError($"{gameObject.name}: SpaceEntity nebyl nalezen ani v pøedcích ani v rootu.");
-            }
+            Debug.LogError($"{gameObject.name}: Turret nemùže najít vlastníka nebo ShipStats.");
         }
 
-        baseDamage = owner.GetComponent<ShipStats>().BaseDamage;
-        if (shootingPoint == null)
+        // Pøevzít poškození ze statù hráèe
+        baseDamage += shipStats.BaseDamage;
+
+        // Získání støeleckých bodù
+        if (shipStats.ShootingPoints == null || shipStats.ShootingPoints.Length == 0)
         {
-            shootingPoint = transform;
-            Debug.LogWarning("Turret: shootingPoint nebyl nastaven, používám this.transform!");
+            shootingPoints = new Transform[] { transform };
+            Debug.LogWarning("Turret: Nebyly nalezeny shootingPoints, používá se this.transform.");
+        }
+        else
+        {
+            shootingPoints = shipStats.ShootingPoints;
         }
     }
 
     public void Fire()
     {
-        if (Time.time >= nextFireTime)
+        if (Time.time < nextFireTime) return;
+
+        float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
+        nextFireTime = Time.time + totalFireRate;
+
+        Transform firingPoint = shootingPoints[currentPointIndex];
+        currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+
+        targetDirection = GetNearestEnemyDirection();
+        if (targetDirection == Vector3.zero) return;
+
+        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
+
+        Projectile projectileScript = projectile.GetComponent<Projectile>();
+        if (projectileScript != null)
         {
-            nextFireTime = Time.time + fireRate;
-
-            if (projectilePrefab == null)
-            {
-                Debug.LogError("Turret: projectilePrefab není pøiøazen! Støelba zrušena.");
-                return;
-            }
-
-            if (shootingPoint == null)
-            {
-                Debug.LogError("Turret: shootingPoint je null! Støelba zrušena.");
-                return;
-            }
-
-            targetDirection = GetNearestEnemyDirection();
-            if (targetDirection == new Vector3(0,0,0)) { return; }
-
-            GameObject projectile = Instantiate(projectilePrefab, shootingPoint.position, shootingPoint.rotation);
-
-            Projectile projectileScript = projectile.GetComponent<Projectile>();
-            if (projectileScript != null)
-            {
-                projectileScript.Initialize(owner, baseDamage);
-                projectileScript.SetDirection(targetDirection);
-            }
+            projectileScript.Initialize(owner, baseDamage);
+            projectileScript.SetDirection(targetDirection);
         }
     }
 
     private Vector3 GetNearestEnemyDirection()
     {
-        float detectionRadius = baseDetectionRadius + owner.GetComponent<ShipStats>().DetectionRadius;
+        float detectionRadius = baseDetectionRadius + shipStats.DetectionRadius;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+
+        float closestDistance = Mathf.Infinity;
+        Transform closestEnemy = null;
 
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Enemy"))
             {
                 float distance = Vector2.Distance(transform.position, collider.transform.position);
-                if(distance < detectionRadius)
+                if (distance < closestDistance)
                 {
-                    return (collider.transform.position - transform.position).normalized;
+                    closestDistance = distance;
+                    closestEnemy = collider.transform;
                 }
             }
         }
-        return new Vector3(0,0,0);
+
+        if (closestEnemy != null)
+        {
+            return (closestEnemy.position - transform.position).normalized;
+        }
+
+        return Vector3.zero;
     }
 
     public void Upgrade()
     {
-        fireRate -= 0.05f;
+        fireRate = Mathf.Max(0.05f, fireRate - 0.05f);
+        baseDamage += 3f;
     }
 
     public void Evolve()
     {
-        fireRate -= 0.5f;
-        baseDamage += 5f;
+        fireRate = Mathf.Max(0.05f, fireRate - 0.2f);
+        baseDamage += 10f;
     }
 }
