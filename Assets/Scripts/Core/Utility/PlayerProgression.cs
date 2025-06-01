@@ -75,8 +75,9 @@ public class PlayerProgression : MonoBehaviour
             }
         }
 
-        foreach (StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
-        foreach(WeaponUpgradeOption weaponUpgrade in weaponUpgrades) { options.Add(weaponUpgrade); }
+        // Není potøeba
+        //foreach (StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
+        //foreach(WeaponUpgradeOption weaponUpgrade in weaponUpgrades) { options.Add(weaponUpgrade); }
     }
 
     /** Pøidá zkušenosti. */
@@ -153,15 +154,6 @@ public class PlayerProgression : MonoBehaviour
                 {
                     int level = statLevels.ContainsKey(attribute.statType) ? statLevels[attribute.statType] : 0;
                     upgradeDescriptions[i].text = $"{upgrade.name} (Lv {level}/{maxStatUpgrade})\n{upgrade.description}";
-                    if (!statLevels.ContainsKey(attribute.statType))
-                    {
-                        statLevels.Add(attribute.statType, level);
-                    }
-                    else
-                    {
-                        statLevels.Remove(attribute.statType);
-                        statLevels.Add(attribute.statType, level);
-                    }
                 }
                 else if (upgrade is WeaponUpgradeOption weapon)
                 {
@@ -198,15 +190,33 @@ public class PlayerProgression : MonoBehaviour
     /** Vrátí možné vylepšení atributù. */
     private void CheckAvailableStats()
     {
+        int currentStatCount = 0;
+
+        foreach (var kvp in statLevels)
+        {
+            if (kvp.Value > 0)
+            {
+                currentStatCount++;
+            }
+        }
+
+        bool hasMaxStats = currentStatCount >= shipStats.maxStatUpgrades;
+
         foreach (StatUpgradeOption statUpgrade in statUpgrades)
         {
-            bool canAdd = shipStats.CanAddStatUpgrade(statUpgrade.statType.ToString());
-            bool alreadyExists = statLevels.ContainsKey(statUpgrade.statType);
-            bool isMaxed = alreadyExists && statLevels[statUpgrade.statType] >= maxStatUpgrade;
+            bool hasStat = statLevels.ContainsKey(statUpgrade.statType);
+            int level = hasStat ? statLevels[statUpgrade.statType] : 0;
 
-            if (canAdd && !isMaxed)
+            if (hasStat)
             {
-                options.Add(statUpgrade);
+                if (level < maxStatUpgrade)
+                {
+                    options.Add(statUpgrade); // mùžu vylepšit
+                }
+            }
+            else if (!hasMaxStats)
+            {
+                options.Add(statUpgrade); // mùžu pøidat nový stat
             }
         }
     }
@@ -215,21 +225,38 @@ public class PlayerProgression : MonoBehaviour
     /** Vrátí možné vylepšení zbraní. */
     private void CheckAvailableWeapons()
     {
-        bool hasMaxWeapons = shipStats.HasMaxWeapons();
+        int currentWeaponCount = 0;
+
+        foreach (var kvp in weaponLevels)
+        {
+            if (kvp.Value > 0)
+            {
+                currentWeaponCount++;
+            }
+        }
+
+        bool hasMaxWeapons = currentWeaponCount >= shipStats.maxWeapons;
 
         foreach (WeaponUpgradeOption weaponUpgrade in weaponUpgrades)
         {
-            bool alreadyHasWeapon = weaponLevels.ContainsKey(weaponUpgrade);
+            bool hasWeapon = weaponLevels.ContainsKey(weaponUpgrade);
+            int level = hasWeapon ? weaponLevels[weaponUpgrade] : 0;
             bool canEvolve = CanEvolve(weaponUpgrade);
 
-            if (!alreadyHasWeapon && hasMaxWeapons) continue;
-
-            if ((alreadyHasWeapon && weaponLevels[weaponUpgrade] < maxWeaponUpgrade) || canEvolve)
+            if (hasWeapon)
             {
-                options.Add(weaponUpgrade);
+                if (level < maxWeaponUpgrade || canEvolve)
+                {
+                    options.Add(weaponUpgrade); // upgrade nebo evolve
+                }
+            }
+            else if (!hasMaxWeapons)
+            {
+                options.Add(weaponUpgrade); // nová zbraò, pokud je místo
             }
         }
     }
+
 
     /** Vrátí poèet možných evolvù. */
     private int CheckAvailableEvolves()

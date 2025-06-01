@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: AttractRadius
   m_EditorClassIdentifier: 
   description: Attraction radius increase by 1
-  statType: 7
+  statType: 6
   increaseAmount: 1

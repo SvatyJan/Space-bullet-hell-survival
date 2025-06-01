@@ -66,7 +66,7 @@ public class ShipStats : MonoBehaviour
     [SerializeField] private float level = 1f;
 
     /** Maximální poèet zbraní. */
-    [SerializeField] private int maxWeapons = 2;
+    [SerializeField] public int maxWeapons = 2;
 
     /** Poèet projektilù. */
     [SerializeField] private int projectilesCount = 2;
@@ -75,7 +75,7 @@ public class ShipStats : MonoBehaviour
     private Dictionary<StatType, int> statUpgradeCounts = new Dictionary<StatType, int>();
 
     /** Maximální poèet rùzných statù. */
-    [SerializeField] private int maxStatUpgrades = 3;
+    [SerializeField] public int maxStatUpgrades = 3;
 
     /** List zbraní na lodi. */
     private List<string> equippedWeapons = new List<string>();
