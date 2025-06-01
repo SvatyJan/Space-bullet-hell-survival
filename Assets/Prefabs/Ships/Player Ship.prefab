@@ -133,7 +133,7 @@ MonoBehaviour:
   currentHealth: 100
   healthRegen: 1
   baseDamage: 10
-  criticalChance: 50
+  criticalChance: 0
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 1
@@ -143,9 +143,9 @@ MonoBehaviour:
   xp: 0
   xpNextlevelUp: 1
   level: 1
-  maxWeapons: 2
+  maxWeapons: 5
   projectilesCount: 1
-  maxStatUpgrades: 2
+  maxStatUpgrades: 1
   ShootingPoints:
   - {fileID: 2509701665588952320}
   - {fileID: 864366328607796841}
@@ -162,8 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8113cd2dc5a27614fa2e7df5be6898b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statUpgrades:
-  - {fileID: 11400000, guid: 407063229eaa4934c9bf00ac6f1c739d, type: 2}
+  statUpgrades: []
   weaponUpgrades: []
   maxStatUpgrade: 5
   maxWeaponUpgrade: 5

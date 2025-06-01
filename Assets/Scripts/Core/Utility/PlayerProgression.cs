@@ -167,17 +167,6 @@ public class PlayerProgression : MonoBehaviour
                     {
                         upgradeDescriptions[i].text = $"{upgrade.name} (Lv {level}/{maxWeaponUpgrade})\n{upgrade.description}";
                     }
-
-                    if (!weaponLevels.ContainsKey(weapon))
-                    {
-                        weaponLevels.Add(weapon, level);
-                    }
-                    else
-                    {
-                        weaponLevels.Remove(weapon);
-                        weaponLevels.Add(weapon, level);
-                    }
-                        
                 }
             }
             else
@@ -247,7 +236,7 @@ public class PlayerProgression : MonoBehaviour
             {
                 if (level < maxWeaponUpgrade || canEvolve)
                 {
-                    options.Add(weaponUpgrade); // upgrade nebo evolve
+                    options.Add(weaponUpgrade); // upgrade
                 }
             }
             else if (!hasMaxWeapons)
@@ -350,20 +339,36 @@ public class PlayerProgression : MonoBehaviour
                     Debug.LogWarning("Weapon '" + weapon + "'evolve was unsuccesful!");
                 }
             }
+            else if (!weaponLevels.ContainsKey(weapon))
+            {
+                GameObject weaponGO = weapon.Apply(shipStats);
+                if (weaponGO != null)
+                {
+                    weaponInstances.Add(weaponGO);
+                    weaponLevels[weapon] = 1;
+                }
+            }
             else
             {
                 GameObject weaponGO = weapon.GetActiveInstance();
-                IWeapon IWeapon = weaponGO.GetComponent<IWeapon>();
-                if (IWeapon != null)
+                if (weaponGO == null)
                 {
-                    IWeapon.Upgrade();
+                    Debug.LogWarning($"WeaponUpgradeOption '{weapon.name}' has no activeInstance.");
+                    return;
+                }
+
+                IWeapon weaponComponent = weaponGO.GetComponent<IWeapon>();
+                if (weaponComponent != null)
+                {
+                    weaponComponent.Upgrade();
                     weaponLevels[weapon]++;
                 }
                 else
                 {
-                    Debug.LogWarning("Weapon '" + weapon + "' upgrade was unsuccesful!");
+                    Debug.LogWarning($"Weapon '{weapon.name}' upgrade failed - no IWeapon component found.");
                 }
             }
+
         }
     }
 
