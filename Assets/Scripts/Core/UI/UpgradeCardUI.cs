@@ -4,18 +4,18 @@ using TMPro;
 
 public class UpgradeCardUI : MonoBehaviour
 {
-    public Image iconImage;
-    public TMP_Text titleText;
-    public TMP_Text descriptionText;
-    public Button upgradeButton;
+    [SerializeField] private Image icon;
+    [SerializeField] private TMP_Text title;
+    [SerializeField] private TMP_Text description;
+    [SerializeField] private Button button;
 
     public void SetUpgradeData(IUpgradeOption upgrade, System.Action onClick)
     {
-        if (iconImage != null) iconImage.sprite = upgrade.icon;
-        if (titleText != null) titleText.text = upgrade.name;
-        if (descriptionText != null) descriptionText.text = upgrade.description;
+        if (icon != null) icon.sprite = upgrade.icon;
+        if (title != null) title.text = upgrade.name;
+        if (description != null) description.text = upgrade.description;
 
-        upgradeButton.onClick.RemoveAllListeners();
-        upgradeButton.onClick.AddListener(() => onClick());
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => onClick.Invoke());
     }
 }

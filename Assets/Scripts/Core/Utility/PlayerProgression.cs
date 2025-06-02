@@ -46,6 +46,11 @@ public class PlayerProgression : MonoBehaviour
     /** Texty na kartièkách. */
     public TMP_Text[] upgradeDescriptions;
 
+    [Header("Upgrade UI Prefab")]
+    [SerializeField] private GameObject upgradeCardPrefab;
+    [SerializeField] private Transform upgradeCardParent;
+
+
     private void Start()
     {
         shipStats = GetComponent<ShipStats>();
@@ -114,13 +119,8 @@ public class PlayerProgression : MonoBehaviour
         options.Clear();
 
         CheckAvailableStats();
-
         CheckAvailableWeapons();
-
-        int availableEvolves = CheckAvailableEvolves();
-
-        List<IUpgradeOption> evolves = GetAvailableEvolves(upgradeCards.Length);
-        upgradeChoices.AddRange(evolves);
+        upgradeChoices.AddRange(GetAvailableEvolves(upgradeCards.Length));
 
         if (options.Count == 0 && upgradeChoices.Count == 0)
         {
@@ -135,46 +135,27 @@ public class PlayerProgression : MonoBehaviour
             upgradeChoices.AddRange(GetRandomUpgrades(options, remaining));
         }
 
-        // Zobraz kartièky
-        upgradePanel.SetActive(true);
-        for (int i = 0; i < upgradeCards.Length; i++)
+        foreach (Transform child in upgradeCardParent)
         {
-            if (i < upgradeChoices.Count)
-            {
-                var upgrade = upgradeChoices[i];
-                int index = i;
-
-                upgradeCards[i].SetActive(true);
-                var button = upgradeCards[i].GetComponent<Button>();
-                button.onClick.RemoveAllListeners();
-                button.onClick.AddListener(() => ApplyUpgrade(upgradeChoices[index]));
-                button.onClick.AddListener(CloseUpgradePanel);
-
-                if (upgrade is StatUpgradeOption attribute)
-                {
-                    int level = statLevels.ContainsKey(attribute.statType) ? statLevels[attribute.statType] : 0;
-                    upgradeDescriptions[i].text = $"{upgrade.name} (Lv {level}/{maxStatUpgrade})\n{upgrade.description}";
-                }
-                else if (upgrade is WeaponUpgradeOption weapon)
-                {
-                    int level = weaponLevels.ContainsKey(weapon) ? weaponLevels[weapon] : 0;
-
-                    if (CanEvolve(weapon))
-                    {
-                        upgradeDescriptions[i].text = $"EVOLVE \n{upgrade.name}!";
-                    }
-                    else
-                    {
-                        upgradeDescriptions[i].text = $"{upgrade.name} (Lv {level}/{maxWeaponUpgrade})\n{upgrade.description}";
-                    }
-                }
-            }
-            else
-            {
-                upgradeCards[i].SetActive(false);
-            }
+            Destroy(child.gameObject);
         }
+
+        foreach (var upgrade in upgradeChoices)
+        {
+            GameObject cardGO = Instantiate(upgradeCardPrefab, upgradeCardParent);
+            UpgradeCardUI card = cardGO.GetComponent<UpgradeCardUI>();
+
+            card.SetUpgradeData(upgrade, () =>
+            {
+                ApplyUpgrade(upgrade);
+                CloseUpgradePanel();
+            });
+        }
+
+        // Zobraz UI
+        upgradePanel.SetActive(true);
     }
+
 
     /** Vrátí možné vylepšení atributù. */
     private void CheckAvailableStats()
