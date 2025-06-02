@@ -54,7 +54,7 @@ public class ElectricField : MonoBehaviour, IWeapon
             ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
             if (fieldZoneScript != null)
             {
-                fieldZoneScript.Initialize(GetFinalDamage(), GetCriticalStrike(), size, collisionTags);
+                fieldZoneScript.Initialize(GetFinalDamage(), size, collisionTags, stats);
             }
         }
         else
@@ -91,7 +91,7 @@ public class ElectricField : MonoBehaviour, IWeapon
             ElectricFieldZone fieldZoneScript = activeFieldZone.GetComponent<ElectricFieldZone>();
             if (fieldZoneScript != null)
             {
-                fieldZoneScript.Initialize(GetFinalDamage(), GetCriticalStrike(), size, collisionTags);
+                fieldZoneScript.Initialize(GetFinalDamage(), size, collisionTags, stats);
             }
         }
     }
@@ -100,11 +100,5 @@ public class ElectricField : MonoBehaviour, IWeapon
     {
         stats = owner.GetComponent<ShipStats>();
         return baseDamage + stats.BaseDamage;
-    }
-
-    private float GetCriticalStrike()
-    {
-        stats = owner.GetComponent<ShipStats>();
-        return stats.CriticalChance;
     }
 }

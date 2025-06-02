@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ElectricFieldZone : MonoBehaviour
@@ -7,9 +6,6 @@ public class ElectricFieldZone : MonoBehaviour
     [Header("Attributes")]
     /** Poškození aplikované na entitu. */
     private float baseDamage;
-
-    /** Kritické poškození aplikované na entitu. */
-    private float baseCriticalChance;
 
     /** Poloměr elektrického pole. */
     [SerializeField] private float radius = 1f;
@@ -21,22 +17,28 @@ public class ElectricFieldZone : MonoBehaviour
     /** Seznam entit uvnitř pole. */
     private HashSet<SpaceEntity> enemiesInField = new HashSet<SpaceEntity>();
 
-    public void Initialize(float damage, float entityCriticalChance, float entitySize, List<string> entityCollisionTags)
+    [Header("References")]
+    /** Odkaz na vlastníka pole pro získání dynamických hodnot (např. krit. šance). */
+    private ShipStats shipStats;
+
+    public void Initialize(float damage, float entitySize, List<string> entityCollisionTags, ShipStats stats)
     {
         this.baseDamage = damage;
-        this.baseCriticalChance = entityCriticalChance;
-        collisionTags = entityCollisionTags;
+        this.collisionTags = entityCollisionTags;
+        this.shipStats = stats;
 
         transform.localScale = new Vector3(entitySize, entitySize, 0);
     }
 
     public void DealDamage()
     {
+        float currentCritChance = shipStats != null ? shipStats.CriticalChance : 0f;
+
         foreach (var enemy in enemiesInField)
         {
             if (enemy != null)
             {
-                enemy.TakeDamage(baseDamage, baseCriticalChance);
+                enemy.TakeDamage(baseDamage, currentCritChance);
             }
         }
     }
