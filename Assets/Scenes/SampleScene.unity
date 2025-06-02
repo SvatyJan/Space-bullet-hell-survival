@@ -1848,6 +1848,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2063858426}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: startingWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: eadeae4fad7e051478018d3457a2f26c, type: 2}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCardParent
       value: 
       objectReference: {fileID: 6720888763823305874}
