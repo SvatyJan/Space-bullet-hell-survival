@@ -65,22 +65,26 @@ public class Blaster : MonoBehaviour, IWeapon
         if (Time.time < nextFireTime) return;
 
         float totalFireRate = Mathf.Max(0.05f, baseFireRate * shipStats.FireRate);
-
         nextFireTime = Time.time + totalFireRate;
 
-        Transform firingPoint = shootingPoints[currentPointIndex];
+        int shotsToFire = Mathf.Min(shipStats.ProjectilesCount, shootingPoints.Length);
 
-        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-
-        Projectile projectileScript = projectile.GetComponent<Projectile>();
-        if (projectileScript != null)
+        for (int i = 0; i < shotsToFire; i++)
         {
-            projectileScript.Initialize(owner, baseDamage);
-            projectileScript.SetDirection(firingPoint.up);
-        }
+            Transform firingPoint = shootingPoints[currentPointIndex];
+            GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
 
-        currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.Initialize(owner, baseDamage);
+                projectileScript.SetDirection(firingPoint.up);
+            }
+
+            currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+        }
     }
+
 
     public void Upgrade()
     {
