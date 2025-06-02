@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BioLauncher
   m_EditorClassIdentifier: 
   description: BioLauncher
+  icon: {fileID: 514449461, guid: 83603618886ce994e8798399afce3ea7, type: 3}
   weaponName: BioLauncher
   weaponPrefab: {fileID: 9043178360200690608, guid: c2d93065324980d49a1c279f248f1f83, type: 3}
   requiredStat: 8

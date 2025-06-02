@@ -9,12 +9,16 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
     /** Typ statu, který se má zvýšit. */
     public StatType statType;
 
+    [SerializeField] public Sprite icon;
+
     /** Hodnota, o kterou se stat zvýší. */
     [SerializeField] private float increaseAmount = 1f;
 
     /** Pøiøazení popisu vylepšení. */
     string IUpgradeOption.name => name;
     string IUpgradeOption.description => description;
+
+    Sprite IUpgradeOption.icon => icon;
 
     /** Aplikuje atributy. */
     public GameObject? Apply(ShipStats stats)

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Critical chance increase by 10%
   statType: 4
+  icon: {fileID: 1461213453, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
   increaseAmount: 10

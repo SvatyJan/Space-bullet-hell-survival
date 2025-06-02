@@ -6,6 +6,8 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
     /** Popis vylepšení. */
     public string description;
 
+    [SerializeField] public Sprite icon;
+
     /** Název zbranì. */
     public string weaponName;
 
@@ -14,6 +16,8 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
 
     /** Pøiøazení popisu vylepšení. */
     string IUpgradeOption.description => description;
+
+    Sprite IUpgradeOption.icon => icon;
 
     public StatType requiredStat;
 

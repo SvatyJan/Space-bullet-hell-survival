@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Speed Increase 1
   statType: 0
+  icon: {fileID: -513919501, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
   increaseAmount: 1

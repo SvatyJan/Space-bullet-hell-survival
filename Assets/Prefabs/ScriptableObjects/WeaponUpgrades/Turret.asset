@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Turret
   m_EditorClassIdentifier: 
   description: Turret Upgrade
+  icon: {fileID: -937524440, guid: 83603618886ce994e8798399afce3ea7, type: 3}
   weaponName: Turret Upgrade
   weaponPrefab: {fileID: 7766916691272431245, guid: 12fcdd56e205ef448a4c36b1dd356205, type: 3}
   requiredStat: 5

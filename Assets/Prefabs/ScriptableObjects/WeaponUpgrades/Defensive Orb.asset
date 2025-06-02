@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Defensive Orb
   m_EditorClassIdentifier: 
   description: Defensive Orb
+  icon: {fileID: -1006080112, guid: 83603618886ce994e8798399afce3ea7, type: 3}
   weaponName: Defensive Orb
   weaponPrefab: {fileID: 6995210300490708727, guid: fd200c84048c4b445a91c4556c1b55e6, type: 3}
   requiredStat: 7
