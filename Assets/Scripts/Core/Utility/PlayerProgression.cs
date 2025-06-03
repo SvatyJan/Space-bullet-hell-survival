@@ -280,14 +280,32 @@ public class PlayerProgression : MonoBehaviour
     private List<IUpgradeOption> GetRandomUpgrades(List<IUpgradeOption> options, int count)
     {
         List<IUpgradeOption> randomUpgrades = new List<IUpgradeOption>();
-        for (int i = 0; i < count && options.Count > 0; i++)
+
+        HashSet<string> existingNames = new HashSet<string>();
+        foreach (var opt in upgradeChoices)
         {
-            int index = UnityEngine.Random.Range(0, options.Count);
-            randomUpgrades.Add(options[index]);
-            options.RemoveAt(index);
+            existingNames.Add(opt.name);
         }
+
+        List<IUpgradeOption> filtered = new List<IUpgradeOption>();
+        foreach (var opt in options)
+        {
+            if (!existingNames.Contains(opt.name))
+            {
+                filtered.Add(opt);
+            }
+        }
+
+        for (int i = 0; i < count && filtered.Count > 0; i++)
+        {
+            int index = UnityEngine.Random.Range(0, filtered.Count);
+            randomUpgrades.Add(filtered[index]);
+            filtered.RemoveAt(index);
+        }
+
         return randomUpgrades;
     }
+
 
     /** 
      * Aplikuje vylepšení.
