@@ -25,6 +25,9 @@ public class PlayerProgression : MonoBehaviour
     /** Maximální poèet vylepšení zbraní. */
     [SerializeField] public int maxWeaponUpgrade = 5;
 
+    /** Poèet zobrazených kartièek vylepšení. */
+    [SerializeField] public int upgradesCount = 3;
+
     /** Možnosti vylepšení. */
     private List<IUpgradeOption> options = new List<IUpgradeOption>();
 
@@ -40,16 +43,11 @@ public class PlayerProgression : MonoBehaviour
     /** Upgrade menu. */
     public GameObject upgradePanel;
 
-    /** Kartièky pro jednotlivé možnosti vylepšení. */
-    public GameObject[] upgradeCards;
-
-    /** Texty na kartièkách. */
-    public TMP_Text[] upgradeDescriptions;
-
     [Header("Upgrade UI Prefab")]
+    /** Prefab kartièky vylepšení. */
     [SerializeField] private GameObject upgradeCardPrefab;
+    /** Prefab rodièe kartièek vylepšení. */
     [SerializeField] private Transform upgradeCardParent;
-
 
     private void Start()
     {
@@ -79,10 +77,6 @@ public class PlayerProgression : MonoBehaviour
                 }
             }
         }
-
-        // Není potøeba
-        //foreach (StatUpgradeOption statUpgrade in statUpgrades) { options.Add(statUpgrade); }
-        //foreach(WeaponUpgradeOption weaponUpgrade in weaponUpgrades) { options.Add(weaponUpgrade); }
     }
 
     /** Pøidá zkušenosti. */
@@ -120,7 +114,7 @@ public class PlayerProgression : MonoBehaviour
 
         CheckAvailableStats();
         CheckAvailableWeapons();
-        List<IUpgradeOption> evolves = GetAvailableEvolves(upgradeCards.Length);
+        List<IUpgradeOption> evolves = GetAvailableEvolves(upgradesCount);
         foreach (var evo in evolves)
         {
             if (!upgradeChoices.Contains(evo))
@@ -134,7 +128,7 @@ public class PlayerProgression : MonoBehaviour
             return;
         }
 
-        int remaining = upgradeCards.Length - upgradeChoices.Count;
+        int remaining = upgradesCount - upgradeChoices.Count;
         if (remaining > 0)
         {
             upgradeChoices.AddRange(GetRandomUpgrades(options, remaining));
