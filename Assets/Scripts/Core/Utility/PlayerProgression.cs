@@ -120,7 +120,12 @@ public class PlayerProgression : MonoBehaviour
 
         CheckAvailableStats();
         CheckAvailableWeapons();
-        upgradeChoices.AddRange(GetAvailableEvolves(upgradeCards.Length));
+        List<IUpgradeOption> evolves = GetAvailableEvolves(upgradeCards.Length);
+        foreach (var evo in evolves)
+        {
+            if (!upgradeChoices.Contains(evo))
+                upgradeChoices.Add(evo);
+        }
 
         if (options.Count == 0 && upgradeChoices.Count == 0)
         {
@@ -145,14 +150,21 @@ public class PlayerProgression : MonoBehaviour
             GameObject cardGO = Instantiate(upgradeCardPrefab, upgradeCardParent);
             UpgradeCardUI card = cardGO.GetComponent<UpgradeCardUI>();
 
+            bool isEvolved = false;
+
+            if (upgrade is WeaponUpgradeOption weaponUpgrade)
+            {
+                isEvolved = CanEvolve(weaponUpgrade);
+            }
+
             card.SetUpgradeData(upgrade, () =>
             {
                 ApplyUpgrade(upgrade);
                 CloseUpgradePanel();
-            });
+            }, isEvolved);
         }
 
-        // Zobraz UI
+
         upgradePanel.SetActive(true);
     }
 
