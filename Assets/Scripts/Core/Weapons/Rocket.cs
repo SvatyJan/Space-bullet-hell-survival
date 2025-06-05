@@ -39,6 +39,9 @@ public class Rocket : MonoBehaviour
     /** Počáteční pozice rakety. */
     private Vector3 startPosition;
 
+    /** Prefab efektu výbuchu rakety. */
+    [SerializeField] private ParticleSystem explosionEffect;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -101,6 +104,8 @@ public class Rocket : MonoBehaviour
                 hitEntity.TakeDamage(rocketDamage, rocketCritChance);
             }
         }
+
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
         Destroy(gameObject);
     }
