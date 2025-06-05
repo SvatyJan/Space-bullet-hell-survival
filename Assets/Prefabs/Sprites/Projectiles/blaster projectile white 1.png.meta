@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19f9758e676abf345ab81dd8074cc7ca
+guid: 9175fb7ca8a2c9c41a68e1adc4c711b7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: blaster projectile white_0
+      name: blaster projectile white 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de55d91c6ade5ce4b939bee6deb11836
-      internalID: -2090676235
+      spriteID: 83cab8e8d6dd53d4588a84d8de2024f4
+      internalID: -304290487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blaster projectile white_1
+      name: blaster projectile white 1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e406b67cec145df48b11b8b7362a1380
-      internalID: 715306115
+      spriteID: aa366784b5c2fd046ad55a3ca7332a43
+      internalID: -691696803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blaster projectile white_2
+      name: blaster projectile white 1_2
       rect:
         serializedVersion: 2
         x: 128
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c73f66a3965a2b64cb94b8aef4915d89
-      internalID: 1769816566
+      spriteID: e94b601bcfadd1a4ba4a80a1ab56f918
+      internalID: -289900161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blaster projectile white_3
+      name: blaster projectile white 1_3
       rect:
         serializedVersion: 2
         x: 192
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: de30092c5d2a57c4489dc783956155ff
-      internalID: -97174703
+      spriteID: f1d6699fd94b8c84bb994d2e4eb4c109
+      internalID: 955387213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blaster projectile white_4
+      name: blaster projectile white 1_4
       rect:
         serializedVersion: 2
         x: 256
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21d85e43d627efc459282d43069d43a7
-      internalID: -408604394
+      spriteID: d88b9146a2b1cc645b4cd4048840ecf0
+      internalID: -1436863774
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blaster projectile white_5
+      name: blaster projectile white 1_5
       rect:
         serializedVersion: 2
         x: 320
@@ -242,8 +242,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81556aa2b8bcb36409a69f85da3863c9
-      internalID: -1080984202
+      spriteID: ab06a42cac0c48144b311b1b9a2dc15c
+      internalID: -1956171435
       vertices: []
       indices: 
       edges: []
@@ -259,12 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      blaster projectile white_0: -2090676235
-      blaster projectile white_1: 715306115
-      blaster projectile white_2: 1769816566
-      blaster projectile white_3: -97174703
-      blaster projectile white_4: -408604394
-      blaster projectile white_5: -1080984202
+      blaster projectile white 1_0: -304290487
+      blaster projectile white 1_1: -691696803
+      blaster projectile white 1_2: -289900161
+      blaster projectile white 1_3: 955387213
+      blaster projectile white 1_4: -1436863774
+      blaster projectile white 1_5: -1956171435
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

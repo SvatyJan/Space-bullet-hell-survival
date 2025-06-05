@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Yellow Glow
+  m_Name: Glow
   m_Shader: {fileID: -6465566751694194690, guid: 480a53029d9560b48b81a5a1081f8678, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0

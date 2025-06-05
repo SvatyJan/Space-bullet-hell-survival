@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8316576430682903305
 SpriteRenderer:
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2090676235, guid: 19f9758e676abf345ab81dd8074cc7ca, type: 3}
+  m_Sprite: {fileID: -304290487, guid: 9175fb7ca8a2c9c41a68e1adc4c711b7, type: 3}
   m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -147,9 +147,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0015029907, y: 0.009185791}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.49076843
 --- !u!114 &3849854137629178487
 MonoBehaviour:
   m_ObjectHideFlags: 0
