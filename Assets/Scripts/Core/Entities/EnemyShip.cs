@@ -15,6 +15,9 @@ public class EnemyShip : SpaceEntity, IController
     private static Queue<GameObject> popupPool = new Queue<GameObject>();
     private static int maxPopups = 25;
 
+    /** Prefab efektu smrti nepřítele. */
+    [SerializeField] private GameObject deathEffect;
+
     private void Awake()
     {
         behavior = GetComponent<EnemyBehaviorBase>();
@@ -68,6 +71,12 @@ public class EnemyShip : SpaceEntity, IController
             {
                 GameObject xpOrb = Instantiate(XpOrbPrefab, transform.position, transform.rotation);
                 xpOrb.GetComponent<XPOrb>().xpAmount = shipStats.XP;
+            }
+
+            if (deathEffect != null)
+            {
+                GameObject deathEffectInstance = Instantiate(deathEffect, transform.position, Quaternion.identity);
+                Destroy(deathEffectInstance, 1f);
             }
 
             Destroy(gameObject);

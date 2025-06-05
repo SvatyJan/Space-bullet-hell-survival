@@ -249,6 +249,7 @@ MonoBehaviour:
   behavior: {fileID: 1137017218432819352}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
   damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
+  deathEffect: {fileID: 8857881002592748667, guid: 528f44fa8b0a79e4ab20c37f76530956, type: 3}
 --- !u!114 &1137017218432819352
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1056,6 +1056,22 @@ PrefabInstance:
       propertyPath: upgradeCardParent
       value: 
       objectReference: {fileID: 6720888763823305874}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: statUpgrades.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: weaponUpgrades.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: weaponUpgrades.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: weaponUpgrades.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5ad72193ce176e641b014f2f529c87f0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
