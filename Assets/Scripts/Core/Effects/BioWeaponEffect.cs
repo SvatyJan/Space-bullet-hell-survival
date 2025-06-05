@@ -55,7 +55,9 @@ public class BioWeaponEffect : MonoBehaviour
             float angle = (360f / baseProjectileCount) * i;
             Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
 
-            GameObject proj = Instantiate(bioProjectilePrefab, transform.position, Quaternion.identity);
+            Quaternion rotation = Quaternion.LookRotation(Vector3.forward, direction);
+
+            GameObject proj = Instantiate(bioProjectilePrefab, transform.position, rotation);
             BioProjectile projScript = proj.GetComponent<BioProjectile>();
 
             if (projScript != null)
@@ -66,4 +68,5 @@ public class BioWeaponEffect : MonoBehaviour
             }
         }
     }
+
 }

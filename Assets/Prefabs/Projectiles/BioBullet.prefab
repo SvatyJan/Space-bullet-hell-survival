@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3383845658188169226}
   - component: {fileID: 9212883146573934633}
   - component: {fileID: -4879272175750654726}
+  - component: {fileID: 3623411607436489068}
   m_Layer: 0
   m_Name: BioBullet
   m_TagString: Player Projectile
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -304290487, guid: 9175fb7ca8a2c9c41a68e1adc4c711b7, type: 3}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -166,3 +167,24 @@ MonoBehaviour:
   bioWeaponEffectPrefab: {fileID: 6181941549093296517, guid: a379be59f5518ec42aeb89be9d9b71d2, type: 3}
   collisionTags:
   - Enemy
+--- !u!95 &3623411607436489068
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44860097022628975}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cebaec4e47f5c8f4cbe2d8725e202568, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

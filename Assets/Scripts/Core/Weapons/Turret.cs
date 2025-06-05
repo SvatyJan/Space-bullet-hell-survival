@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Turret : MonoBehaviour, IWeapon
@@ -67,7 +68,13 @@ public class Turret : MonoBehaviour, IWeapon
     {
         if (Time.time < nextFireTime) return;
 
+        int totalProjectiles = 1 + shipStats.ProjectilesCount;
+        StartCoroutine(FireProjectilesCoroutine(totalProjectiles));
+
         float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
+        nextFireTime = Time.time + totalFireRate;
+
+        /*float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
         nextFireTime = Time.time + totalFireRate;
 
         Transform firingPoint = shootingPoints[currentPointIndex];
@@ -76,13 +83,39 @@ public class Turret : MonoBehaviour, IWeapon
         targetDirection = GetNearestEnemyDirection();
         if (targetDirection == Vector3.zero) return;
 
-        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, Quaternion.identity);
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, rotation);
 
         Projectile projectileScript = projectile.GetComponent<Projectile>();
         if (projectileScript != null)
         {
             projectileScript.Initialize(owner, baseDamage);
             projectileScript.SetDirection(targetDirection);
+        }*/
+    }
+
+    private IEnumerator FireProjectilesCoroutine(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            Transform firingPoint = shootingPoints[currentPointIndex];
+            currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+
+            targetDirection = GetNearestEnemyDirection();
+            if (targetDirection == Vector3.zero) yield break;
+
+            Quaternion rotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
+
+            GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, rotation);
+
+            Projectile projectileScript = projectile.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.Initialize(owner, baseDamage);
+                projectileScript.SetDirection(targetDirection);
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
