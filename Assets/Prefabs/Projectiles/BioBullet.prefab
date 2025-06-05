@@ -55,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b9fd2551019bc1c429efe08ef6ac7cf1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -161,10 +161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d4dc9efe2f1b847b7dc97003b55b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
   speed: 10
-  collisionTags:
-  - Enemy
-  projectileDamage: 10
   projectileDuration: 5
   bioWeaponEffectPrefab: {fileID: 6181941549093296517, guid: a379be59f5518ec42aeb89be9d9b71d2, type: 3}
+  collisionTags:
+  - Enemy

@@ -88,7 +88,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b9fd2551019bc1c429efe08ef6ac7cf1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipStats: {fileID: 294805897262152833}
   shootingPoint: {fileID: 2512922300153659316}
+  target: {fileID: 0}
   behavior: {fileID: 0}
   XpOrbPrefab: {fileID: 6005586644972654611, guid: 5d2bff753c780014faebc181abe1a0e7, type: 3}
   damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
@@ -230,7 +231,9 @@ MonoBehaviour:
   deceleration: 2
   maxHealth: 5000
   currentHealth: 5000
+  healthRegen: 0
   baseDamage: 10
+  criticalChance: 0
   velocity: {x: 0, y: 0, z: 0}
   fireRate: 1
   attackRadius: 10
@@ -243,3 +246,4 @@ MonoBehaviour:
   maxWeapons: 2
   projectilesCount: 2
   maxStatUpgrades: 3
+  ShootingPoints: []

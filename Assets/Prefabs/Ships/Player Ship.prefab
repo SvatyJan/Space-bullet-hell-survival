@@ -64,7 +64,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b9fd2551019bc1c429efe08ef6ac7cf1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -143,9 +143,9 @@ MonoBehaviour:
   xp: 0
   xpNextlevelUp: 1
   level: 1
-  maxWeapons: 3
+  maxWeapons: 5
   projectilesCount: 1
-  maxStatUpgrades: 3
+  maxStatUpgrades: 5
   ShootingPoints:
   - {fileID: 2509701665588952320}
   - {fileID: 864366328607796841}
@@ -163,39 +163,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statUpgrades:
-  - {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}
   - {fileID: 11400000, guid: fb0ee55d7da4f9a44be25e39be99ece2, type: 2}
-  - {fileID: 11400000, guid: a8e916fc47eb60f418b8d12df3171551, type: 2}
-  - {fileID: 11400000, guid: 407063229eaa4934c9bf00ac6f1c739d, type: 2}
-  - {fileID: 11400000, guid: 9bbbe063d85c1f94d9357a0274deee1d, type: 2}
-  - {fileID: 11400000, guid: a3d4b3f08c469e54e85eea8ec48d7cfe, type: 2}
-  - {fileID: 11400000, guid: 45921c6d309d7a24f96e513d1215d9d4, type: 2}
-  - {fileID: 11400000, guid: 5d8a6225770db364a8f10047a82563ac, type: 2}
-  - {fileID: 11400000, guid: 159f77f5e4712e0478a22cea991db65d, type: 2}
-  weaponUpgrades:
-  - {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
-  - {fileID: 11400000, guid: 67ef2d51edf559f4eb9f33993087b941, type: 2}
-  - {fileID: 11400000, guid: 5840b16bd74cea046b81ebb8f83fe7c0, type: 2}
-  - {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
-  - {fileID: 11400000, guid: 695ef98b8781d994ca7205a64b2b52b9, type: 2}
-  - {fileID: 11400000, guid: 96c4c6b022457b2409d5aae64c9f7416, type: 2}
-  - {fileID: 11400000, guid: b8f7b12f859cf5c4097af2a4d0431379, type: 2}
-  - {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
-  - {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
-  - {fileID: 11400000, guid: c187b8767cf77484f8b4449dcfc84cb0, type: 2}
-  - {fileID: 11400000, guid: 5ad72193ce176e641b014f2f529c87f0, type: 2}
+  weaponUpgrades: []
   maxStatUpgrade: 5
   maxWeaponUpgrade: 5
-  startingWeapon: {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
+  upgradesCount: 3
+  startingWeapon: {fileID: 11400000, guid: eadeae4fad7e051478018d3457a2f26c, type: 2}
   upgradePanel: {fileID: 0}
-  upgradeCards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  upgradeDescriptions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   upgradeCardPrefab: {fileID: 7386857958975287664, guid: 2ee8d11c6666f534d9ae3e2bcb2076e9, type: 3}
   upgradeCardParent: {fileID: 0}
 --- !u!114 &4647849489768216968
