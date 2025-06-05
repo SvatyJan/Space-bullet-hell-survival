@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 9212883146573934633}
   - component: {fileID: 3849854137629178487}
   - component: {fileID: 4869093411659371560}
-  - component: {fileID: 5187664938386449237}
   m_Layer: 0
   m_Name: BlasterBullet
   m_TagString: Player Projectile
@@ -57,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b9fd2551019bc1c429efe08ef6ac7cf1, type: 2}
+  - {fileID: 2100000, guid: 72e6201da404a494ab53524a71f2072b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -191,20 +190,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5187664938386449237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44860097022628975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 7d39940232505984dbead834dac721d5, type: 2}
