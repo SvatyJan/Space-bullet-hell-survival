@@ -40,7 +40,7 @@ public class Rocket : MonoBehaviour
     private Vector3 startPosition;
 
     /** Prefab efektu výbuchu rakety. */
-    [SerializeField] private ParticleSystem explosionEffect;
+    [SerializeField] private GameObject explosionEffect;
 
     private void Start()
     {
@@ -105,7 +105,11 @@ public class Rocket : MonoBehaviour
             }
         }
 
-        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        if (explosionEffect != null)
+        {
+            GameObject explosionEffectInstance = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(explosionEffectInstance, 1f);
+        }
 
         Destroy(gameObject);
     }
