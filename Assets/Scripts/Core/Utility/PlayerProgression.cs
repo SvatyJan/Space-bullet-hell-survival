@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerProgression : MonoBehaviour
 {
@@ -381,6 +382,15 @@ public class PlayerProgression : MonoBehaviour
     private void CloseUpgradePanel()
     {
         upgradePanel.SetActive(false);
+        StartCoroutine(SmoothResumeGame());
+    }
+
+    /** Plynulý návrat na plnou rychlost. */
+    private IEnumerator SmoothResumeGame()
+    {
+        Time.timeScale = 0.3f;
+
+        yield return new WaitForSecondsRealtime(1f);
 
         Time.timeScale = 1f;
     }
