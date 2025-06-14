@@ -856,11 +856,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3238611912712702523, guid: 423b9574ef94733438235cfe0e8def83, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 67.67
+      value: 66.7
       objectReference: {fileID: 0}
     - target: {fileID: 3238611912712702523, guid: 423b9574ef94733438235cfe0e8def83, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 54.78
+      value: 56.38
       objectReference: {fileID: 0}
     - target: {fileID: 3238611912712702523, guid: 423b9574ef94733438235cfe0e8def83, type: 3}
       propertyPath: m_LocalPosition.z
@@ -898,8 +898,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guardian
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5389394737070788234, guid: 423b9574ef94733438235cfe0e8def83, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
