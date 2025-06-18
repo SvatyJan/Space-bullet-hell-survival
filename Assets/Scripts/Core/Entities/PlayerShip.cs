@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerShip : SpaceEntity, IController
 {
     [SerializeField] private bool controlsEnabled = true;
+    [SerializeField] private bool shipDestroyed = false;
     [SerializeField] public GameObject Weapons;
     [SerializeField] private ParticleSystem engineEffect;
     private ParticleSystem.EmissionModule emission;
@@ -131,6 +132,7 @@ public class PlayerShip : SpaceEntity, IController
     private void DestroyShip()
     {
         controlsEnabled = false;
+        shipDestroyed = true;
 
         ThermalShield shield = GetComponentInChildren<ThermalShield>();
 
@@ -179,4 +181,27 @@ public class PlayerShip : SpaceEntity, IController
         }
     }
 
+    public void DisableControlForDuration(float duration)
+    {
+        if (controlsEnabled)
+        {
+            controlsEnabled = false;
+            StartCoroutine(EnableControlAfterDelay(duration));
+        }
+    }
+
+    private IEnumerator EnableControlAfterDelay(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if(!shipDestroyed)
+        {
+            controlsEnabled = true;
+        }
+    }
+
+    public bool IsControlEnabled()
+    {
+        return controlsEnabled;
+    }
 }
