@@ -15,15 +15,25 @@ public class GuardianBehavior : EnemyBehaviorBase
     public float phaseDuration = 5f;
     public float eyeRotationSpeed = 5f;
 
+
+    [Header("Laser Attack Settings")]
+    [SerializeField] private GameObject laserProjectilePrefab;
+    [SerializeField] private Transform[] shootingPoints;
+    [SerializeField] public float baseFireRate = 1f;
+    [SerializeField] private float nextFireTime = 0f;
+
+    [Header("Spike Attack Settings")]
+    [SerializeField] private float spikePhaseRotationSpeed = 20f;
+
     [Header("Tentacle Attack Settings")]
     public float tentacleTriggerDistance = 3.5f;
 
+    [Header("Phases settings")]
     private float phaseTimer;
     private int currentPhase;
 
     private Animator animator;
     private List<Animator> tentacleAnimators = new List<Animator>();
-    private Rigidbody2D rb;
 
     private enum GuardianPhase { Laser, Spike, Tentacle }
     private GuardianPhase currentPhaseType;
@@ -32,7 +42,6 @@ public class GuardianBehavior : EnemyBehaviorBase
     {
         base.Start();
         animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody2D>();
 
         tentacleAnimators.Clear();
         foreach (Transform child in tentacleParent)
@@ -66,8 +75,8 @@ public class GuardianBehavior : EnemyBehaviorBase
 
     private void RotateEyeToTarget()
     {
-        Vector3 direction = target.position - eye.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector3 eyeDirection = target.position - eye.position;
+        float angle = Mathf.Atan2(eyeDirection.y, eyeDirection.x) * Mathf.Rad2Deg;
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90f);
         eye.rotation = Quaternion.Lerp(eye.rotation, targetRotation, Time.deltaTime * eyeRotationSpeed);
     }
@@ -88,21 +97,40 @@ public class GuardianBehavior : EnemyBehaviorBase
         }
     }
 
-
     private void LaserAttack()
     {
         DisableTentacles();
         DisableSpikes();
 
-        // TODO: aktivuj laser výstøel, pøiprav efekt
-        Debug.Log("Laser Attack Phase");
-    }
+        if (Time.time >= nextFireTime)
+        {
+            nextFireTime = Time.time + shipStats.FireRate;
 
+            Vector2 direction = (target.position - shootingPoint.position).normalized;
+            float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) - 90f;
+            Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+            GameObject projectileInstance = Instantiate(laserProjectilePrefab, shootingPoint.position, rotation);
+
+            Projectile projectileScript = projectileInstance.GetComponent<Projectile>();
+            if (projectileScript != null)
+            {
+                projectileScript.Initialize(spaceEntity, shipStats.BaseDamage);
+                projectileScript.SetDirection(direction);
+            }
+        }
+    }
 
     private void SpikeAttack()
     {
         MoveTowardsPlayer();
         DisableTentacles();
+
+        float rotationAmount = spikePhaseRotationSpeed * Time.deltaTime;
+
+        outerCircle.Rotate(0, 0, rotationAmount);
+        tentacleParent.Rotate(0, 0, rotationAmount);
+        spikesParent.Rotate(0, 0, rotationAmount);
 
         foreach (Transform spike in spikesParent)
         {

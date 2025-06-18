@@ -915,18 +915,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Guardian
       objectReference: {fileID: 0}
-    - target: {fileID: 654252588334636674, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1024847789135729993, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1200357313908975525, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1629719664286169461, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -970,26 +958,6 @@ PrefabInstance:
     - target: {fileID: 1629719664286169461, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347547860273575526, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6903121550465517377, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308963380450075963, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7861047650287117078, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9107917816042899923, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

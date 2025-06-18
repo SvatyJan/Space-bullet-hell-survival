@@ -118,6 +118,12 @@ MonoBehaviour:
   spikesParent: {fileID: 8225062007697562592}
   phaseDuration: 5
   eyeRotationSpeed: 5
+  laserProjectilePrefab: {fileID: 2777960311145917976, guid: 82bbacf2f0182aa49bf5da8697e50016, type: 3}
+  shootingPoints:
+  - {fileID: 3777781401222967282}
+  baseFireRate: 2.4
+  nextFireTime: 0
+  spikePhaseRotationSpeed: 20
   tentacleTriggerDistance: 10
 --- !u!58 &3866368797463255004
 CircleCollider2D:
