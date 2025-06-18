@@ -32,7 +32,7 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
             GameObject weaponInstance = Instantiate(weaponPrefab, weaponsContainer);
             weaponInstance.transform.parent = weaponsContainer.transform;
             activeInstance = weaponInstance;
-            Debug.Log($"Weapon {weaponName} added to ship.");
+            // Debug.Log($"Weapon {weaponName} added to ship.");
             return weaponInstance;
         }
         else

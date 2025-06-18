@@ -47,16 +47,47 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnRadius: 15
   safeRadius: 10
-  initialSpawnInterval: 2
-  spawnAcceleration: 0.95
-  minSpawnInterval: 0.25
   invalidSpawnLayers:
     serializedVersion: 2
     m_Bits: 64
   timedEnemies:
   - enemyPrefab: {fileID: 4507033410055292894, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
     unlockTime: 0
+    lockTime: 300
+    spawnsPerSecond: 0.25
   - enemyPrefab: {fileID: 8488209312567463031, guid: 7c495df5384491243b8fb6d3c072a2f7, type: 3}
-    unlockTime: 20
+    unlockTime: 30
+    lockTime: 300
+    spawnsPerSecond: 0.1
   - enemyPrefab: {fileID: 2728146481288062039, guid: 5f242a79c3429824891697158c371575, type: 3}
+    unlockTime: 45
+    lockTime: 300
+    spawnsPerSecond: 0.1
+  - enemyPrefab: {fileID: 574160646217851257, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
     unlockTime: 60
+    lockTime: 300
+    spawnsPerSecond: 0.01666667
+  - enemyPrefab: {fileID: 4507033410055292894, guid: 41466532fb712ee4bb80631a571ff629, type: 3}
+    unlockTime: 90
+    lockTime: 300
+    spawnsPerSecond: 1
+  - enemyPrefab: {fileID: 8488209312567463031, guid: 7c495df5384491243b8fb6d3c072a2f7, type: 3}
+    unlockTime: 120
+    lockTime: 300
+    spawnsPerSecond: 0.1
+  - enemyPrefab: {fileID: 8384564211731344221, guid: e2ffbff4503e28046a09ad0175daa8fd, type: 3}
+    unlockTime: 150
+    lockTime: 300
+    spawnsPerSecond: 0.2
+  - enemyPrefab: {fileID: 6415720992155733756, guid: 284676886654d0f4ebe10bb482b3a6d5, type: 3}
+    unlockTime: 180
+    lockTime: 300
+    spawnsPerSecond: 0.1
+  - enemyPrefab: {fileID: 8946727491293231898, guid: fe8d1e0555e88f34c83b568086b74705, type: 3}
+    unlockTime: 200
+    lockTime: 300
+    spawnsPerSecond: 0.1
+  - enemyPrefab: {fileID: 574160646217851257, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
+    unlockTime: 180
+    lockTime: 300
+    spawnsPerSecond: 0.06666667
