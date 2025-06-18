@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,9 @@ public class GuardianBehavior : EnemyBehaviorBase
     private List<Animator> tentacleAnimators = new List<Animator>();
     private Rigidbody2D rb;
 
+    private enum GuardianPhase { Laser, Spike, Tentacle }
+    private GuardianPhase currentPhaseType;
+
     protected override void Start()
     {
         base.Start();
@@ -48,14 +52,17 @@ public class GuardianBehavior : EnemyBehaviorBase
         RotateEyeToTarget();
 
         phaseTimer -= Time.deltaTime;
-        if (phaseTimer <= 0)
+        if (phaseTimer <= 0f)
         {
             currentPhase = (currentPhase + 1) % 3;
             phaseTimer = phaseDuration;
+
+            currentPhaseType = (GuardianPhase)currentPhase;
         }
 
         ExecuteCurrentPhase();
     }
+
 
     private void RotateEyeToTarget()
     {
@@ -67,32 +74,67 @@ public class GuardianBehavior : EnemyBehaviorBase
 
     private void ExecuteCurrentPhase()
     {
-        TentacleAttack();
-
-        /*switch (currentPhase)
+        switch (currentPhaseType)
         {
-            case 0:
+            case GuardianPhase.Laser:
                 LaserAttack();
                 break;
-            case 1:
+            case GuardianPhase.Spike:
                 SpikeAttack();
                 break;
-            case 2:
+            case GuardianPhase.Tentacle:
                 TentacleAttack();
                 break;
-        }*/
+        }
     }
+
 
     private void LaserAttack()
     {
-        // TODO: Implement laser firing from eye or sides
+        DisableTentacles();
+        DisableSpikes();
+
+        // TODO: aktivuj laser výstøel, pøiprav efekt
         Debug.Log("Laser Attack Phase");
     }
 
+
     private void SpikeAttack()
     {
-        // TODO: Enable colliders or animate spikes for damage
-        Debug.Log("Spike Attack Phase");
+        MoveTowardsPlayer();
+        DisableTentacles();
+
+        foreach (Transform spike in spikesParent)
+        {
+            var collider = spike.GetComponent<PolygonCollider2D>();
+            var animator = spike.GetComponent<Animator>();
+
+            if (collider != null) collider.enabled = true;
+            if (animator != null) animator.SetBool("attacking", true);
+        }
+
+        StartCoroutine(DisableSpikesAfterDelay(phaseDuration));
+    }
+
+    private IEnumerator DisableSpikesAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        foreach (Transform spike in spikesParent)
+        {
+            PolygonCollider2D collider = spike.GetComponent<PolygonCollider2D>();
+            if (collider != null)
+                collider.enabled = false;
+
+            Animator spikeAnimator = spike.GetComponent<Animator>();
+            if (spikeAnimator != null)
+                spikeAnimator.SetBool("attacking", false);
+        }
+    }
+
+    public void OnSpikeHitPlayer(PlayerShip player)
+    {
+        player.TakeDamage(shipStats.BaseDamage);
     }
 
     private void TentacleAttack()
@@ -100,8 +142,7 @@ public class GuardianBehavior : EnemyBehaviorBase
         if (target == null) return;
 
         // 1) Pøibližuj se
-        Vector2 direction = (target.position - transform.position).normalized;
-        transform.position += (Vector3)(direction * shipStats.Speed * Time.deltaTime);
+        MoveTowardsPlayer();
 
         // 2) Hledej nejbližší chapadlo
         Transform closestTentacle = null;
@@ -127,4 +168,35 @@ public class GuardianBehavior : EnemyBehaviorBase
             }
         }
     }
+
+    private void DisableSpikes()
+    {
+        foreach (Transform spike in spikesParent)
+        {
+            var collider = spike.GetComponent<PolygonCollider2D>();
+            var animator = spike.GetComponent<Animator>();
+
+            if (collider != null) collider.enabled = false;
+            if (animator != null) animator.SetBool("attacking", false);
+        }
+    }
+
+    private void DisableTentacles()
+    {
+        foreach (Transform tentacle in tentacleParent)
+        {
+            var animator = tentacle.GetComponent<Animator>();
+            if (animator != null)
+                animator.SetBool("attacking", false);
+        }
+    }
+
+    private void MoveTowardsPlayer()
+    {
+        if (target == null) return;
+
+        Vector2 direction = (target.position - transform.position).normalized;
+        transform.position += (Vector3)(direction * shipStats.Speed * Time.deltaTime);
+    }
+
 }

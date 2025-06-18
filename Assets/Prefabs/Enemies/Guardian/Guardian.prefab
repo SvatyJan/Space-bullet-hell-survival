@@ -565,7 +565,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 8783684562423935709}
 --- !u!1 &2553015284482651600
 GameObject:
@@ -580,6 +580,7 @@ GameObject:
   - component: {fileID: 6691770796585419553}
   - component: {fileID: 756055959269775074}
   - component: {fileID: 4951198590680699407}
+  - component: {fileID: 2766364281488857950}
   m_Layer: 0
   m_Name: Guardian spike (7)
   m_TagString: Untagged
@@ -661,7 +662,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2553015284482651600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -773,6 +774,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &2766364281488857950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553015284482651600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2701776828994656861
 GameObject:
   m_ObjectHideFlags: 0
@@ -896,7 +909,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 9135912979853424918}
 --- !u!1 &2947237572426406457
 GameObject:
@@ -1110,6 +1123,7 @@ GameObject:
   - component: {fileID: 5829581759766546808}
   - component: {fileID: 451814956889955515}
   - component: {fileID: 6530003117197490876}
+  - component: {fileID: 7071361463793790428}
   m_Layer: 0
   m_Name: Guardian spike (3)
   m_TagString: Untagged
@@ -1191,7 +1205,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3410639385581780873}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1303,6 +1317,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &7071361463793790428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3410639385581780873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3966886921788026793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1425,7 @@ GameObject:
   - component: {fileID: 8393692899966159863}
   - component: {fileID: 5045888998461462509}
   - component: {fileID: 1199478920886469166}
+  - component: {fileID: 6991041902829196485}
   m_Layer: 0
   m_Name: Guardian spike
   m_TagString: Untagged
@@ -1480,7 +1507,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4158311767651213596}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1520,6 +1547,7 @@ PolygonCollider2D:
     - - {x: 0.15787758, y: -0.50051475}
       - {x: -0.2208895, y: -0.5065223}
       - {x: -0.031227835, y: 0.43715432}
+      - {x: 0.000023634542, y: 0.43765327}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
 --- !u!95 &1199478920886469166
@@ -1543,6 +1571,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6991041902829196485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4158311767651213596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4318627182022371505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,7 +1706,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 6942636715238132730}
 --- !u!1 &4966502359206198872
 GameObject:
@@ -1681,6 +1721,7 @@ GameObject:
   - component: {fileID: 4278239734954346665}
   - component: {fileID: 7925388292402666858}
   - component: {fileID: 3694201043808303319}
+  - component: {fileID: 2673749981198955825}
   m_Layer: 0
   m_Name: Guardian spike (4)
   m_TagString: Untagged
@@ -1762,7 +1803,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4966502359206198872}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1874,6 +1915,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &2673749981198955825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966502359206198872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5070581645809314818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,7 +2050,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 2155457173826883401}
 --- !u!1 &5462592644659323982
 GameObject:
@@ -2206,7 +2259,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 1557984514282359140}
 --- !u!1 &5751798902375065265
 GameObject:
@@ -2221,6 +2274,7 @@ GameObject:
   - component: {fileID: 3486258260208095296}
   - component: {fileID: 7404572670196483459}
   - component: {fileID: 5468017124229644721}
+  - component: {fileID: 477698196229626274}
   m_Layer: 0
   m_Name: Guardian spike (6)
   m_TagString: Untagged
@@ -2302,7 +2356,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5751798902375065265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2414,6 +2468,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &477698196229626274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5751798902375065265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6134902058528818887
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,7 +2603,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 1050578062094951820}
 --- !u!1 &6942636715238132730
 GameObject:
@@ -2632,6 +2698,7 @@ GameObject:
   - component: {fileID: 2005945747680883156}
   - component: {fileID: 5581494796203090967}
   - component: {fileID: 5669528209626615477}
+  - component: {fileID: 5265658449220369402}
   m_Layer: 0
   m_Name: Guardian spike (1)
   m_TagString: Untagged
@@ -2713,7 +2780,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7234292613691262757}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2825,6 +2892,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &5265658449220369402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7234292613691262757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7606909761166688959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2838,6 +2917,7 @@ GameObject:
   - component: {fileID: 1595118511988896846}
   - component: {fileID: 4647997543410983309}
   - component: {fileID: 8284300125140206058}
+  - component: {fileID: 7055160155059259755}
   m_Layer: 0
   m_Name: Guardian spike (5)
   m_TagString: Untagged
@@ -2919,7 +2999,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7606909761166688959}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -3031,6 +3111,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &7055160155059259755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7606909761166688959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8293913273787983438
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,7 +3285,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 2947237572426406457}
 --- !u!1 &8370893648240896386
 GameObject:
@@ -3402,7 +3494,7 @@ MonoBehaviour:
   attackCooldown: 3
   grabDuration: 1
   grabDamage: 20
-  throwForce: 0.005
+  throwForce: 0.25
   tentacleHitBox: {fileID: 3403988668872649502}
 --- !u!1 &8783684562423935709
 GameObject:
@@ -3497,6 +3589,7 @@ GameObject:
   - component: {fileID: 196344048579202928}
   - component: {fileID: 6060282869971573427}
   - component: {fileID: 2102923892290024083}
+  - component: {fileID: 3945582191297190776}
   m_Layer: 0
   m_Name: Guardian spike (2)
   m_TagString: Untagged
@@ -3578,7 +3671,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9010117448865085825}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -3690,6 +3783,18 @@ PolygonCollider2D:
       - {x: -0.031227835, y: 0.43715432}
       - {x: 0.000024302863, y: 0.4376532}
   m_UseDelaunayMesh: 0
+--- !u!114 &3945582191297190776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9010117448865085825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f3619ca76d5544ca9868f0f6b4368a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9135912979853424918
 GameObject:
   m_ObjectHideFlags: 0
