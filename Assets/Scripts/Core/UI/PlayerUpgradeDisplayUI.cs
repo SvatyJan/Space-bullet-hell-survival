@@ -15,8 +15,8 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
     [Header("Slot Prefab")]
     [SerializeField] private GameObject iconSlotPrefab;
 
-    private List<Image> statIcons = new();
-    private List<Image> weaponIcons = new();
+    public List<Image> statIcons = new();
+    public List<Image> weaponIcons = new();
 
     private void OnValidate()
     {
@@ -90,5 +90,21 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
                 weaponIndex++;
             }
         }
+    }
+
+    public WeaponSlotUI GetNextAvailableWeaponSlot()
+    {
+        foreach (Transform slotTransform in weaponParent)
+        {
+            WeaponSlotUI slotUI = slotTransform.GetComponentInChildren<WeaponSlotUI>(true);
+            if (slotUI != null && !slotUI.IsAssigned)
+            {
+                slotUI.MarkAssigned();
+                return slotUI;
+            }
+        }
+
+        Debug.LogWarning("No available weapon UI slots!");
+        return null;
     }
 }

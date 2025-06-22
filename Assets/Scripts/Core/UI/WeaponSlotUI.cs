@@ -10,6 +10,8 @@ public class WeaponSlotUI : MonoBehaviour
     private float remainingTime;
     private bool coolingDown;
 
+    public bool IsAssigned { get; private set; } = false;
+
     public void SetCooldown(float duration)
     {
         cooldownTime = duration;
@@ -33,5 +35,10 @@ public class WeaponSlotUI : MonoBehaviour
             coolingDown = false;
             cooldownOverlay.enabled = false;
         }
+    }
+
+    public void MarkAssigned()
+    {
+        IsAssigned = true;
     }
 }

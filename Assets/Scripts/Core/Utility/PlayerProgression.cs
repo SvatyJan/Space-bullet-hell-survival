@@ -49,6 +49,8 @@ public class PlayerProgression : MonoBehaviour
     [SerializeField] private GameObject upgradeCardPrefab;
     /** Prefab rodièe kartièek vylepšení. */
     [SerializeField] private Transform upgradeCardParent;
+    /** Reference na upgradeDisplayUI. */
+    [SerializeField] private PlayerUpgradeDisplayUI upgradeDisplayUI;
 
     [Header("Observer")]
     public System.Action OnUpgradesChanged;
@@ -78,6 +80,17 @@ public class PlayerProgression : MonoBehaviour
                 {
                     weaponUpgrades.Add(startingWeapon);
                     options.Add(startingWeapon);
+
+                    AWeapon aWeapon = weaponGO.GetComponent<AWeapon>();
+                    if (aWeapon != null)
+                    {
+                        Debug.Log("Existuje Awepon: " + aWeapon);
+                        var slot = upgradeDisplayUI.GetNextAvailableWeaponSlot();
+                        if (slot != null)
+                        {
+                            aWeapon.SetSlotUI(slot);
+                        }
+                    }
                 }
             }
         }
@@ -328,10 +341,22 @@ public class PlayerProgression : MonoBehaviour
             if (weaponLevels.ContainsKey(weapon) && weaponLevels[weapon] == 0)
             {
                 GameObject weaponGO = weapon.Apply(shipStats);
+
                 if (weaponGO != null)
                 {
                     weaponInstances.Add(weaponGO);
                     weaponLevels[weapon] = 1;
+
+                    AWeapon aWeapon = weaponGO.GetComponent<AWeapon>();
+                    if (aWeapon != null)
+                    {
+                        Debug.Log("Existuje Awepon: " + aWeapon);
+                        var slot = upgradeDisplayUI.GetNextAvailableWeaponSlot();
+                        if (slot != null)
+                        {
+                            aWeapon.SetSlotUI(slot);
+                        }
+                    }
                 }
             }
             else if(weaponLevels.ContainsKey(weapon) && CanEvolve(weapon))

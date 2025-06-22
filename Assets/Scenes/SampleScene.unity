@@ -442,6 +442,17 @@ Transform:
   m_Father: {fileID: 1166164766}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1103099512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5662004123149577965, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
+  m_PrefabInstance: {fileID: 6720888763823305873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3cb2bc5ca75bf74ca4dffa7cccf5d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1108271309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 603165467044706322, guid: 3f021866edb74504c80694482056b0b9, type: 3}
@@ -1052,6 +1063,10 @@ PrefabInstance:
       propertyPath: upgradePanel
       value: 
       objectReference: {fileID: 2063858426}
+    - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: upgradeDisplayUI
+      value: 
+      objectReference: {fileID: 1103099512}
     - target: {fileID: 8325460350171649937, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
       propertyPath: upgradeCardParent
       value: 

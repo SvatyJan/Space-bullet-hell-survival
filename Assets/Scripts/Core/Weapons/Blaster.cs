@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class Blaster : MonoBehaviour, IWeapon
+public class Blaster : AWeapon, IWeapon
 {
+
     [Header("Prefabs")]
     /** Prefab projektilu. */
     public GameObject projectilePrefab;
@@ -13,22 +14,22 @@ public class Blaster : MonoBehaviour, IWeapon
     /** Index urèující poøadí bodu výstøelu. */
     private int currentPointIndex = 0;
 
-    [Header("Attributes")]
-    /** Interval mezi výstøely. */
-    [SerializeField] public float baseFireRate = 1f;
-
-    /** Èas pro pøíští výstøel. */
-    [SerializeField] private float nextFireTime = 0f;
-
-    /** Základní poškození zbranì. */
-    [SerializeField] private float baseDamage = 10f;
-
     [Header("References")]
     /** Odkaz na vlastníka zbranì. */
     private SpaceEntity owner;
 
-    /** Odkaz na atributy vlastníka zbranì. */
+    /** Atributy vlastníka zbranì. */
     private ShipStats shipStats;
+
+    [Header("Attributes")]
+    /** Základní poškození zbranì. */
+    [SerializeField] private float baseDamage = 10f;
+
+    /** Interval mezi výstøely. */
+    [SerializeField] private float fireRate = 0.5f;
+
+    /** Èas pro pøíští výstøel. */
+    private float nextFireTime = 0f;
 
     private void Awake()
     {
@@ -63,8 +64,9 @@ public class Blaster : MonoBehaviour, IWeapon
     public void Fire()
     {
         if (Time.time < nextFireTime) return;
+        TriggerCooldown();
 
-        float totalFireRate = Mathf.Max(0.05f, baseFireRate * shipStats.FireRate);
+        float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
         nextFireTime = Time.time + totalFireRate;
 
         int shotsToFire = Mathf.Min(shipStats.ProjectilesCount, shootingPoints.Length);
@@ -85,16 +87,27 @@ public class Blaster : MonoBehaviour, IWeapon
         }
     }
 
-
     public void Upgrade()
     {
         baseDamage += 5f;
-        baseFireRate *= 0.9f;
+        fireRate *= 0.9f;
     }
 
     public void Evolve()
     {
         baseDamage *= 2f;
-        baseFireRate *= 0.5f;
+        fireRate *= 0.5f;
+    }
+
+    public override void SetSlotUI(WeaponSlotUI ui)
+    {
+        base.SetSlotUI(ui);
+        Debug.Log("Blaster: SetSlotUI override.");
+    }
+
+    protected override void TriggerCooldown()
+    {
+        base.TriggerCooldown();
+        Debug.Log("Blaster: TriggerCooldown override.");
     }
 }

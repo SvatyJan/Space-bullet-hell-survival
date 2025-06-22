@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketLauncher : MonoBehaviour, IWeapon
+public class RocketLauncher : AWeapon, IWeapon
 {
     [Header("Prefabs")]
     /** Prefab rakety. */
@@ -16,10 +16,10 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     private int currentPointIndex = 0;
 
     [Header("Attributes")]
-    /** Rychlost střelby. */
-    [SerializeField] private float fireRate = 1f;
+    /** Interval mezi výstřely. */
+    [SerializeField] private float fireRate = 0.5f;
 
-    /** Cooldown pro další střelbu. */
+    /** Čas pro příští výstřel. */
     private float nextFireTime = 0f;
 
     /** Zpozdění mezi odpaly jednotlivých raket. */
@@ -34,6 +34,13 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     /** Základní počet projektilů. */
     private int baseProjectilesCount = 1;
 
+    [Header("References")]
+    /** Odkaz na vlastníka zbraně. */
+    private SpaceEntity owner;
+
+    /** Atributy vlastníka zbraně. */
+    private ShipStats shipStats;
+
     [Header("Targeting")]
     /** Seznam tagů, které lze zasáhnout. */
     [SerializeField] private List<string> collisionTags;
@@ -41,12 +48,6 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     /** Seznam již zasažených cílů v rámci řetězení. */
     [SerializeField] private List<GameObject> hitTargets = new List<GameObject>();
 
-    [Header("References")]
-    /** Odkaz na vlastníka zbraně. */
-    private SpaceEntity owner;
-
-    /** Odkaz na statistiky vlastníka. */
-    private ShipStats shipStats;
 
     private void Start()
     {
@@ -70,6 +71,8 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     {
         if (Time.time >= nextFireTime)
         {
+            TriggerCooldown();
+
             float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
             nextFireTime = Time.time + totalFireRate;
 
@@ -143,5 +146,17 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     {
         baseRadius += 2f;
         baseProjectilesCount += 3;
+    }
+
+    public override void SetSlotUI(WeaponSlotUI ui)
+    {
+        base.SetSlotUI(ui);
+        Debug.Log("RocketLauncher: SetSlotUI override.");
+    }
+
+    protected override void TriggerCooldown()
+    {
+        base.TriggerCooldown();
+        Debug.Log("RocketLauncher: TriggerCooldown override.");
     }
 }
