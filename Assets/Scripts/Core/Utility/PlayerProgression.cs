@@ -6,7 +6,7 @@ using System.Collections;
 
 public class PlayerProgression : MonoBehaviour
 {
-    private ShipStats shipStats;
+    public ShipStats shipStats;
 
     /** Dostupná vylepšení atributù. */
     public List<StatUpgradeOption> statUpgrades;
@@ -15,10 +15,10 @@ public class PlayerProgression : MonoBehaviour
     public List<WeaponUpgradeOption> weaponUpgrades;
 
     /** Nese informaci o tom, jaké zbranì byly vylepšeny. */
-    private Dictionary<WeaponUpgradeOption, int> weaponLevels = new Dictionary<WeaponUpgradeOption, int>();
+    public Dictionary<WeaponUpgradeOption, int> weaponLevels = new Dictionary<WeaponUpgradeOption, int>();
 
     /** Nese informaci o tom, jaké atributy byly vylepšeny. */
-    private Dictionary<StatType, int> statLevels = new Dictionary<StatType, int>();
+    public Dictionary<StatType, int> statLevels = new Dictionary<StatType, int>();
 
     /** Maximální poèet vylepšení atributù. */
     [SerializeField] public int maxStatUpgrade = 5;
