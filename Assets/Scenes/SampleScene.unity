@@ -1291,6 +1291,14 @@ PrefabInstance:
       propertyPath: upgradeCardParent
       value: 
       objectReference: {fileID: 6720888763823305874}
+    - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: maxWeapons
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779135055296280992, guid: 230ae24b7404a2b41a0c8af8692d4967, type: 3}
+      propertyPath: maxStatUpgrades
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

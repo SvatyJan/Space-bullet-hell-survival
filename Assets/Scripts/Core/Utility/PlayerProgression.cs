@@ -50,6 +50,9 @@ public class PlayerProgression : MonoBehaviour
     /** Prefab rodièe kartièek vylepšení. */
     [SerializeField] private Transform upgradeCardParent;
 
+    [Header("Observer")]
+    public System.Action OnUpgradesChanged;
+
     private void Start()
     {
         shipStats = GetComponent<ShipStats>();
@@ -374,8 +377,8 @@ public class PlayerProgression : MonoBehaviour
                     Debug.LogWarning($"Weapon '{weapon.name}' upgrade failed - no IWeapon component found.");
                 }
             }
-
         }
+        OnUpgradesChanged?.Invoke();
     }
 
     /** Zavøe panel vylepšování a odpauzuje hru. */

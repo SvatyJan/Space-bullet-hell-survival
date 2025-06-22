@@ -24,9 +24,17 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
             progression = FindObjectOfType<PlayerProgression>();
     }
 
+    private void OnDestroy()
+    {
+        if (progression != null)
+            progression.OnUpgradesChanged -= UpdateUpgradeIcons;
+    }
+
     private IEnumerator Start()
     {
         yield return new WaitUntil(() => progression != null && progression.shipStats != null);
+
+        progression.OnUpgradesChanged += UpdateUpgradeIcons;
 
         CreateEmptySlots();
         UpdateUpgradeIcons();
@@ -40,7 +48,7 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
         foreach (Transform child in statParent) Destroy(child.gameObject);
         foreach (Transform child in weaponParent) Destroy(child.gameObject);
 
-        // Stat slots
+        // Attribute slots
         for (int i = 0; i < progression.shipStats.maxStatUpgrades; i++)
         {
             GameObject slot = Instantiate(iconSlotPrefab, statParent);
