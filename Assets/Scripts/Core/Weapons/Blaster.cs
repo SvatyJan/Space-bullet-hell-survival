@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Blaster : AWeapon, IWeapon
+public class Blaster : MonoBehaviour, IWeapon
 {
 
     [Header("Prefabs")]
@@ -64,7 +64,6 @@ public class Blaster : AWeapon, IWeapon
     public void Fire()
     {
         if (Time.time < nextFireTime) return;
-        TriggerCooldown();
 
         float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
         nextFireTime = Time.time + totalFireRate;
@@ -97,17 +96,5 @@ public class Blaster : AWeapon, IWeapon
     {
         baseDamage *= 2f;
         fireRate *= 0.5f;
-    }
-
-    public override void SetSlotUI(WeaponSlotUI ui)
-    {
-        base.SetSlotUI(ui);
-        Debug.Log("Blaster: SetSlotUI override.");
-    }
-
-    protected override void TriggerCooldown()
-    {
-        base.TriggerCooldown();
-        Debug.Log("Blaster: TriggerCooldown override.");
     }
 }

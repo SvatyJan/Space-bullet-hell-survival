@@ -80,17 +80,6 @@ public class PlayerProgression : MonoBehaviour
                 {
                     weaponUpgrades.Add(startingWeapon);
                     options.Add(startingWeapon);
-
-                    AWeapon aWeapon = weaponGO.GetComponent<AWeapon>();
-                    if (aWeapon != null)
-                    {
-                        Debug.Log("Existuje Awepon: " + aWeapon);
-                        var slot = upgradeDisplayUI.GetNextAvailableWeaponSlot();
-                        if (slot != null)
-                        {
-                            aWeapon.SetSlotUI(slot);
-                        }
-                    }
                 }
             }
         }
@@ -346,17 +335,6 @@ public class PlayerProgression : MonoBehaviour
                 {
                     weaponInstances.Add(weaponGO);
                     weaponLevels[weapon] = 1;
-
-                    AWeapon aWeapon = weaponGO.GetComponent<AWeapon>();
-                    if (aWeapon != null)
-                    {
-                        Debug.Log("Existuje Awepon: " + aWeapon);
-                        var slot = upgradeDisplayUI.GetNextAvailableWeaponSlot();
-                        if (slot != null)
-                        {
-                            aWeapon.SetSlotUI(slot);
-                        }
-                    }
                 }
             }
             else if(weaponLevels.ContainsKey(weapon) && CanEvolve(weapon))

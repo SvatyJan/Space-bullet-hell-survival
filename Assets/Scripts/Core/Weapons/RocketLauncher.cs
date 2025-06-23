@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RocketLauncher : AWeapon, IWeapon
+public class RocketLauncher : MonoBehaviour, IWeapon
 {
     [Header("Prefabs")]
     /** Prefab rakety. */
@@ -71,8 +71,6 @@ public class RocketLauncher : AWeapon, IWeapon
     {
         if (Time.time >= nextFireTime)
         {
-            TriggerCooldown();
-
             float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
             nextFireTime = Time.time + totalFireRate;
 
@@ -114,7 +112,6 @@ public class RocketLauncher : AWeapon, IWeapon
         }
     }
 
-
     private GameObject FindClosestEnemyFromPosition(Vector2 position)
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, baseRadius);
@@ -146,17 +143,5 @@ public class RocketLauncher : AWeapon, IWeapon
     {
         baseRadius += 2f;
         baseProjectilesCount += 3;
-    }
-
-    public override void SetSlotUI(WeaponSlotUI ui)
-    {
-        base.SetSlotUI(ui);
-        Debug.Log("RocketLauncher: SetSlotUI override.");
-    }
-
-    protected override void TriggerCooldown()
-    {
-        base.TriggerCooldown();
-        Debug.Log("RocketLauncher: TriggerCooldown override.");
     }
 }

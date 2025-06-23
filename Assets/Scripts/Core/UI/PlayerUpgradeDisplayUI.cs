@@ -91,20 +91,4 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
             }
         }
     }
-
-    public WeaponSlotUI GetNextAvailableWeaponSlot()
-    {
-        foreach (Transform slotTransform in weaponParent)
-        {
-            WeaponSlotUI slotUI = slotTransform.GetComponentInChildren<WeaponSlotUI>(true);
-            if (slotUI != null && !slotUI.IsAssigned)
-            {
-                slotUI.MarkAssigned();
-                return slotUI;
-            }
-        }
-
-        Debug.LogWarning("No available weapon UI slots!");
-        return null;
-    }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Turret : AWeapon, IWeapon
+public class Turret : MonoBehaviour, IWeapon
 {
     [Header("Prefabs")]
     /** Prefab projektilu. */
@@ -158,17 +158,5 @@ public class Turret : AWeapon, IWeapon
     {
         fireRate = Mathf.Max(0.05f, fireRate - 0.2f);
         baseDamage += 10f;
-    }
-
-    public override void SetSlotUI(WeaponSlotUI ui)
-    {
-        base.SetSlotUI(ui);
-        Debug.Log("RocketLauncher: SetSlotUI override.");
-    }
-
-    protected override void TriggerCooldown()
-    {
-        base.TriggerCooldown();
-        Debug.Log("RocketLauncher: TriggerCooldown override.");
     }
 }
