@@ -51,12 +51,23 @@ public class PlayerProgression : MonoBehaviour
     [SerializeField] private Transform upgradeCardParent;
     /** Reference na upgradeDisplayUI. */
     [SerializeField] private PlayerUpgradeDisplayUI upgradeDisplayUI;
+    /** End screen menu. */
+    [SerializeField] private GameObject endScreenMenu;
 
     [Header("Observer")]
     public System.Action OnUpgradesChanged;
 
     private void Start()
     {
+        if(endScreenMenu == null)
+        {
+            Debug.LogError("PlayerProgression requires end screen menu in UI!");
+        }
+        else
+        {
+            endScreenMenu.SetActive(false);
+        }
+
         shipStats = GetComponent<ShipStats>();
         if (shipStats == null)
         {

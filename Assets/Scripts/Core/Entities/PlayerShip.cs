@@ -14,8 +14,20 @@ public class PlayerShip : SpaceEntity, IController
     private Animator animator;
     [SerializeField] private ParticleSystem destroyEffect;
 
+    /** End screen menu. */
+    [SerializeField] private GameObject endScreenMenu;
+
     private void Start()
     {
+        if (endScreenMenu == null)
+        {
+            Debug.LogError("PlayerShip requires end screen menu in UI!");
+        }
+        else
+        {
+            endScreenMenu.SetActive(false);
+        }
+
         animator = GetComponent<Animator>();
 
         if (engineEffect != null)
@@ -146,6 +158,7 @@ public class PlayerShip : SpaceEntity, IController
             return;
         }
 
+        StartCoroutine(SmoothGameTimeSlow());
         controlsEnabled = false;
         shipDestroyed = true;
         animator.SetTrigger("destroy");
@@ -155,12 +168,31 @@ public class PlayerShip : SpaceEntity, IController
             destroyEffect.Play();
         }
 
+        if (engineEffect != null)
+        {
+            engineEffect.Stop();
+        }
+
         ThermalShield shield = GetComponentInChildren<ThermalShield>();
 
         if(shield != null)
         {
             shield.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator SmoothGameTimeSlow()
+    {
+        Time.timeScale = 0.3f;
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        Time.timeScale = 0.75f;
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        Time.timeScale = 1f;
+        endScreenMenu.SetActive(true);
     }
 
     /** Vrátí true jestli je nepřítel v okolí, jinak false. */
