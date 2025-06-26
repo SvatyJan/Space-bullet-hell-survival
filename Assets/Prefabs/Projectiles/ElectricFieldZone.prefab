@@ -32,7 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8740987993027394332}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 664171038, guid: 5f0d07a0f6d6d1c42b68f1a48d558d39, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c9044d35a51bbb942938c419b0e4f2ba, type: 3}
   m_Color: {r: 0, g: 0.70051455, b: 1, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -184,3 +185,69 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &4932899432010001797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1001637081526494152}
+    m_Modifications:
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5744052393453517946, guid: d1e829de147005446b9a367969c82103, type: 3}
+      propertyPath: m_Name
+      value: ElectricFieldZone Effect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d1e829de147005446b9a367969c82103, type: 3}
+--- !u!4 &8740987993027394332 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4412146241336809113, guid: d1e829de147005446b9a367969c82103, type: 3}
+  m_PrefabInstance: {fileID: 4932899432010001797}
+  m_PrefabAsset: {fileID: 0}

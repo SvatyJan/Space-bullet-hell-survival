@@ -45,6 +45,11 @@ public class ElectricField : MonoBehaviour, IWeapon
         }
     }
 
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+
     public void Fire()
     {
         if (activeFieldZone == null)
