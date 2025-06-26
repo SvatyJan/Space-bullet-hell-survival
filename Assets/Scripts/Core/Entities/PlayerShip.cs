@@ -11,13 +11,23 @@ public class PlayerShip : SpaceEntity, IController
 
     private float particlesPerSecond = 50f;
 
+    private Animator animator;
+    [SerializeField] private ParticleSystem destroyEffect;
+
     private void Start()
     {
+        animator = GetComponent<Animator>();
+
         if (engineEffect != null)
         {
             emission = engineEffect.emission;
             emission.rateOverTime = 0f;
             engineEffect.Play();
+        }
+
+        if (destroyEffect != null)
+        {
+            destroyEffect.Stop();
         }
     }
 
@@ -131,8 +141,19 @@ public class PlayerShip : SpaceEntity, IController
 
     private void DestroyShip()
     {
+        if(shipDestroyed)
+        {
+            return;
+        }
+
         controlsEnabled = false;
         shipDestroyed = true;
+        animator.SetTrigger("destroy");
+
+        if (destroyEffect != null)
+        {
+            destroyEffect.Play();
+        }
 
         ThermalShield shield = GetComponentInChildren<ThermalShield>();
 
