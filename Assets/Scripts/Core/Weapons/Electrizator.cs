@@ -51,7 +51,6 @@ public class Electrizator : MonoBehaviour, IWeapon
             if (currentTarget != null)
             {
                 currentTarget.TakeDamage(baseDamage, shipStats.CriticalChance);
-                Debug.Log(currentTarget.name + " has been lightning struck!");
 
                 GameObject lightningEffect = Instantiate(lightningFx, currentTarget.transform.position, Quaternion.identity);
                 Destroy(lightningEffect, 1f);

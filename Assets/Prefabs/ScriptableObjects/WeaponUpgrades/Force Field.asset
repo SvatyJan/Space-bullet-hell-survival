@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Force Field
   m_EditorClassIdentifier: 
   description: Force Field
+  icon: {fileID: -377599678, guid: 6ea310f5f84d2f842958d97e6e6f418d, type: 3}
   weaponName: Force Field
   weaponPrefab: {fileID: 3037188654441705350, guid: d49a6f38698ad5548a27ebec00eadbdd, type: 3}
   requiredStat: 1

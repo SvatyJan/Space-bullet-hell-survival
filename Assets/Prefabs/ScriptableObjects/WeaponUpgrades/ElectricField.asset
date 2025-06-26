@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ElectricField
   m_EditorClassIdentifier: 
   description: ElectricField
+  icon: {fileID: 1635263234, guid: 6ea310f5f84d2f842958d97e6e6f418d, type: 3}
   weaponName: ElectricField
   weaponPrefab: {fileID: 7728026859949422946, guid: a1c336caa97299642844203c9e4961e2, type: 3}
   requiredStat: 1

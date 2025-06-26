@@ -38,11 +38,14 @@ public class ForceField : MonoBehaviour, IWeapon
     /** Výchozí velikost štítu pro výpočet animace růstu. */
     private Vector3 initialScale;
 
+    private Animator animator;
+
     private void Awake()
     {
         shipStats = GetComponentInParent<ShipStats>();
         collider2D = GetComponent<Collider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         collider2D.enabled = false;
         spriteRenderer.enabled = false;
@@ -77,6 +80,11 @@ public class ForceField : MonoBehaviour, IWeapon
         }
     }
 
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.identity;
+    }
+
     private void ActivateShield()
     {
         isActive = true;
@@ -84,6 +92,7 @@ public class ForceField : MonoBehaviour, IWeapon
         spriteRenderer.enabled = true;
         isGrowing = true;
         activationTimer = 0f;
+        animator.SetTrigger("activate");
     }
 
     private void DeactivateShield()
@@ -108,6 +117,7 @@ public class ForceField : MonoBehaviour, IWeapon
         if (collision.CompareTag("Enemy Projectile"))
         {
             Destroy(collision.gameObject);
+            animator.SetTrigger("destroy");
             DeactivateShieldAndAddCooldown();
         }
         else if (collision.CompareTag("Enemy"))
@@ -118,8 +128,9 @@ public class ForceField : MonoBehaviour, IWeapon
                 float totalDamage = baseDamage + shipStats.BaseDamage;
                 float critChance = shipStats.CriticalChance;
                 enemy.TakeDamage(totalDamage, critChance);
+                animator.SetTrigger("destroy");
+                DeactivateShieldAndAddCooldown();
             }
-            DeactivateShieldAndAddCooldown();
         }
     }
 
