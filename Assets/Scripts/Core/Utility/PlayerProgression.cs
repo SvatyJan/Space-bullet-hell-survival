@@ -399,7 +399,8 @@ public class PlayerProgression : MonoBehaviour
     private void CloseUpgradePanel()
     {
         upgradePanel.SetActive(false);
-        StartCoroutine(SmoothResumeGame());
+        //StartCoroutine(SmoothResumeGame());
+        Time.timeScale = 1f;
     }
 
     /** Plynulý návrat na plnou rychlost. */

@@ -136,7 +136,7 @@ MonoBehaviour:
   deceleration: 1
   maxHealth: 100
   currentHealth: 100
-  healthRegen: 1
+  healthRegen: 10
   baseDamage: 10
   criticalChance: 0
   velocity: {x: 0, y: 0, z: 0}
@@ -185,7 +185,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5840b16bd74cea046b81ebb8f83fe7c0, type: 2}
   - {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
   - {fileID: 11400000, guid: 695ef98b8781d994ca7205a64b2b52b9, type: 2}
+  - {fileID: 11400000, guid: cb2ff98a1424c2948b3fdea56991e39e, type: 2}
   - {fileID: 11400000, guid: 96c4c6b022457b2409d5aae64c9f7416, type: 2}
+  - {fileID: 11400000, guid: b8f7b12f859cf5c4097af2a4d0431379, type: 2}
   - {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
   - {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
   - {fileID: 11400000, guid: c187b8767cf77484f8b4449dcfc84cb0, type: 2}
@@ -5112,7 +5114,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
