@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6435876497806325718}
   - component: {fileID: 4782213761936610643}
   - component: {fileID: 9090002297718607369}
+  - component: {fileID: 1142512194596205280}
   m_Layer: 0
   m_Name: Electric wall
   m_TagString: Untagged
@@ -152,3 +153,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.85, y: 0.65}
   m_EdgeRadius: 0
+--- !u!114 &1142512194596205280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521312035780812389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d31785222d3ac498b61fa2e787b8bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionSparkEffect: {fileID: 4384988154490561910, guid: 6feab4eb48fb0234d998496be929ddbe, type: 3}
+  cooldownDuration: 1
+  cooldown: 0
