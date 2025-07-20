@@ -100,6 +100,9 @@ public class Fleet : MonoBehaviour, IWeapon
 
     public void Evolve()
     {
-        throw new System.NotImplementedException();
+        baseFleetCount += 2;
+        orbitRadius *= 0.85f;
+        respawnTime *= 0.75f;
+        SpawnFleet(baseFleetCount);
     }
 }
