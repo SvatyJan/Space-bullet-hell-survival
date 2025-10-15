@@ -18,6 +18,9 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
     public List<Image> statIcons = new();
     public List<Image> weaponIcons = new();
 
+    public void SetProgression(PlayerProgression Progression) => progression = Progression;
+    public PlayerProgression GetProgression() => progression;
+
     private void OnValidate()
     {
         if (progression == null)

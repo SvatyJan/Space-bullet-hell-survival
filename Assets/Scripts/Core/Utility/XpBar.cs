@@ -19,6 +19,18 @@ public class XpBar : MonoBehaviour
     /** Reference na atributy lodì. */
     [SerializeField] private ShipStats shipStats;
 
+    public void SetXpSlider(Slider slider) => xpSlider = slider;
+    public void SetFillImage(Image image) => fillIXpmage = image;
+    public void SetBackgroundImage(Image image) => backgroundXpImage = image;
+    public void SetLevelText(TextMeshProUGUI text) => level = text;
+    public void SetShipStats(ShipStats stats) => shipStats = stats;
+
+    public Slider GetXpSlider() => xpSlider;
+    public Image GetFillImage() => fillIXpmage;
+    public Image GetBackgroundImage() => backgroundXpImage;
+    public TextMeshProUGUI GetLevelText() => level;
+    public ShipStats GetShipStats() => shipStats;
+
     private void Start()
     {
         if (shipStats == null)

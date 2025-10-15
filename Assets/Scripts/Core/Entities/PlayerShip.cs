@@ -18,6 +18,9 @@ public class PlayerShip : SpaceEntity, IController
     /** End screen menu. */
     [SerializeField] private GameObject endScreenMenu;
 
+    public void SetEndScreenMenu(GameObject EndScreenMenu) => endScreenMenu = EndScreenMenu;
+    public GameObject GetEndScreenMenu() => endScreenMenu;
+
     private void Start()
     {
         if (endScreenMenu == null)

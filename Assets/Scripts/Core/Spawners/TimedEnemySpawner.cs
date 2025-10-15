@@ -17,6 +17,9 @@ public class TimedEnemySpawner : MonoBehaviour
 
     private float gameTime;
 
+    public void SetPlayer(Transform Player) => player = Player;
+    public Transform GetPlayer() => player;
+
     private void Start()
     {
         foreach (var entry in timedEnemies)

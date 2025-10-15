@@ -15,6 +15,16 @@ public class Healthbar : MonoBehaviour
     /** Reference na atributy lodì. */
     [SerializeField] private ShipStats shipStats;
 
+    public void SetHealthSlider(Slider slider) => healthSlider = slider;
+    public void SetFillImage(Image image) => fillIHealthmage = image;
+    public void SetBackgroundImage(Image image) => backgroundHealthImage = image;
+    public void SetShipStats(ShipStats stats) => shipStats = stats;
+
+    public Slider GetHealthSlider() => healthSlider;
+    public Image GetFillImage() => fillIHealthmage;
+    public Image GetBackgroundImage() => backgroundHealthImage;
+    public ShipStats GetShipStats() => shipStats;
+
     private void Start()
     {
         if (shipStats == null)

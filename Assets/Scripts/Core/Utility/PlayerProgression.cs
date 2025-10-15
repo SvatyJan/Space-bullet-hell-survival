@@ -54,6 +54,22 @@ public class PlayerProgression : MonoBehaviour
     /** End screen menu. */
     [SerializeField] private GameObject endScreenMenu;
 
+    public void SetUpgradePanel(GameObject panel) => upgradePanel = panel;
+    public GameObject GetUpgradePanel() => upgradePanel;
+
+    public void SetUpgradeCardPrefab(GameObject UpgradeCardPrefab) => upgradeCardPrefab = UpgradeCardPrefab;
+    public GameObject GetUpgradeCardPrefab() => upgradeCardPrefab;
+
+    public void SetUpgradeCardParent(Transform UpgradeCardParent) => upgradeCardParent = UpgradeCardParent;
+    public Transform GetUpgradeCardParent() => upgradeCardParent;
+
+    public void SetUpgradeDisplayUI(PlayerUpgradeDisplayUI UpgradeDisplayUI) => upgradeDisplayUI = UpgradeDisplayUI;
+    public PlayerUpgradeDisplayUI GetUpgradeDisplayUI() => upgradeDisplayUI;
+
+    public void SetEndScreenMenu(GameObject EndScreenMenu) => endScreenMenu = EndScreenMenu;
+    public GameObject GetEndScreenMenu() => endScreenMenu;
+
+
     [Header("Observer")]
     public System.Action OnUpgradesChanged;
 
