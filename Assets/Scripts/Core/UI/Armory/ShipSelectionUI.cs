@@ -68,40 +68,24 @@ public class ShipSelectionUI : MonoBehaviour
     // ---- Helpers ----
     private string BuildStatsString(GameObject shipPrefab)
     {
-        if (!shipPrefab) return "No prefab";
-        var stats = shipPrefab.GetComponent<ShipStats>();
-        if (!stats) return "Stats: N/A";
+        ShipStats shipStats = shipPrefab.GetComponent<ShipStats>();
 
-        float hp = GetField(stats, "MaxHealth", 100f);
-        float speed = GetField(stats, "Speed", 10f);
-        float accel = GetField(stats, "Acceleration", 10f);
-        float rot = GetField(stats, "RotationSpeed", 120f);
-        int weaponSlots = (int)GetField(stats, "MaxWeapons", 2f);
+        float health = shipStats.CurrentHealth;
+        float speed = shipStats.Speed;
+        float acceleration = shipStats.Acceleration;
+        float rotation = shipStats.RotationSpeed;
+        int projectilesCount = shipStats.ProjectilesCount;
+        int weaponSlots = shipStats.maxWeapons;
+        int attributeSlots = shipStats.maxStatUpgrades;
 
         var sb = new StringBuilder();
-        sb.AppendLine($"HP: {hp:0}");
+        sb.AppendLine($"HP: {health:0}");
         sb.AppendLine($"Speed: {speed:0.##}");
-        sb.AppendLine($"Accel: {accel:0.##}");
-        sb.AppendLine($"Rotation: {rot:0.##}");
-        sb.Append($"Weapon slots: {weaponSlots}");
+        sb.AppendLine($"Accel: {acceleration:0.##}");
+        sb.AppendLine($"Rotation: {rotation:0.##}");
+        sb.AppendLine($"Projectiles count: {projectilesCount}");
+        sb.AppendLine($"Weapon slots: {weaponSlots}");
+        sb.Append($"Attribute slots: {attributeSlots}");
         return sb.ToString();
-    }
-
-    private float GetField(object obj, string name, float defVal)
-    {
-        var t = obj.GetType();
-        var prop = t.GetProperty(name);
-        if (prop != null && prop.CanRead)
-        {
-            if (prop.PropertyType == typeof(float)) return (float)prop.GetValue(obj);
-            if (prop.PropertyType == typeof(int)) return (int)prop.GetValue(obj);
-        }
-        var field = t.GetField(name);
-        if (field != null)
-        {
-            if (field.FieldType == typeof(float)) return (float)field.GetValue(obj);
-            if (field.FieldType == typeof(int)) return (int)field.GetValue(obj);
-        }
-        return defVal;
     }
 }
