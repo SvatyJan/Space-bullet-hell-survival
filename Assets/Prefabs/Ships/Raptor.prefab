@@ -9882,7 +9882,7 @@ Transform:
   - {fileID: 2025089993456938899}
   - {fileID: 2871832812458855758}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3823090613605776023
 SpriteRenderer:
@@ -10024,7 +10024,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 695ef98b8781d994ca7205a64b2b52b9, type: 2}
   - {fileID: 11400000, guid: cb2ff98a1424c2948b3fdea56991e39e, type: 2}
   - {fileID: 11400000, guid: 96c4c6b022457b2409d5aae64c9f7416, type: 2}
-  - {fileID: 11400000, guid: b8f7b12f859cf5c4097af2a4d0431379, type: 2}
+  - {fileID: 11400000, guid: 211db79c88a2e0242b0602944cc82877, type: 2}
   - {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
   - {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
   - {fileID: 11400000, guid: c187b8767cf77484f8b4449dcfc84cb0, type: 2}
@@ -10032,7 +10032,7 @@ MonoBehaviour:
   maxStatUpgrade: 5
   maxWeaponUpgrade: 4
   upgradesCount: 3
-  startingWeapon: {fileID: 11400000, guid: b8f7b12f859cf5c4097af2a4d0431379, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 211db79c88a2e0242b0602944cc82877, type: 2}
   upgradePanel: {fileID: 0}
   upgradeCardPrefab: {fileID: 7386857958975287664, guid: 2ee8d11c6666f534d9ae3e2bcb2076e9, type: 3}
   upgradeCardParent: {fileID: 0}

@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6961676998292875381
 MonoBehaviour:
@@ -47,7 +47,7 @@ MonoBehaviour:
   firePoint: {fileID: 7942612134714552162}
   segmentPrefab: {fileID: 7836587076151440839, guid: bad3be40c40801b49a5c1b9c0e1cca86, type: 3}
   segmentParent: {fileID: 7942612134714552162}
-  endCap: {fileID: 8786869858416451872, guid: 6420e42cebba4b145bd0ed2c2c17ae99, type: 3}
+  endCapPrefab: {fileID: 8786869858416451872, guid: 6420e42cebba4b145bd0ed2c2c17ae99, type: 3}
   chargeSparkPrefab: {fileID: 1211987523869624156, guid: 1029f1313d8f13d418c734535e0824c4, type: 3}
   chargeGlowPrefab: {fileID: 1915163934582732089, guid: fed798dd7b4c4634d8d946b821459040, type: 3}
   chargeCooldownPrefab: {fileID: 5944687451673726542, guid: cdadb5973bc8fd14e8ef81cecb83c628, type: 3}

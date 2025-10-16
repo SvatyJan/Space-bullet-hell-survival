@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ea8a1c18ff177459615988a5958457, type: 3}
+  m_Name: BrimstoneLaser
+  m_EditorClassIdentifier: 
+  description: Laser
+  icon: {fileID: -185466549, guid: 83603618886ce994e8798399afce3ea7, type: 3}
+  weaponName: Laser
+  weaponPrefab: {fileID: 8185985678151106120, guid: 092f28cfd11b7ca46807685e9f355841, type: 3}
+  requiredStat: 5

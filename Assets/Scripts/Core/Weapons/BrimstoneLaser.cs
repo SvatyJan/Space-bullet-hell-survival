@@ -10,7 +10,7 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
     [Header("Tiled Beam")]
     [SerializeField] private SpriteRenderer segmentPrefab;
     [SerializeField] private Transform segmentParent;
-    [SerializeField] private SpriteRenderer endCap;
+    [SerializeField] private SpriteRenderer endCapPrefab;
 
     [Header("FX Prefabs")]
     [SerializeField] private ParticleSystem chargeSparkPrefab;
@@ -43,6 +43,7 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
     private Coroutine cycleCo;
     private SpaceEntity owner;
     private ShipStats stats;
+    private SpriteRenderer endCapInstance;
 
     private const float SEGMENT_UNIT = 1f;
 
@@ -60,24 +61,30 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
         audioSrc = GetComponent<AudioSource>();
         if (!audioSrc) audioSrc = gameObject.AddComponent<AudioSource>();
 
+        if (endCapPrefab)
+        {
+            endCapInstance = Instantiate(endCapPrefab, segmentParent);
+            endCapInstance.enabled = false;
+        }
+
         if (chargeSparkPrefab)
         {
             chargeSpark = Instantiate(chargeSparkPrefab, firePoint);
-            chargeSpark.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            chargeSpark.gameObject.SetActive(false);
         }
         if (chargeGlowPrefab)
         {
             chargeGlow = Instantiate(chargeGlowPrefab, segmentParent);
-            chargeGlow.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            chargeGlow.gameObject.SetActive(false);
         }
         if (chargeCooldownPrefab)
         {
             chargeCooldown = Instantiate(chargeCooldownPrefab, firePoint);
-            chargeCooldown.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            chargeCooldown.gameObject.SetActive(false);
         }
 
         HideSegments();
-        if (endCap) endCap.enabled = false;
+        if (endCapInstance) endCapInstance.enabled = false;
     }
 
     public void Fire()
@@ -101,16 +108,16 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
     private IEnumerator Cycle()
     {
         state = State.Charging;
-        if (chargeSpark) chargeSpark.Play();
-        if (chargeCooldown) chargeCooldown.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        FXPlay(chargeSpark);
+        FXStop(chargeCooldown);
         if (audioSrc && chargeSfx) audioSrc.PlayOneShot(chargeSfx);
 
         float t = 0f;
         while (t < chargeTime) { t += Time.deltaTime; yield return null; }
 
         state = State.Firing;
-        if (chargeSpark) chargeSpark.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        if (chargeGlow) chargeGlow.Play();
+        FXStop(chargeSpark);
+        FXPlay(chargeGlow);
         if (audioSrc && fireSfx) audioSrc.PlayOneShot(fireSfx);
 
         float fireT = 0f;
@@ -135,13 +142,13 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
         }
 
         HideSegments();
-        if (endCap) endCap.enabled = false;
-        if (chargeGlow) chargeGlow.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        if (endCapInstance) endCapInstance.enabled = false;
+        FXStop(chargeGlow);
 
         state = State.Cooldown;
-        if (chargeCooldown) chargeCooldown.Play();
+        FXPlay(chargeCooldown);
         yield return new WaitForSeconds(cooldownTime);
-        if (chargeCooldown) chargeCooldown.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        FXStop(chargeCooldown);
 
         state = State.Idle;
         cycleCo = null;
@@ -191,15 +198,14 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
             seg.transform.localRotation = Quaternion.identity;
         }
 
-        if (endCap)
+        if (endCapInstance)
         {
-            endCap.enabled = count > 0;
+            endCapInstance.enabled = count > 0;
             if (count > 0)
             {
-                float endY = count * SEGMENT_UNIT;
-                endCap.transform.SetParent(segmentParent, true);
-                endCap.transform.localPosition = new Vector3(0f, endY, 0f);
-                endCap.transform.localRotation = Quaternion.identity;
+                float endY = (count * SEGMENT_UNIT) - (0.5f * SEGMENT_UNIT);
+                endCapInstance.transform.localPosition = new Vector3(0f, endY, 0f);
+                endCapInstance.transform.localRotation = Quaternion.identity;
             }
         }
     }
@@ -232,5 +238,20 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
             var se = hits[i].GetComponent<SpaceEntity>();
             if (se != null) se.TakeDamage(dmg);
         }
+    }
+
+    private static void FXPlay(ParticleSystem ps)
+    {
+        if (!ps) return;
+        ps.gameObject.SetActive(true);
+        ps.Clear(true);
+        ps.Play(true);
+    }
+
+    private static void FXStop(ParticleSystem ps)
+    {
+        if (!ps) return;
+        ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        ps.gameObject.SetActive(false);
     }
 }
