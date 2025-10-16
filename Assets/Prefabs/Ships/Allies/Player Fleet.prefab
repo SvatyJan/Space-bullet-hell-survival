@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 3496850182433230318}
   - component: {fileID: 3550589687680674252}
   - component: {fileID: 3757523374387002630}
+  - component: {fileID: 5994782524918391925}
+  - component: {fileID: 3604424867398780957}
   m_Layer: 0
   m_Name: Player Fleet
-  m_TagString: Player
+  m_TagString: Player Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +36,7 @@ Transform:
   m_Children:
   - {fileID: 8200401609065443001}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6274450051175076518
 SpriteRenderer:
@@ -175,11 +177,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b25487e4cb30444cb536f8f689428bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
+  rotationSpeed: 180
   attackRange: 15
   fireRate: 1
   projectilePrefab: {fileID: 44860097022628975, guid: 1cc4ccfa663ed804b85b2882ccff5748, type: 3}
   firePoint: {fileID: 8200401609065443001}
+--- !u!114 &5994782524918391925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542746642481126317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768e3d4d404608540996bb9abb68e284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipStats: {fileID: 3604424867398780957}
+  shootingPoint: {fileID: 8200401609065443001}
+  target: {fileID: 0}
+  behavior: {fileID: 3757523374387002630}
+  damagePopUpPrefab: {fileID: 430997315265638419, guid: afd2962277e2d5c4196c56c9effa32f3, type: 3}
+  deathEffect: {fileID: 8857881002592748667, guid: 7cbcc4f54030fc34082ba824d6c9ba41, type: 3}
+--- !u!114 &3604424867398780957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2542746642481126317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e18b0bef5e0a14295d1069fdc731ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  rotationSpeed: 180
+  acceleration: 1
+  deceleration: 1
+  maxHealth: 10
+  currentHealth: 10
+  healthRegen: 0
+  baseDamage: 5
+  criticalChance: 0
+  velocity: {x: 0, y: 0, z: 0}
+  fireRate: 1
+  attackRadius: 15
+  detectionRadius: 15
+  attractionRadius: 0
+  attractionSpeed: 0
+  xp: 0
+  xpNextlevelUp: 0
+  level: 1
+  maxWeapons: 0
+  projectilesCount: 1
+  maxStatUpgrades: 0
+  ShootingPoints:
+  - {fileID: 8200401609065443001}
 --- !u!1 &3843631929745743399
 GameObject:
   m_ObjectHideFlags: 0

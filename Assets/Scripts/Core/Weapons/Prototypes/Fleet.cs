@@ -3,21 +3,16 @@ using UnityEngine;
 
 public class Fleet : MonoBehaviour, IWeapon
 {
-    /** Prefab flotily. */
     public GameObject fleetShipPrefab;
-
-    /** Poèet lodí ve flotile. */
     public int baseFleetCount = 2;
-
-    /** Polomìr, ve kterém se malé lodì ve flotile pohybují. */
     public float orbitRadius = 3f;
-
-    /** Èas na respawn znièené lodì ve flotile. */
     public float respawnTime = 5f;
+    public float orbitRotateSpeed = 25f;
 
     private List<GameObject> fleetShips = new List<GameObject>();
     private List<GameObject> formationPoints = new List<GameObject>();
     private Transform shipTransform;
+    private float currentAngleOffset;
 
     private void Start()
     {
@@ -25,17 +20,16 @@ public class Fleet : MonoBehaviour, IWeapon
         SpawnFleet(baseFleetCount);
     }
 
+    private void Update()
+    {
+        currentAngleOffset += orbitRotateSpeed * Time.deltaTime;
+        UpdateFormationPositions();
+    }
+
     private void SpawnFleet(int count)
     {
-        foreach (var ship in fleetShips)
-        {
-            Destroy(ship);
-        }
-        foreach (var point in formationPoints)
-        {
-            Destroy(point);
-        }
-
+        foreach (var ship in fleetShips) Destroy(ship);
+        foreach (var point in formationPoints) Destroy(point);
         fleetShips.Clear();
         formationPoints.Clear();
 
@@ -52,19 +46,13 @@ public class Fleet : MonoBehaviour, IWeapon
         }
     }
 
-    private void Update()
-    {
-        UpdateFormationPositions();
-    }
-
     private void UpdateFormationPositions()
     {
         for (int i = 0; i < formationPoints.Count; i++)
         {
-            float angle = i * (2 * Mathf.PI / formationPoints.Count);
+            float angle = i * (2 * Mathf.PI / formationPoints.Count) + currentAngleOffset * Mathf.Deg2Rad;
             float x = Mathf.Cos(angle) * orbitRadius;
             float y = Mathf.Sin(angle) * orbitRadius;
-
             formationPoints[i].transform.position = shipTransform.position + new Vector3(x, y, 0);
         }
     }
@@ -77,7 +65,6 @@ public class Fleet : MonoBehaviour, IWeapon
     private System.Collections.IEnumerator RespawnCoroutine(GameObject ship)
     {
         yield return new WaitForSeconds(respawnTime);
-
         int index = fleetShips.IndexOf(ship);
         if (index != -1)
         {
@@ -85,7 +72,6 @@ public class Fleet : MonoBehaviour, IWeapon
             FleetShipBehavior shipBehavior = newShip.GetComponent<FleetShipBehavior>();
             shipBehavior.SetFollowTarget(formationPoints[index].transform);
             shipBehavior.SetFleetController(this);
-
             fleetShips[index] = newShip;
         }
     }

@@ -170,6 +170,7 @@ MonoBehaviour:
   projectileDuration: 5
   collisionTags:
   - Player
+  - Player Ally
 --- !u!95 &3819869865342017803
 Animator:
   serializedVersion: 5

@@ -12,6 +12,7 @@ TagManager:
   - LeftShootingPoint
   - RightShootingPoint
   - Debris
+  - Player Ally
   layers:
   - Default
   - TransparentFX

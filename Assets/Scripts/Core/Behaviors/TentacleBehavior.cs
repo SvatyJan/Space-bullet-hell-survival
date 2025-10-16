@@ -14,9 +14,10 @@ public class TentacleBehavior : MonoBehaviour
 
     private Animator animator;
     private float lastAttackTime = -Mathf.Infinity;
-    private static bool isPlayerGrabbed = false;
+    private static bool isEntityGrabbed = false;
 
     private PlayerShip grabbedPlayer;
+    private AllyShip grabbedAlly;
 
     private void Awake()
     {
@@ -34,18 +35,31 @@ public class TentacleBehavior : MonoBehaviour
 
     public void HandleGrab(Collider2D other)
     {
-        if (isPlayerGrabbed || !other.CompareTag("Player")) return;
-        if (grabbedPlayer != null) return;
+        if (isEntityGrabbed) return;
 
-        PlayerShip player = other.GetComponent<PlayerShip>();
-        if (player == null) return;
+        if (other.CompareTag("Player"))
+        {
+            if (grabbedPlayer != null) return;
+            PlayerShip player = other.GetComponent<PlayerShip>();
+            if (player == null) return;
+            StartCoroutine(GrabAndThrowPlayer(player));
+            return;
+        }
 
-        StartCoroutine(GrabAndThrowPlayer(player));
+        if (other.CompareTag("Player Ally"))
+        {
+            if (grabbedAlly != null) return;
+            AllyShip ally = other.GetComponent<AllyShip>();
+            if (ally == null) ally = other.GetComponentInParent<AllyShip>();
+            if (ally == null) return;
+            StartCoroutine(GrabAndThrowAlly(ally));
+            return;
+        }
     }
 
     private IEnumerator GrabAndThrowPlayer(PlayerShip player)
     {
-        isPlayerGrabbed = true;
+        isEntityGrabbed = true;
         grabbedPlayer = player;
 
         // Znehybni hr·Ëe
@@ -95,7 +109,62 @@ public class TentacleBehavior : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-        isPlayerGrabbed = false;
+        isEntityGrabbed = false;
         grabbedPlayer = null;
+    }
+
+    private IEnumerator GrabAndThrowAlly(AllyShip ally)
+    {
+        isEntityGrabbed = true;
+        grabbedAlly = ally;
+
+        ally.TakeDamage(grabDamage);
+
+        Rigidbody2D rb = ally.GetComponent<Rigidbody2D>();
+        FleetShipBehavior behavior = ally.GetComponent<FleetShipBehavior>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
+        if (behavior != null) behavior.enabled = false;
+
+        float timer = 0f;
+        while (timer < grabDuration)
+        {
+            ally.transform.position = tentacleHitBox.transform.position;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.velocity = Vector2.zero;
+
+            Vector2 baseDir = transform.right;
+            float angleDegrees = 270f;
+            float angleRad = angleDegrees * Mathf.Deg2Rad;
+
+            Vector2 rotatedDir = new Vector2(
+                baseDir.x * Mathf.Cos(angleRad) - baseDir.y * Mathf.Sin(angleRad),
+                baseDir.x * Mathf.Sin(angleRad) + baseDir.y * Mathf.Cos(angleRad)
+            ).normalized;
+            rb.AddForce(rotatedDir * throwForce, ForceMode2D.Force);
+
+            float originalDrag = rb.drag;
+            rb.drag = 3f;
+
+            yield return new WaitForSeconds(1.5f);
+
+            rb.drag = originalDrag;
+            rb.velocity = Vector2.zero;
+        }
+
+        if (behavior != null) behavior.enabled = true;
+
+        yield return new WaitForSeconds(0.5f);
+        isEntityGrabbed = false;
+        grabbedAlly = null;
     }
 }
