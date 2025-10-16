@@ -65,7 +65,6 @@ public class ShipSelectionUI : MonoBehaviour
         Debug.Log($"[ShipSelectionUI] Selected: {ships[index].id}");
     }
 
-    // ---- Helpers ----
     private string BuildStatsString(GameObject shipPrefab)
     {
         ShipStats shipStats = shipPrefab.GetComponent<ShipStats>();
