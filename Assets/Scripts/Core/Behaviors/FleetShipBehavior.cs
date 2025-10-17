@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class FleetShipBehavior : MonoBehaviour
 {
-    public float speed = 5f;
-    public float rotationSpeed = 180f;
-    public float attackRange = 5f;
-    public float fireRate = 1f;
-    public GameObject projectilePrefab;
-    public Transform firePoint;
+    [SerializeField] private float aimAngleOffset = 0f;
+    [SerializeField] private float projectileAngleOffset = 0f;
+    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] public float speed = 5f;
+    [SerializeField] public float rotationSpeed = 180f;
+    [SerializeField] public float attackRange = 5f;
+    [SerializeField] public float fireRate = 1f;
+    [SerializeField] public GameObject projectilePrefab;
+    [SerializeField] public Transform firePoint;
+
     private Transform followTarget;
     private Fleet fleetController;
     private float fireCooldown = 0f;
@@ -57,13 +61,16 @@ public class FleetShipBehavior : MonoBehaviour
         GameObject nearestEnemy = FindNearestEnemy();
         if (nearestEnemy != null)
         {
-            Vector3 shootDirection = (nearestEnemy.transform.position - transform.position).normalized;
-            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg - 90f;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), rotationSpeed * Time.deltaTime);
-            Shoot(nearestEnemy.transform.position);
+            Vector2 dir = ((Vector2)nearestEnemy.transform.position - (Vector2)(firePoint ? firePoint.position : transform.position)).normalized;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion targetRot = Quaternion.Euler(0f, 0f, angle + aimAngleOffset);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+
+            Shoot(dir, angle);
             fireCooldown = 1f / fireRate;
         }
     }
+
 
     private GameObject FindNearestEnemy()
     {
@@ -82,12 +89,16 @@ public class FleetShipBehavior : MonoBehaviour
         return closest;
     }
 
-    private void Shoot(Vector3 targetPos)
+    private void Shoot(Vector2 dir, float baseAngleDeg)
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        if (projectilePrefab == null || firePoint == null) return;
+
+        Quaternion rot = Quaternion.Euler(0f, 0f, baseAngleDeg + projectileAngleOffset);
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, rot);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        rb.velocity = (targetPos - firePoint.position).normalized * 10f;
+        if (rb != null) rb.velocity = dir.normalized * bulletSpeed;
     }
+
 
     private void OnDestroy()
     {
