@@ -13,6 +13,7 @@ TagManager:
   - RightShootingPoint
   - Debris
   - Player Ally
+  - UI
   layers:
   - Default
   - TransparentFX
