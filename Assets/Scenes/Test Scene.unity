@@ -497,7 +497,7 @@ PrefabInstance:
     - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: cb2ff98a1424c2948b3fdea56991e39e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: upgradeDisplayUI
       value: 
