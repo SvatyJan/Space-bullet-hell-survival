@@ -60,7 +60,16 @@ public class XpBar : MonoBehaviour
         xpSlider.maxValue = shipStats.XpNextLevelUp;
         level.text = shipStats.Level.ToString();
 
-        UpdateFillColor();
+        UpdateOneFillColor();
+    }
+
+    /** Aktualizuje barvu XP baru. */
+    private void UpdateOneFillColor()
+    {
+        if (fillIXpmage != null)
+        {
+            fillIXpmage.color = Color.cyan;
+        }
     }
 
     /** Aktualizuje barvu XP baru. */

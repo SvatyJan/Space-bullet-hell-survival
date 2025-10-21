@@ -59,8 +59,13 @@ public class ShipStats : MonoBehaviour
     /** Aktuální poèet xp. */
     [SerializeField] private float xp = 0f;
 
-    /** Poèet xp pro další level. */
+    /** Poèet xp pro další level. Je poèítáno GetXPForNextLevel metodou.*/
     [SerializeField] private float xpNextlevelUp = 15f;
+
+    /** */
+    [SerializeField] private float XPBase = 1f;
+    [SerializeField] private float XPGrowth = 1.3f;
+    [SerializeField] private float XPScale = 2.5f;
 
     /** Aktuální level. */
     [SerializeField] private float level = 1f;
@@ -296,6 +301,11 @@ public class ShipStats : MonoBehaviour
     {
         get { return xpNextlevelUp; }
         set { xpNextlevelUp = Mathf.Max(0, value); }
+    }
+
+    public float GetXPForNextLevel(float level)
+    {
+        return Mathf.Round(XPBase + Mathf.Pow(level, XPGrowth) * XPScale);
     }
 
     public float Level

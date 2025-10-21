@@ -22,6 +22,15 @@ public class TimedEnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        if (player == null)
+        {
+            var found = GameObject.FindGameObjectWithTag("Player");
+            if (found != null)
+                player = found.transform;
+            else
+                Debug.LogWarning("[TimedEnemySpawner] Player not found! Make sure player has tag 'Player'.");
+        }
+
         foreach (var entry in timedEnemies)
         {
             StartCoroutine(SpawnLoop(entry));
