@@ -11,7 +11,7 @@ public class ElectricField : MonoBehaviour, IWeapon
     [SerializeField] public float baseFireRate = 0.5f;
 
     /** Velikost elektrického pole. */
-    [SerializeField] private float size = 6f;
+    [SerializeField] private float size = 5f;
 
     [Header("Runtime")]
     /** Èas pro pøíští výstøel. */
