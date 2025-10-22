@@ -4,27 +4,20 @@ using System.Collections.Generic;
 public class BioProjectile : MonoBehaviour
 {
     [Header("Config")]
-    /** Rychlost støely. */
     [SerializeField] private float speed = 10f;
-
-    /** Doba, jak dlouho vydrží projektil než se znièí. */
     [SerializeField] private float projectileDuration = 5f;
-
-    /** Prefab efektu bio zbranì. */
     [SerializeField] private GameObject bioWeaponEffectPrefab;
-
-    /** Seznam tagù, se kterými projektil mùže kolidovat. */
     [SerializeField] private List<string> collisionTags;
 
-    [Header("Runtime")]
-    /** Smìr pohybu støely. */
+    [Header("Hit Safety")]
+    [SerializeField] private bool useFrameLock = true;
+
     private Vector3 direction;
-
-    /** Poškození projektilu. */
     private float projectileDamage;
-
-    /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
     private SpaceEntity owner;
+
+    private bool hitHandled;
+    private int lastHitFrame = -1;
 
     private void Start()
     {
@@ -49,11 +42,16 @@ public class BioProjectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!collisionTags.Contains(other.tag)) return;
+        if (hitHandled) return;
+        if (useFrameLock && lastHitFrame == Time.frameCount) return;
+        lastHitFrame = Time.frameCount;
 
-        SpaceEntity target = other.GetComponent<SpaceEntity>();
+        if (collisionTags != null && collisionTags.Count > 0 && !collisionTags.Contains(other.tag)) return;
+
+        SpaceEntity target = other.GetComponentInParent<SpaceEntity>();
         if (target == null || target == owner) return;
 
+        hitHandled = true;
         ApplyDamageAndEffect(target);
         Destroy(gameObject);
     }
@@ -63,15 +61,13 @@ public class BioProjectile : MonoBehaviour
         float? critChance = owner?.GetComponent<ShipStats>()?.CriticalChance;
         target.TakeDamage(projectileDamage, critChance);
 
-        if (bioWeaponEffectPrefab != null)
-        {
-            GameObject effect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity, target.transform);
+        if (bioWeaponEffectPrefab == null) return;
 
-            BioWeaponEffect effectScript = effect.GetComponent<BioWeaponEffect>();
-            if (effectScript != null)
-            {
-                effectScript.ApplyBioWeaponEffect(target, owner);
-            }
+        var effect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity, target.transform);
+        var effectScript = effect.GetComponent<BioWeaponEffect>();
+        if (effectScript != null)
+        {
+            effectScript.ApplyBioWeaponEffect(target, owner);
         }
     }
 }

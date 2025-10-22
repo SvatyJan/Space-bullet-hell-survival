@@ -432,7 +432,7 @@ PrefabInstance:
     - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
     - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: upgradeDisplayUI
       value: 
@@ -450,9 +450,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
+      propertyPath: statUpgrades.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 45921c6d309d7a24f96e513d1215d9d4, type: 2}
+    - target: {fileID: 2399251774928902213, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: weaponUpgrades.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f91d86c02b86f8f4099d1e7e0a8de4c3, type: 2}
+      objectReference: {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
     - target: {fileID: 5217123397540870227, guid: 0701a4a6d9b684e4ea9dc071fc7c900d, type: 3}
       propertyPath: m_Name
       value: Fighter
