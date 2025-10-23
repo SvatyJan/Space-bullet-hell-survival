@@ -84,7 +84,7 @@ public class ChaserBehavior : EnemyBehaviorBase
 
     private void UpdateAnimatorParameters()
     {
-        float currentSpeed = rb != null ? rb.velocity.magnitude : 0f;
+        float currentSpeed = rb != null ? rb.linearVelocity.magnitude : 0f;
         animator?.SetFloat("speed", currentSpeed);
         animator?.SetBool("attacking", isAttacking);
     }

@@ -58,7 +58,7 @@ public class SpitterBehavior : EnemyBehaviorBase
 
     private void UpdateAnimatorParameters()
     {
-        float speed = rb != null ? rb.velocity.magnitude : 0f;
+        float speed = rb != null ? rb.linearVelocity.magnitude : 0f;
         animator?.SetFloat("speed", speed);
         animator?.SetBool("attacking", isAttacking);
     }

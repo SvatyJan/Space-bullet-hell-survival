@@ -71,7 +71,7 @@ public class Rocket : MonoBehaviour
         float angle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotateSpeed * Time.fixedDeltaTime);
         rb.MoveRotation(angle);
 
-        rb.velocity = transform.up * speed;
+        rb.linearVelocity = transform.up * speed;
 
         if (Vector3.Distance(startPosition, transform.position) >= maxDistance)
         {

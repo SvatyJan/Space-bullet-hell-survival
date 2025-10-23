@@ -83,7 +83,7 @@ public class EyeBehavior : EnemyBehaviorBase
 
     private void UpdateAnimatorParameters()
     {
-        animator?.SetFloat("speed", rb.velocity.magnitude);
+        animator?.SetFloat("speed", rb.linearVelocity.magnitude);
     }
 
     private void AimAtTarget()

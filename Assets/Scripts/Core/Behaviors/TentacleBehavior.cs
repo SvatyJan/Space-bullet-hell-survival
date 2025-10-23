@@ -62,18 +62,18 @@ public class TentacleBehavior : MonoBehaviour
         isEntityGrabbed = true;
         grabbedPlayer = player;
 
-        // Znehybni hráèe
+        // Znehybni hrï¿½ï¿½e
         player.DisableControlForDuration(grabDuration);
         player.TakeDamage(grabDamage);
 
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true; // zastaví fyziku bìhem držení
+            rb.linearVelocity = Vector2.zero;
+            rb.isKinematic = true; // zastavï¿½ fyziku bï¿½hem drï¿½enï¿½
         }
 
-        // 1) Po dobu držení drž pozici hráèe na hitboxu
+        // 1) Po dobu drï¿½enï¿½ drï¿½ pozici hrï¿½ï¿½e na hitboxu
         float timer = 0f;
         while (timer < grabDuration)
         {
@@ -82,11 +82,11 @@ public class TentacleBehavior : MonoBehaviour
             yield return null;
         }
 
-        // 2) Uvolni hráèe
+        // 2) Uvolni hrï¿½ï¿½e
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
 
             Vector2 baseDir = transform.right;
             float angleDegrees = 270f;
@@ -98,14 +98,14 @@ public class TentacleBehavior : MonoBehaviour
             ).normalized;
             rb.AddForce(rotatedDir * throwForce, ForceMode2D.Force);
 
-            // Doèasný drag zpomalení
-            float originalDrag = rb.drag;
-            rb.drag = 3f;
+            // Doï¿½asnï¿½ drag zpomalenï¿½
+            float originalDrag = rb.linearDamping;
+            rb.linearDamping = 3f;
 
             yield return new WaitForSeconds(1.5f);
 
-            rb.drag = originalDrag;
-            rb.velocity = Vector2.zero;
+            rb.linearDamping = originalDrag;
+            rb.linearVelocity = Vector2.zero;
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -124,7 +124,7 @@ public class TentacleBehavior : MonoBehaviour
         FleetShipBehavior behavior = ally.GetComponent<FleetShipBehavior>();
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.isKinematic = true;
         }
         if (behavior != null) behavior.enabled = false;
@@ -140,7 +140,7 @@ public class TentacleBehavior : MonoBehaviour
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
 
             Vector2 baseDir = transform.right;
             float angleDegrees = 270f;
@@ -152,13 +152,13 @@ public class TentacleBehavior : MonoBehaviour
             ).normalized;
             rb.AddForce(rotatedDir * throwForce, ForceMode2D.Force);
 
-            float originalDrag = rb.drag;
-            rb.drag = 3f;
+            float originalDrag = rb.linearDamping;
+            rb.linearDamping = 3f;
 
             yield return new WaitForSeconds(1.5f);
 
-            rb.drag = originalDrag;
-            rb.velocity = Vector2.zero;
+            rb.linearDamping = originalDrag;
+            rb.linearVelocity = Vector2.zero;
         }
 
         if (behavior != null) behavior.enabled = true;

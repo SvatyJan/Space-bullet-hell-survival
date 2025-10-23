@@ -96,7 +96,7 @@ public class FleetShipBehavior : MonoBehaviour
         Quaternion rot = Quaternion.Euler(0f, 0f, baseAngleDeg + projectileAngleOffset);
         GameObject projectile = Instantiate(projectilePrefab, firePoint.position, rot);
         Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
-        if (rb != null) rb.velocity = dir.normalized * bulletSpeed;
+        if (rb != null) rb.linearVelocity = dir.normalized * bulletSpeed;
     }
 
 
