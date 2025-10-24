@@ -15,7 +15,6 @@ public class GameSpeedManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         ApplyGameSpeed(currentGameSpeed);
     }
