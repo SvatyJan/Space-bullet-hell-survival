@@ -143,6 +143,7 @@ public class PlayerProgression : MonoBehaviour
     private void ShowUpgradeChoices()
     {
         GameSpeedManager.SetGameSpeed(0f);
+        GameSpeedManager.SetSavedGameSpeed(0f);
         upgradeChoices.Clear();
         options.Clear();
 
@@ -158,6 +159,7 @@ public class PlayerProgression : MonoBehaviour
         if (options.Count == 0 && upgradeChoices.Count == 0)
         {
             GameSpeedManager.SetGameSpeed(1f);
+            GameSpeedManager.SetSavedGameSpeed(1f);
             Debug.Log("Není k výbìru žádný upgrade.");
             return;
         }
@@ -417,15 +419,18 @@ public class PlayerProgression : MonoBehaviour
         upgradePanel.SetActive(false);
         //StartCoroutine(SmoothResumeGame());
         GameSpeedManager.SetGameSpeed(1f);
+        GameSpeedManager.SetSavedGameSpeed(1f);
     }
 
     /** Plynulý návrat na plnou rychlost. */
     private IEnumerator SmoothResumeGame()
     {
         GameSpeedManager.SetGameSpeed(0.3f);
+        GameSpeedManager.SetSavedGameSpeed(0.3f);
 
         yield return new WaitForSecondsRealtime(1f);
 
         GameSpeedManager.SetGameSpeed(1f);
+        GameSpeedManager.SetSavedGameSpeed(1f);
     }
 }

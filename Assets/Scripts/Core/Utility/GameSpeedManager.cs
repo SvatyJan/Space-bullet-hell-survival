@@ -6,6 +6,7 @@ public class GameSpeedManager : MonoBehaviour
 
     [Header("Current Runtime Speed")]
     [SerializeField] private float currentGameSpeed = 1f;
+    [SerializeField] private float savedGameSpeed = 1f;
 
     private void Awake()
     {
@@ -30,14 +31,35 @@ public class GameSpeedManager : MonoBehaviour
         Instance.ApplyGameSpeed(newGameSpeed);
     }
 
+    public static float GetGameSpeed()
+    {
+        return Instance != null ? Instance.currentGameSpeed : 1f;
+    }
+
     private void ApplyGameSpeed(float newGameSpeed)
     {
         currentGameSpeed = Mathf.Max(0f, newGameSpeed);
         Time.timeScale = currentGameSpeed;
     }
 
-    public static float GetGameSpeed()
+    public static void SetSavedGameSpeed(float newSavedGameSpeed)
     {
-        return Instance != null ? Instance.currentGameSpeed : 1f;
+        if (Instance == null)
+        {
+            Debug.LogWarning("GameSpeedManager not found in scene!");
+            return;
+        }
+
+        Instance.savedGameSpeed = newSavedGameSpeed;
+    }
+
+    public static float GetSavedGameSpeed()
+    {
+        return Instance != null ? Instance.savedGameSpeed : 1f;
+    }
+
+    public static void ApplySavedGameSpeed()
+    {
+        Time.timeScale = GetSavedGameSpeed();
     }
 }

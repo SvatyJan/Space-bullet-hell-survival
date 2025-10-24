@@ -53,7 +53,7 @@ public class IngameMenu : MonoBehaviour
         if (menuRoot != null)
             menuRoot.SetActive(false);
 
-        GameSpeedManager.SetGameSpeed(1f);
+        GameSpeedManager.ApplySavedGameSpeed();
 
         Cursor.visible = prevCursorVisible;
         Cursor.lockState = prevCursorLockMode;
