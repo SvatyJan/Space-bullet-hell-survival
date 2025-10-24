@@ -5,6 +5,8 @@ using TMPro;
 public class UpgradeCardUI : MonoBehaviour
 {
     [SerializeField] private Image icon;
+    [SerializeField] private Transform evolveIconsContainer;
+    [SerializeField] private GameObject evolveIconPrefab;
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text description;
     [SerializeField] private Button button;
@@ -16,8 +18,25 @@ public class UpgradeCardUI : MonoBehaviour
         if (icon != null) icon.sprite = upgrade.icon;
         if (title != null) title.text = upgrade.name;
 
+        foreach (Transform child in evolveIconsContainer)
+            Destroy(child.gameObject);
 
-        if(Evolve == true)
+        if (upgrade.evolvesRequired != null && upgrade.evolvesRequired.Count != 0)
+        {
+            foreach (var evo in upgrade.evolvesRequired)
+            {
+                if (evo?.icon == null)
+                    continue;
+
+                GameObject newIcon = Instantiate(evolveIconPrefab, evolveIconsContainer);
+                Image img = newIcon.GetComponent<Image>();
+                img.sprite = evo.icon;
+
+                img.color = new Color(1f, 1f, 1f, 0.9f);
+            }
+        }
+
+        if (Evolve == true)
         {
             if (innerBorder != null) innerBorder.color = HexToColor("#2B0A3D");
             if (outerBorder != null) outerBorder.color = HexToColor("#A63FFF");

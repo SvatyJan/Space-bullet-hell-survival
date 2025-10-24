@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Fleet
   icon: {fileID: 21300000, guid: ac983c843ba82fe40bbeab6bb40c867c, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}
   weaponName: Fleet
   weaponPrefab: {fileID: 4957801454098901893, guid: e3c7399013fe3144cb0db54dda2bb784, type: 3}
   requiredStat: 6

@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Laser
   icon: {fileID: -185466549, guid: 83603618886ce994e8798399afce3ea7, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 407063229eaa4934c9bf00ac6f1c739d, type: 2}
   weaponName: Laser
   weaponPrefab: {fileID: 8185985678151106120, guid: 092f28cfd11b7ca46807685e9f355841, type: 3}
   requiredStat: 5

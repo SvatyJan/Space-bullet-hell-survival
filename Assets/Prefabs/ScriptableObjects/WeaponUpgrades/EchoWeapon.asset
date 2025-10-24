@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Echo Weapon
   icon: {fileID: -1512570124, guid: b338c500cd60cfa43b4bc225d0f3f682, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 45921c6d309d7a24f96e513d1215d9d4, type: 2}
   weaponName: Echo Weapon
   weaponPrefab: {fileID: 3676529170873869385, guid: 2d6f7caad56767c40aae4155d5e42766, type: 3}
   requiredStat: 8

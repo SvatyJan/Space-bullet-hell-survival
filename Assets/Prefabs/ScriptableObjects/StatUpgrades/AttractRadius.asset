@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: AttractRadius
   m_EditorClassIdentifier: 
   description: Attraction radius increase by 1
-  statType: 6
   icon: {fileID: -1042481421, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 0351e12f3bcce7e41a9f8c28ef385347, type: 2}
+  - {fileID: 11400000, guid: cb2ff98a1424c2948b3fdea56991e39e, type: 2}
   increaseAmount: 1
+  statType: 6

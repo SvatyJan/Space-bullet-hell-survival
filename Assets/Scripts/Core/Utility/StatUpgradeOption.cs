@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewStatUpgradeOption", menuName = "Upgrades/StatUpgradeOption")]
@@ -6,10 +7,9 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
     /** Popis upgradu. */
     public string description;
 
-    /** Typ statu, který se má zvýšit. */
-    public StatType statType;
-
     [SerializeField] public Sprite icon;
+
+    [SerializeField] public List<WeaponUpgradeOption> evolvesRequired;
 
     /** Hodnota, o kterou se stat zvýší. */
     [SerializeField] private float increaseAmount = 1f;
@@ -17,8 +17,11 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
     /** Pøiøazení popisu vylepšení. */
     string IUpgradeOption.name => name;
     string IUpgradeOption.description => description;
-
     Sprite IUpgradeOption.icon => icon;
+    List<IUpgradeOption>? IUpgradeOption.evolvesRequired => evolvesRequired?.ConvertAll(i => (IUpgradeOption)i);
+
+    /** Typ statu, který se má zvýšit. */
+    public StatType statType;
 
     /** Aplikuje atributy. */
     public GameObject? Apply(ShipStats stats)

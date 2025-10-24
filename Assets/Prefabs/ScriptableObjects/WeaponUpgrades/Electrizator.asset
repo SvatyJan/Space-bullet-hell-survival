@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Electrizator
   icon: {fileID: 1109715877, guid: 83603618886ce994e8798399afce3ea7, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 5d8a6225770db364a8f10047a82563ac, type: 2}
   weaponName: Electrizator
   weaponPrefab: {fileID: 986810218447542644, guid: 30faf497b671b7447a1016544c2092f2, type: 3}
-  requiredStat: 4
+  requiredStat: 0

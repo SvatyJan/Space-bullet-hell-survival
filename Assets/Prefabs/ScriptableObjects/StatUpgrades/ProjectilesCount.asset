@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: ProjectilesCount
   m_EditorClassIdentifier: 
   description: Projectiles Count increase by 1
-  statType: 8
   icon: {fileID: -701793330, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
+  - {fileID: 11400000, guid: 5840b16bd74cea046b81ebb8f83fe7c0, type: 2}
   increaseAmount: 1
+  statType: 8

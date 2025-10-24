@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: FireRate
   m_EditorClassIdentifier: 
   description: FireRate Increase by 10%
-  statType: 5
   icon: {fileID: -1939575857, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 211db79c88a2e0242b0602944cc82877, type: 2}
+  - {fileID: 11400000, guid: 5ad72193ce176e641b014f2f529c87f0, type: 2}
   increaseAmount: 0.1
+  statType: 5

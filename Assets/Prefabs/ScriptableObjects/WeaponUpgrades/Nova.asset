@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Nova
   icon: {fileID: 1972560141, guid: 83603618886ce994e8798399afce3ea7, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}
   weaponName: Nova
   weaponPrefab: {fileID: 6876600066296017307, guid: c201ce57b8b45a948a48d9cd4b8da399, type: 3}
   requiredStat: 6

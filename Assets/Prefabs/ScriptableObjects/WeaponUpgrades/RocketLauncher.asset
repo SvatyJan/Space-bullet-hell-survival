@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Rocket Launcher Upgrade
   icon: {fileID: -299056887, guid: 83603618886ce994e8798399afce3ea7, type: 3}
+  evolvesRequired:
+  - {fileID: 11400000, guid: a8e916fc47eb60f418b8d12df3171551, type: 2}
   weaponName: Rocket Launcher
   weaponPrefab: {fileID: 2952294909944776331, guid: 91943cb07c622294c8f3fc92ccffaf45, type: 3}
   requiredStat: 3

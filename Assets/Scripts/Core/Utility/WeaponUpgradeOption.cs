@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewWeaponUpgradeOption", menuName = "Upgrades/WeaponUpgradeOption")]
@@ -8,6 +9,8 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
 
     [SerializeField] public Sprite icon;
 
+    [SerializeField] public List<StatUpgradeOption> evolvesRequired;
+
     /** Název zbranì. */
     public string weaponName;
 
@@ -16,9 +19,8 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
 
     /** Pøiøazení popisu vylepšení. */
     string IUpgradeOption.description => description;
-
     Sprite IUpgradeOption.icon => icon;
-
+    List<IUpgradeOption>? IUpgradeOption.evolvesRequired => evolvesRequired?.ConvertAll(i => (IUpgradeOption)i);
     public StatType requiredStat;
 
     private GameObject activeInstance;
