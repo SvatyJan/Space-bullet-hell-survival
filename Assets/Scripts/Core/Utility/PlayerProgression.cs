@@ -142,7 +142,7 @@ public class PlayerProgression : MonoBehaviour
     /** Ukáže možnosti vylepšení. */
     private void ShowUpgradeChoices()
     {
-        Time.timeScale = 0f;
+        GameSpeedManager.SetGameSpeed(0f);
         upgradeChoices.Clear();
         options.Clear();
 
@@ -157,7 +157,7 @@ public class PlayerProgression : MonoBehaviour
 
         if (options.Count == 0 && upgradeChoices.Count == 0)
         {
-            Time.timeScale = 1f;
+            GameSpeedManager.SetGameSpeed(1f);
             Debug.Log("Není k výbìru žádný upgrade.");
             return;
         }
@@ -266,7 +266,6 @@ public class PlayerProgression : MonoBehaviour
             }
         }
     }
-
 
     /** Vrátí poèet možných evolvù. */
     private int CheckAvailableEvolves()
@@ -417,16 +416,16 @@ public class PlayerProgression : MonoBehaviour
     {
         upgradePanel.SetActive(false);
         //StartCoroutine(SmoothResumeGame());
-        Time.timeScale = 1f;
+        GameSpeedManager.SetGameSpeed(1f);
     }
 
     /** Plynulý návrat na plnou rychlost. */
     private IEnumerator SmoothResumeGame()
     {
-        Time.timeScale = 0.3f;
+        GameSpeedManager.SetGameSpeed(0.3f);
 
         yield return new WaitForSecondsRealtime(1f);
 
-        Time.timeScale = 1f;
+        GameSpeedManager.SetGameSpeed(1f);
     }
 }
