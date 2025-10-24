@@ -41,6 +41,9 @@ public class PlayerProgression : MonoBehaviour
 
     [SerializeField] private WeaponUpgradeOption? startingWeapon;
 
+    /** Pøíznak, že hráè je ve stavu získávání nového levelu. Nemùže získávat další aktuální XP. */
+    public bool isPlayerLevelingUp = false;
+
     [Header("UI Elements")]
     /** Upgrade menu. */
     public GameObject upgradePanel;
@@ -136,14 +139,12 @@ public class PlayerProgression : MonoBehaviour
         shipStats.XP -= shipStats.XpNextLevelUp;
         shipStats.Level++;
         shipStats.XpNextLevelUp = shipStats.GetXPForNextLevel(shipStats.Level);
-        ShowUpgradeChoices();
+        StartCoroutine(SmoothPauseGameAndShowUpgradeChoices());
     }
 
     /** Ukáže možnosti vylepšení. */
     private void ShowUpgradeChoices()
     {
-        GameSpeedManager.SetGameSpeed(0f);
-        GameSpeedManager.SetSavedGameSpeed(0f);
         upgradeChoices.Clear();
         options.Clear();
 
@@ -190,10 +191,10 @@ public class PlayerProgression : MonoBehaviour
             card.SetUpgradeData(upgrade, () =>
             {
                 ApplyUpgrade(upgrade);
-                CloseUpgradePanel();
+                StartCoroutine(SmoothResumeGame());
+                upgradePanel.SetActive(false);
             }, isEvolved);
         }
-
 
         upgradePanel.SetActive(true);
     }
@@ -413,24 +414,30 @@ public class PlayerProgression : MonoBehaviour
         OnUpgradesChanged?.Invoke();
     }
 
-    /** Zavøe panel vylepšování a odpauzuje hru. */
-    private void CloseUpgradePanel()
+    /** Plynulá pauza hry. */
+    private IEnumerator SmoothPauseGameAndShowUpgradeChoices()
     {
-        upgradePanel.SetActive(false);
-        //StartCoroutine(SmoothResumeGame());
-        GameSpeedManager.SetGameSpeed(1f);
-        GameSpeedManager.SetSavedGameSpeed(1f);
+        isPlayerLevelingUp = true;
+        GameSpeedManager.SetGameSpeed(0.25f);
+        GameSpeedManager.SetSavedGameSpeed(0.25f);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+
+        GameSpeedManager.SetGameSpeed(0f);
+        GameSpeedManager.SetSavedGameSpeed(0f);
+        ShowUpgradeChoices();
     }
 
     /** Plynulý návrat na plnou rychlost. */
     private IEnumerator SmoothResumeGame()
     {
-        GameSpeedManager.SetGameSpeed(0.3f);
-        GameSpeedManager.SetSavedGameSpeed(0.3f);
+        GameSpeedManager.SetGameSpeed(0.5f);
+        GameSpeedManager.SetSavedGameSpeed(0.5f);
 
         yield return new WaitForSecondsRealtime(1f);
 
         GameSpeedManager.SetGameSpeed(1f);
         GameSpeedManager.SetSavedGameSpeed(1f);
+        isPlayerLevelingUp = false;
     }
 }

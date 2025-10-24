@@ -16,6 +16,12 @@ public class XPOrb : MonoBehaviour
                 return;
             }
 
+            // Pokud je hráè ve fázi level up, tak nemùžeme pøidat další XP kvùli race condition.
+            if(playerXp.isPlayerLevelingUp == true)
+            {
+                return;
+            }
+
             playerXp.AddXP(xpAmount);
 
             Destroy(gameObject);

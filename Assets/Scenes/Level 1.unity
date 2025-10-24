@@ -3095,13 +3095,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8203002719663639246, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8203002719663639246, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10001
+      objectReference: {fileID: 0}
     - target: {fileID: 8715666726287534979, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1578829717}
     - target: {fileID: 8904696844804743407, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9068841291707886509, guid: 81d203626fc043b48bb1c6d56c91cbd0, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
