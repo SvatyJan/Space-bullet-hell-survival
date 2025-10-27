@@ -73,33 +73,17 @@ public class Turret : MonoBehaviour, IWeapon
 
         float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
         nextFireTime = Time.time + totalFireRate;
-
-        /*float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
-        nextFireTime = Time.time + totalFireRate;
-
-        Transform firingPoint = shootingPoints[currentPointIndex];
-        currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
-
-        targetDirection = GetNearestEnemyDirection();
-        if (targetDirection == Vector3.zero) return;
-
-        Quaternion rotation = Quaternion.LookRotation(Vector3.forward, targetDirection);
-        GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, rotation);
-
-        Projectile projectileScript = projectile.GetComponent<Projectile>();
-        if (projectileScript != null)
-        {
-            projectileScript.Initialize(owner, baseDamage);
-            projectileScript.SetDirection(targetDirection);
-        }*/
     }
 
     private IEnumerator FireProjectilesCoroutine(int count)
     {
         for (int i = 0; i < count; i++)
         {
-            Transform firingPoint = shootingPoints[currentPointIndex];
-            currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
+            int safeLength = Mathf.Max(1, shootingPoints.Length);
+            Transform firingPoint = shootingPoints[currentPointIndex % safeLength];
+            currentPointIndex = (currentPointIndex + 1) % safeLength;
+
+            if (firingPoint == null) yield break;
 
             targetDirection = GetNearestEnemyDirection();
             if (targetDirection == Vector3.zero) yield break;
@@ -151,12 +135,14 @@ public class Turret : MonoBehaviour, IWeapon
     public void Upgrade()
     {
         fireRate = Mathf.Max(0.05f, fireRate - 0.05f);
+        if (float.IsNaN(fireRate) || fireRate <= 0f) fireRate = 0.05f;
         baseDamage += 3f;
     }
 
     public void Evolve()
     {
         fireRate = Mathf.Max(0.05f, fireRate - 0.2f);
+        if (float.IsNaN(fireRate) || fireRate <= 0f) fireRate = 0.05f;
         baseDamage += 10f;
     }
 }

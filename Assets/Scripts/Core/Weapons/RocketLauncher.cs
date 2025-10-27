@@ -72,6 +72,7 @@ public class RocketLauncher : MonoBehaviour, IWeapon
         if (Time.time >= nextFireTime)
         {
             float totalFireRate = Mathf.Max(0.05f, fireRate * shipStats.FireRate);
+            if (float.IsNaN(totalFireRate) || totalFireRate <= 0f) totalFireRate = 0.05f;
             nextFireTime = Time.time + totalFireRate;
 
             int rocketCount = baseProjectilesCount + shipStats.ProjectilesCount;
@@ -79,7 +80,10 @@ public class RocketLauncher : MonoBehaviour, IWeapon
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePosition.z = 0f;
 
+            int safeLength = Mathf.Max(1, shootingPoints.Length);
             Transform launchPoint = shootingPoints[currentPointIndex];
+            if (launchPoint == null) return;
+
             StartCoroutine(FireRocketsCoroutine(launchPoint, mousePosition, rocketCount));
 
             currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
