@@ -33,6 +33,9 @@ public class UpgradeCardUI : MonoBehaviour
                 img.sprite = evo.icon;
 
                 img.color = new Color(1f, 1f, 1f, 0.9f);
+
+                RectTransform rectTransform = img.GetComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(64, 64);
             }
         }
 

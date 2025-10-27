@@ -1,9 +1,6 @@
 using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
-using UnityEngine.UI;
 using System.Collections;
-using static Cinemachine.DocumentationSortingAttribute;
 
 public class PlayerProgression : MonoBehaviour
 {
@@ -72,7 +69,6 @@ public class PlayerProgression : MonoBehaviour
 
     public void SetEndScreenMenu(GameObject EndScreenMenu) => endScreenMenu = EndScreenMenu;
     public GameObject GetEndScreenMenu() => endScreenMenu;
-
 
     [Header("Observer")]
     public System.Action OnUpgradesChanged;

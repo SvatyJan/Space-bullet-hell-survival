@@ -48,7 +48,7 @@ public class PlayerShip : SpaceEntity, IController
 
     private void Update()
     {
-        Controll();
+        //Controll();
         HealthRegen();
     }
 
