@@ -466,12 +466,7 @@ public class PlayerProgression : MonoBehaviour
                     weaponLevels[weapon] = 1;
                     Debug.Log($"Zbraò '{weapon.name}' vytvoøena (level 1).");
                 }
-                return;
-            }
-
-            if (CanEvolve(weapon) == false && !weaponUpgrades.Contains(weapon))
-            {
-                Debug.Log($"Zbraò '{weapon.name}' je již evolvovaná, nic se nedìje.");
+                OnUpgradesChanged?.Invoke();
                 return;
             }
 
@@ -566,7 +561,7 @@ public class PlayerProgression : MonoBehaviour
                     weaponInstances.Remove(weaponGO);
                     Destroy(weaponGO);
                 }
-                weaponLevels[weapon] = 0;
+                weaponLevels.Remove(weapon);
 
                 Debug.Log($"Zbraò '{weapon.name}' odstranìna.");
             }
@@ -574,5 +569,4 @@ public class PlayerProgression : MonoBehaviour
 
         OnUpgradesChanged?.Invoke();
     }
-
 }

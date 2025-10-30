@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class EquipIUpgradeOption : MonoBehaviour, IInteractable
+public class UpgradeIUpgradeOption : MonoBehaviour, IInteractable
 {
     [Header("Upgrade Reference")]
     [SerializeField] private ScriptableObject upgradeAsset;
 
     [Header("UI")]
-    [SerializeField] private string descriptionText = "Equip Upgrade";
+    [SerializeField] private string descriptionText = "Upgrade";
+    [SerializeField] private bool upgrade = true;
 
     public string DescriptionText => descriptionText;
 
@@ -31,7 +32,15 @@ public class EquipIUpgradeOption : MonoBehaviour, IInteractable
             return;
         }
 
-        progression.AddOrUpgradeUpgrade(upgradeOption);
-        Debug.Log($"{name}: Equipped upgrade {upgradeOption.name}");
+        if(upgrade)
+        {
+            progression.AddOrUpgradeUpgrade(upgradeOption);
+        }
+        else
+        {
+            progression.RemoveOrDowngradeUpgrade(upgradeOption);
+        }
+
+        //Debug.Log($"{name}: Equipped upgrade {upgradeOption.name}");
     }
 }

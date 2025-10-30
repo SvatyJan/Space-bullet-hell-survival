@@ -585,6 +585,7 @@ MonoBehaviour:
   statParent: {fileID: 545139231095072649}
   weaponParent: {fileID: 8827522555571507824}
   iconSlotPrefab: {fileID: 6890542859363390021, guid: ff5c31c26bec2e445bce27a3d348bffc, type: 3}
+  emptyIconImage: {fileID: 21300000, guid: 8bce1095c0f8388448af05a925eb1771, type: 3}
   statIcons: []
   weaponIcons: []
 --- !u!223 &7483431125734842975

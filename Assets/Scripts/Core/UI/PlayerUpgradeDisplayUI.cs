@@ -14,6 +14,7 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
 
     [Header("Slot Prefab")]
     [SerializeField] private GameObject iconSlotPrefab;
+    [SerializeField] private Sprite emptyIconImage;
 
     public List<Image> statIcons = new();
     public List<Image> weaponIcons = new();
@@ -68,6 +69,18 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
 
     public void UpdateUpgradeIcons()
     {
+        foreach (var icon in statIcons)
+        {
+            icon.sprite = emptyIconImage;
+            icon.color = new Color(1f, 1f, 1f, 0.5f);
+        }
+
+        foreach (var icon in weaponIcons)
+        {
+            icon.sprite = emptyIconImage;
+            icon.color = new Color(1f, 1f, 1f, 0.5f);
+        }
+
         int statIndex = 0;
         foreach (var kvp in progression.statLevels)
         {
@@ -94,4 +107,5 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
             }
         }
     }
+
 }
