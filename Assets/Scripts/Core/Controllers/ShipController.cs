@@ -23,6 +23,11 @@ public class ShipController : MonoBehaviour
         Controll();
     }
 
+    public static GameObject GetControllingObject()
+    {
+        return Instance != null ? Instance.controllingObject : null;
+    }
+
     /** Ovládání entity v kontrole. */
     private void Controll()
     {

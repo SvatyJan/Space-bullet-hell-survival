@@ -155,6 +155,12 @@ public class Laser : MonoBehaviour, IWeapon
         defaultRayDistance += 1f;
     }
 
+    public void Downgrade()
+    {
+        damagePerSecond -= 1f;
+        defaultRayDistance -= 1f;
+    }
+
     public void Evolve()
     {
         damagePerSecond += 5f;

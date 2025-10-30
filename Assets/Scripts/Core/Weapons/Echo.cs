@@ -98,6 +98,12 @@ public class Echo : MonoBehaviour, IWeapon
         baseDamage += 5f;
         spreadAngle += 20f;
     }
+    public void Downgrade()
+    {
+        projectileCount -= 2;
+        baseDamage -= 5f;
+        spreadAngle -= 20f;
+    }
 
     public void Evolve()
     {

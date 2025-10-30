@@ -62,6 +62,12 @@ public class Nova : MonoBehaviour, IWeapon
         baseDamage += 10f;
     }
 
+    public void Downgrade()
+    {
+        baseFireRate = Mathf.Max(8f, baseFireRate + 8f);
+        baseDamage -= 10f;
+    }
+
     public void Evolve()
     {
         baseFireRate = 30f;

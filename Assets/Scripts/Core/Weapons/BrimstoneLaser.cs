@@ -99,6 +99,12 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
         damagePerSecond += 20f;
     }
 
+    public void Downgrade()
+    {
+        baseRange -= 1;
+        damagePerSecond -= 20f;
+    }
+
     public void Evolve()
     {
         baseRange += 2;

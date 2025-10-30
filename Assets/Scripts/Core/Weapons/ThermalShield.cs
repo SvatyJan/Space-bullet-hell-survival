@@ -90,6 +90,11 @@ public class ThermalShield : MonoBehaviour, IWeapon
         rechargeTime = Mathf.Max(1f, rechargeTime - 1f);
     }
 
+    public void Downgrade()
+    {
+        rechargeTime = Mathf.Max(1f, rechargeTime + 1f);
+    }
+
     public void Evolve()
     {
         rechargeTime = Mathf.Max(1f, rechargeTime - 2f);

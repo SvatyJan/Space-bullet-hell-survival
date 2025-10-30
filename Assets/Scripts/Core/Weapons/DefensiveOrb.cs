@@ -93,6 +93,12 @@ public class DefensiveOrb : MonoBehaviour, IWeapon
         UpdateOrbCount();
     }
 
+    public void Downgrade()
+    {
+        baseOrbitSpeed -= 10f;
+        UpdateOrbCount();
+    }
+
     public void Evolve()
     {
         baseOrbitRadius += 1.5f;

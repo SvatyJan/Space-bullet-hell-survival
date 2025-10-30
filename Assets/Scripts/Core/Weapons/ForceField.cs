@@ -147,9 +147,16 @@ public class ForceField : MonoBehaviour, IWeapon
         ReinitializeShield();
     }
 
+    public void Downgrade()
+    {
+        baseDamage -= 5f;
+        cooldownTime += 0.5f;
+        initialScale /= 1.1f;
+        ReinitializeShield();
+    }
+
     public void Evolve()
     {
-        // Zvětší výchozí velikost štítu a ihned ji aplikuje
         initialScale *= 1.5f;
         ReinitializeShield();
     }
@@ -158,7 +165,6 @@ public class ForceField : MonoBehaviour, IWeapon
     {
         if (isActive)
         {
-            // Restartuje animaci růstu a aplikuje novou velikost
             isGrowing = true;
             activationTimer = 0f;
             transform.localScale = initialScale * 0.2f;

@@ -436,4 +436,143 @@ public class PlayerProgression : MonoBehaviour
         GameSpeedManager.SetSavedGameSpeed(1f);
         isPlayerLevelingUp = false;
     }
+
+    public void AddOrUpgradeUpgrade(IUpgradeOption upgrade)
+    {
+        if (upgrade is StatUpgradeOption stat)
+        {
+            if (!statLevels.ContainsKey(stat.statType))
+                statLevels[stat.statType] = 0;
+
+            int currentLevel = statLevels[stat.statType];
+            if (currentLevel >= maxStatUpgrade)
+            {
+                Debug.Log($"Stat '{stat.statType}' je již na max úrovni ({maxStatUpgrade}).");
+                return;
+            }
+
+            statLevels[stat.statType]++;
+            stat.Apply(shipStats);
+            Debug.Log($"Stat '{stat.statType}' zvýšen na {statLevels[stat.statType]}");
+        }
+        else if (upgrade is WeaponUpgradeOption weapon)
+        {
+            if (!weaponLevels.ContainsKey(weapon))
+            {
+                GameObject weaponGO = weapon.Apply(shipStats);
+                if (weaponGO != null)
+                {
+                    weaponInstances.Add(weaponGO);
+                    weaponLevels[weapon] = 1;
+                    Debug.Log($"Zbraò '{weapon.name}' vytvoøena (level 1).");
+                }
+                return;
+            }
+
+            if (CanEvolve(weapon) == false && !weaponUpgrades.Contains(weapon))
+            {
+                Debug.Log($"Zbraò '{weapon.name}' je již evolvovaná, nic se nedìje.");
+                return;
+            }
+
+            int currentLevel = weaponLevels[weapon];
+
+            if (currentLevel < maxWeaponUpgrade)
+            {
+                GameObject weaponGO = weapon.GetActiveInstance();
+                if (weaponGO != null)
+                {
+                    var w = weaponGO.GetComponent<IWeapon>();
+                    if (w != null)
+                    {
+                        w.Upgrade();
+                        weaponLevels[weapon]++;
+                        Debug.Log($"Zbraò '{weapon.name}' zvýšena na level {weaponLevels[weapon]}");
+                    }
+                }
+            }
+            else if (CanEvolve(weapon))
+            {
+                GameObject weaponGO = weapon.GetActiveInstance();
+                var w = weaponGO?.GetComponent<IWeapon>();
+                if (w != null)
+                {
+                    w.Evolve();
+                    weaponUpgrades.Remove(weapon);
+                    Debug.Log($"Zbraò '{weapon.name}' byla evolvována!");
+                }
+            }
+            else
+            {
+                Debug.Log($"Zbraò '{weapon.name}' je již na maximální úrovni ({maxWeaponUpgrade}) a nelze ji evolvovat.");
+            }
+        }
+
+        OnUpgradesChanged?.Invoke();
+    }
+
+    public void RemoveOrDowngradeUpgrade(IUpgradeOption upgrade)
+    {
+        if (upgrade is StatUpgradeOption stat)
+        {
+            if (!statLevels.ContainsKey(stat.statType) || statLevels[stat.statType] == 0)
+            {
+                Debug.Log($"Stat '{stat.statType}' není aktivní.");
+                return;
+            }
+
+            int currentLevel = statLevels[stat.statType];
+            if (currentLevel > 1)
+            {
+                statLevels[stat.statType]--;
+                Debug.Log($"Stat '{stat.statType}' snížen na level {statLevels[stat.statType]}");
+            }
+            else
+            {
+                statLevels[stat.statType] = 0;
+                Debug.Log($"Stat '{stat.statType}' odstranìn.");
+            }
+
+            stat.Remove(shipStats);
+        }
+        else if (upgrade is WeaponUpgradeOption weapon)
+        {
+            if (!weaponLevels.ContainsKey(weapon) || weaponLevels[weapon] == 0)
+            {
+                Debug.Log($"Zbraò '{weapon.name}' není aktivní.");
+                return;
+            }
+
+            int currentLevel = weaponLevels[weapon];
+            GameObject weaponGO = weapon.GetActiveInstance();
+            IWeapon w = weaponGO != null ? weaponGO.GetComponent<IWeapon>() : null;
+
+            if (currentLevel > 1)
+            {
+                weaponLevels[weapon]--;
+                w?.Downgrade();
+                Debug.Log($"Zbraò '{weapon.name}' snížena na level {weaponLevels[weapon]}");
+            }
+            else
+            {
+                if (!weaponUpgrades.Contains(weapon))
+                {
+                    Debug.Log($"Zbraò '{weapon.name}' byla de-evolvována.");
+                    weaponUpgrades.Add(weapon);
+                }
+
+                if (weaponGO != null)
+                {
+                    weaponInstances.Remove(weaponGO);
+                    Destroy(weaponGO);
+                }
+                weaponLevels[weapon] = 0;
+
+                Debug.Log($"Zbraò '{weapon.name}' odstranìna.");
+            }
+        }
+
+        OnUpgradesChanged?.Invoke();
+    }
+
 }

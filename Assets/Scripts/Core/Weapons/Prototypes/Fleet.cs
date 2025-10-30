@@ -84,6 +84,12 @@ public class Fleet : MonoBehaviour, IWeapon
         SpawnFleet(baseFleetCount);
     }
 
+    public void Downgrade()
+    {
+        baseFleetCount--;
+        SpawnFleet(baseFleetCount);
+    }
+
     public void Evolve()
     {
         baseFleetCount += 2;

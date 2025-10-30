@@ -96,6 +96,12 @@ public class BioLauncher : MonoBehaviour, IWeapon
         stats.FireRate *= 0.9f;
     }
 
+    public void Downgrade()
+    {
+        baseDamage -= 3f;
+        stats.FireRate /= 0.9f;
+    }
+
     public void Evolve()
     {
         evolved = true;

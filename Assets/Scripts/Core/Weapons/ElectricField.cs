@@ -82,6 +82,13 @@ public class ElectricField : MonoBehaviour, IWeapon
         ReinitializeFieldZone();
     }
 
+    public void Downgrade()
+    {
+        baseDamage -= 10f;
+        size -= 1f;
+        ReinitializeFieldZone();
+    }
+
     public void Evolve()
     {
         baseDamage += 50f;

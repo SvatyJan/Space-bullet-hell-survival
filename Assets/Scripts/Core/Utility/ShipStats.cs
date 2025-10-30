@@ -118,6 +118,25 @@ public class ShipStats : MonoBehaviour
         }
     }
 
+    /** Kontrola jestli mùže pøidat vylepšení pro atribut. */
+    public bool CanRemoveStatUpgrade(StatType statType)
+    {
+        return statUpgradeCounts.ContainsKey(statType);
+    }
+
+    /** Odebere vylepšení atrubutu. */
+    public void RemoveStatUpgrade(StatType statType)
+    {
+        if (CanRemoveStatUpgrade(statType))
+        {
+            statUpgradeCounts[statType]--;
+        }
+        else
+        {
+            Debug.LogWarning($"Cannot remove upgrade to {statType}.");
+        }
+    }
+
     /** Kontrola zda mùže pøidat vylepšení atributu. */
     public bool CanAddStatUpgrade(string statName)
     {
@@ -130,6 +149,15 @@ public class ShipStats : MonoBehaviour
         if (!upgradedStats.Contains(statName))
         {
             upgradedStats.Add(statName);
+        }
+    }
+
+    /** Odebere vylepšení atrubutu. */
+    public void RemoveStatUpgrade(string statName)
+    {
+        if (!upgradedStats.Contains(statName))
+        {
+            upgradedStats.Remove(statName);
         }
     }
 

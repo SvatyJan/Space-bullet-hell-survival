@@ -97,6 +97,11 @@ public class Electrizator : MonoBehaviour, IWeapon
         baseChainCount++;
     }
 
+    public void Downgrade()
+    {
+        baseChainCount--;
+    }
+
     public void Evolve()
     {
         baseChainCount += 2;

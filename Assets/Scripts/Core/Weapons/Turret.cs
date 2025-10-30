@@ -139,6 +139,13 @@ public class Turret : MonoBehaviour, IWeapon
         baseDamage += 3f;
     }
 
+    public void Downgrade()
+    {
+        fireRate = Mathf.Max(0.05f, fireRate + 0.05f);
+        if (float.IsNaN(fireRate) || fireRate <= 0f) fireRate = 0.05f;
+        baseDamage -= 3f;
+    }
+
     public void Evolve()
     {
         fireRate = Mathf.Max(0.05f, fireRate - 0.2f);

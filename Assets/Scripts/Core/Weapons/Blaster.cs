@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class Blaster : MonoBehaviour, IWeapon
@@ -90,6 +91,12 @@ public class Blaster : MonoBehaviour, IWeapon
     {
         baseDamage += 5f;
         fireRate *= 0.9f;
+    }
+
+    public void Downgrade()
+    {
+        baseDamage -= 5f;
+        fireRate /= 0.9f;
     }
 
     public void Evolve()

@@ -143,6 +143,11 @@ public class RocketLauncher : MonoBehaviour, IWeapon
         baseRadius += 1f;
     }
 
+    public void Downgrade()
+    {
+        baseRadius -= 1f;
+    }
+
     public void Evolve()
     {
         baseRadius += 2f;
