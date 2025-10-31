@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ElectricFieldZone : MonoBehaviour
 {
     [Header("Attributes")]
-    private float baseDamage;
+    private float baseDamage = 10f;
     [SerializeField] private float radius = 5f;
     [SerializeField] private float tickInterval = 0.2f;
     [SerializeField] private int maxHitsPerTick = 64;
 
     [Header("Targeting")]
-    private List<string> collisionTags;
+    [SerializeField] private List<string> collisionTags;
 
     [Header("References")]
     private ShipStats shipStats;
@@ -25,7 +26,7 @@ public class ElectricFieldZone : MonoBehaviour
 
     public void Initialize(float damage, float entitySize, List<string> entityCollisionTags, ShipStats stats)
     {
-        baseDamage = damage;
+        baseDamage = Math.Max(baseDamage, damage);
         collisionTags = entityCollisionTags;
         shipStats = stats;
         transform.localScale = new Vector3(entitySize, entitySize, 0);
