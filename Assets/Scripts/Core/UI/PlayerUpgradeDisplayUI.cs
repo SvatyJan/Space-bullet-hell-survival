@@ -20,7 +20,21 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
     public List<Image> statIcons = new();
     public List<Image> weaponIcons = new();
 
-    public void SetProgression(PlayerProgression Progression) => progression = Progression;
+    public void SetProgression(PlayerProgression newProgression)
+    {
+        if (progression != null)
+            progression.OnUpgradesChanged -= UpdateUpgradeIcons;
+
+        progression = newProgression;
+
+        if (progression != null)
+        {
+            progression.OnUpgradesChanged += UpdateUpgradeIcons;
+            CreateEmptySlots();
+            UpdateUpgradeIcons();
+        }
+    }
+
     public PlayerProgression GetProgression() => progression;
 
     private void OnValidate()

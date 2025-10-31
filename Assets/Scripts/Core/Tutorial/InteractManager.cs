@@ -20,6 +20,8 @@ public class InteractManager : MonoBehaviour
 
         FindClosestInteractable(playerShip.transform.position);
 
+        if(currentTarget == playerShip.GetComponent<IInteractable>()) return;
+
         UpdateDescriptionText();
 
         CheckShowDescriptionText();
