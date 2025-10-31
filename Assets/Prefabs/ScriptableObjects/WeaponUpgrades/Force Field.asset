@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: Force Field
   weaponPrefab: {fileID: 3037188654441705350, guid: d49a6f38698ad5548a27ebec00eadbdd, type: 3}
   requiredStat: 1
+  statUpgradeOption: {fileID: 11400000, guid: 9bbbe063d85c1f94d9357a0274deee1d, type: 2}

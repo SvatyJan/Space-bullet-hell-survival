@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: Blaster
   weaponPrefab: {fileID: 578313417102426796, guid: 315149b18482d664c92fdedc07e29d25, type: 3}
   requiredStat: 4
+  statUpgradeOption: {fileID: 11400000, guid: fb0ee55d7da4f9a44be25e39be99ece2, type: 2}

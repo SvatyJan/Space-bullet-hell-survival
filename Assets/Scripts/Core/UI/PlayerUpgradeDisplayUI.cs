@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayerUpgradeDisplayUI : MonoBehaviour
 {
@@ -86,13 +87,9 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
         {
             if (kvp.Value > 0 && statIndex < statIcons.Count)
             {
-                StatUpgradeOption statOpt = progression.statUpgrades.Find(x => x.statType == kvp.Key);
-                if (statOpt != null)
-                {
-                    statIcons[statIndex].sprite = statOpt.icon;
-                    statIcons[statIndex].color = Color.white;
-                    statIndex++;
-                }
+                statIcons[statIndex].sprite = kvp.Key.icon;
+                statIcons[statIndex].color = Color.white;
+                statIndex++;
             }
         }
 
@@ -107,5 +104,4 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
             }
         }
     }
-
 }

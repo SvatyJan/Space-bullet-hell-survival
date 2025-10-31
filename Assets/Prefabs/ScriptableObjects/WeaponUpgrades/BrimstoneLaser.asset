@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: Laser
   weaponPrefab: {fileID: 8185985678151106120, guid: 092f28cfd11b7ca46807685e9f355841, type: 3}
   requiredStat: 5
+  statUpgradeOption: {fileID: 11400000, guid: 407063229eaa4934c9bf00ac6f1c739d, type: 2}

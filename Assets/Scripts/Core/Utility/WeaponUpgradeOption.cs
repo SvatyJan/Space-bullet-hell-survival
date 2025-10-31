@@ -22,6 +22,7 @@ public class WeaponUpgradeOption : ScriptableObject, IUpgradeOption
     Sprite IUpgradeOption.icon => icon;
     List<IUpgradeOption>? IUpgradeOption.evolvesRequired => evolvesRequired?.ConvertAll(i => (IUpgradeOption)i);
     public StatType requiredStat;
+    public StatUpgradeOption statUpgradeOption;
 
     private GameObject activeInstance;
 

@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: Fleet
   weaponPrefab: {fileID: 4957801454098901893, guid: e3c7399013fe3144cb0db54dda2bb784, type: 3}
   requiredStat: 6
+  statUpgradeOption: {fileID: 11400000, guid: 759c25e79f165ba4f86e1507cd7d2b47, type: 2}

@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: ElectricField
   weaponPrefab: {fileID: 7728026859949422946, guid: a1c336caa97299642844203c9e4961e2, type: 3}
   requiredStat: 1
+  statUpgradeOption: {fileID: 11400000, guid: 9bbbe063d85c1f94d9357a0274deee1d, type: 2}

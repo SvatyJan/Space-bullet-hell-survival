@@ -16,7 +16,7 @@ public class PlayerProgression : MonoBehaviour
     public Dictionary<WeaponUpgradeOption, int> weaponLevels = new Dictionary<WeaponUpgradeOption, int>();
 
     /** Nese informaci o tom, jaké atributy byly vylepšeny. */
-    public Dictionary<StatType, int> statLevels = new Dictionary<StatType, int>();
+    public Dictionary<StatUpgradeOption, int> statLevels = new Dictionary<StatUpgradeOption, int>();
 
     /** Maximální poèet vylepšení atributù. */
     [SerializeField] public int maxStatUpgrade = 5;
@@ -213,8 +213,8 @@ public class PlayerProgression : MonoBehaviour
 
         foreach (StatUpgradeOption statUpgrade in statUpgrades)
         {
-            bool hasStat = statLevels.ContainsKey(statUpgrade.statType);
-            int level = hasStat ? statLevels[statUpgrade.statType] : 0;
+            bool hasStat = statLevels.ContainsKey(statUpgrade);
+            int level = hasStat ? statLevels[statUpgrade] : 0;
 
             if (hasStat)
             {
@@ -298,7 +298,7 @@ public class PlayerProgression : MonoBehaviour
     private bool CanEvolve(WeaponUpgradeOption weapon)
     {
         int weaponLevel = weaponLevels.ContainsKey(weapon) ? weaponLevels[weapon] : 0;
-        int statLevel = statLevels.ContainsKey(weapon.requiredStat) ? statLevels[weapon.requiredStat] : 0;
+        int statLevel = statLevels.ContainsKey(weapon.statUpgradeOption) ? statLevels[weapon.statUpgradeOption] : 0;
         return weaponLevel >= maxWeaponUpgrade && statLevel >= maxStatUpgrade;
     }
 
@@ -345,10 +345,10 @@ public class PlayerProgression : MonoBehaviour
     {
         if (upgrade is StatUpgradeOption stat)
         {
-            if (!statLevels.ContainsKey(stat.statType))
-                statLevels[stat.statType] = 0;
+            if (!statLevels.ContainsKey(stat))
+                statLevels[stat] = 0;
 
-            statLevels[stat.statType]++;
+            statLevels[stat]++;
             stat.Apply(shipStats);
         }
         else if (upgrade is WeaponUpgradeOption weapon)
@@ -441,19 +441,20 @@ public class PlayerProgression : MonoBehaviour
     {
         if (upgrade is StatUpgradeOption stat)
         {
-            if (!statLevels.ContainsKey(stat.statType))
-                statLevels[stat.statType] = 0;
+            if (!statLevels.ContainsKey(stat))
+                statLevels[stat] = 0;
 
-            int currentLevel = statLevels[stat.statType];
+            int currentLevel = statLevels[stat];
             if (currentLevel >= maxStatUpgrade)
             {
                 Debug.Log($"Stat '{stat.statType}' je již na max úrovni ({maxStatUpgrade}).");
                 return;
             }
 
-            statLevels[stat.statType]++;
+            statLevels[stat]++;
             stat.Apply(shipStats);
-            Debug.Log($"Stat '{stat.statType}' zvýšen na {statLevels[stat.statType]}");
+            OnUpgradesChanged?.Invoke();
+            Debug.Log($"Stat '{stat.statType}' zvýšen na {statLevels[stat]}");
         }
         else if (upgrade is WeaponUpgradeOption weapon)
         {
@@ -510,25 +511,26 @@ public class PlayerProgression : MonoBehaviour
     {
         if (upgrade is StatUpgradeOption stat)
         {
-            if (!statLevels.ContainsKey(stat.statType) || statLevels[stat.statType] == 0)
+            if (!statLevels.ContainsKey(stat) || statLevels[stat] == 0)
             {
-                Debug.Log($"Stat '{stat.statType}' není aktivní.");
+                Debug.Log($"Stat '{stat}' není aktivní.");
                 return;
             }
 
-            int currentLevel = statLevels[stat.statType];
+            int currentLevel = statLevels[stat];
             if (currentLevel > 1)
             {
-                statLevels[stat.statType]--;
-                Debug.Log($"Stat '{stat.statType}' snížen na level {statLevels[stat.statType]}");
+                statLevels[stat]--;
+                Debug.Log($"Stat '{stat.statType}' snížen na level {statLevels[stat]}");
             }
             else
             {
-                statLevels[stat.statType] = 0;
+                statLevels[stat] = 0;
                 Debug.Log($"Stat '{stat.statType}' odstranìn.");
             }
 
             stat.Remove(shipStats);
+            OnUpgradesChanged?.Invoke();
         }
         else if (upgrade is WeaponUpgradeOption weapon)
         {

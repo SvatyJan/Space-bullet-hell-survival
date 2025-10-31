@@ -19,3 +19,4 @@ MonoBehaviour:
   weaponName: Defensive Orb
   weaponPrefab: {fileID: 6995210300490708727, guid: fd200c84048c4b445a91c4556c1b55e6, type: 3}
   requiredStat: 7
+  statUpgradeOption: {fileID: 11400000, guid: 159f77f5e4712e0478a22cea991db65d, type: 2}

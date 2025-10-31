@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipIUpgradeOption
   upgradeAsset: {fileID: 11400000, guid: eadeae4fad7e051478018d3457a2f26c, type: 2}
-  descriptionText: Equip Blaster
+  descriptionText: Unequip Blaster
   upgrade: 0
 --- !u!1 &7733877662405202595
 GameObject:
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 9167574409147930894}
   - component: {fileID: 2639767144525832326}
   m_Layer: 11
-  m_Name: GameObject
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +232,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 31ee1096e2868174bba0a951baadbeed, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
