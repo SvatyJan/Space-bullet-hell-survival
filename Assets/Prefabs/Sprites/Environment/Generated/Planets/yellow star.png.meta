@@ -1,0 +1,815 @@
+fileFormatVersion: 2
+guid: d5ff46685d06e1640941bc574990d134
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1976607639939677192
+    second: yellow star_0
+  - first:
+      213: -5447203077258347840
+    second: yellow star_1
+  - first:
+      213: -3003268538750905064
+    second: yellow star_2
+  - first:
+      213: -6597765817393792074
+    second: yellow star_3
+  - first:
+      213: -2448033519582218891
+    second: yellow star_4
+  - first:
+      213: -8889514553537249806
+    second: yellow star_5
+  - first:
+      213: 9219898326225954481
+    second: yellow star_6
+  - first:
+      213: 5343583128678592911
+    second: yellow star_7
+  - first:
+      213: -5695794669062605668
+    second: yellow star_8
+  - first:
+      213: 1939913767863206131
+    second: yellow star_9
+  - first:
+      213: 3789758700815400400
+    second: yellow star_10
+  - first:
+      213: 4123173510154308184
+    second: yellow star_11
+  - first:
+      213: -6128975389869130727
+    second: yellow star_12
+  - first:
+      213: 5278333371714688357
+    second: yellow star_13
+  - first:
+      213: 1481714028642488225
+    second: yellow star_14
+  - first:
+      213: 836509305048448784
+    second: yellow star_15
+  - first:
+      213: -4787855240918254851
+    second: yellow star_16
+  - first:
+      213: 2938921055562080457
+    second: yellow star_17
+  - first:
+      213: -3186406624114766187
+    second: yellow star_18
+  - first:
+      213: -1675490649579349394
+    second: yellow star_19
+  - first:
+      213: -5753084964370058464
+    second: yellow star_20
+  - first:
+      213: -5130137991160307841
+    second: yellow star_21
+  - first:
+      213: -5928994387803615054
+    second: yellow star_22
+  - first:
+      213: 2156334982707491514
+    second: yellow star_23
+  - first:
+      213: -6736099585673335853
+    second: yellow star_24
+  - first:
+      213: 6930503050455234603
+    second: yellow star_25
+  - first:
+      213: 8461054444641784565
+    second: yellow star_26
+  - first:
+      213: -775942555627340053
+    second: yellow star_27
+  - first:
+      213: 1772752380547044759
+    second: yellow star_28
+  - first:
+      213: 4124492330424424291
+    second: yellow star_29
+  - first:
+      213: -1044429097275717872
+    second: yellow star_30
+  - first:
+      213: 3835771789557140038
+    second: yellow star_31
+  - first:
+      213: -3748024756693186329
+    second: yellow star_32
+  - first:
+      213: -9128756420361759278
+    second: yellow star_33
+  - first:
+      213: -8177557327474598555
+    second: yellow star_34
+  - first:
+      213: 1545973385248824697
+    second: yellow star_35
+  - first:
+      213: 4273567028605307221
+    second: yellow star_36
+  - first:
+      213: -5436658382633019317
+    second: yellow star_37
+  - first:
+      213: 7764631382412210801
+    second: yellow star_38
+  - first:
+      213: -2804380337399698231
+    second: yellow star_39
+  - first:
+      213: -7560729468112069861
+    second: yellow star_40
+  - first:
+      213: 1257349070188298490
+    second: yellow star_41
+  - first:
+      213: -7944388437275387575
+    second: yellow star_42
+  - first:
+      213: -9001689296022129415
+    second: yellow star_43
+  - first:
+      213: -5229101416895864826
+    second: yellow star_44
+  - first:
+      213: -5487761602069462789
+    second: yellow star_45
+  - first:
+      213: 8511652840466843928
+    second: yellow star_46
+  - first:
+      213: 6537843838463749349
+    second: yellow star_47
+  - first:
+      213: -5700309555832095554
+    second: yellow star_48
+  - first:
+      213: 4856974660030872102
+    second: yellow star_49
+  - first:
+      213: -1867912148603488269
+    second: yellow star_50
+  - first:
+      213: -1928004233874870589
+    second: yellow star_51
+  - first:
+      213: 1579717914393948101
+    second: yellow star_52
+  - first:
+      213: -8043658287734785577
+    second: yellow star_53
+  - first:
+      213: -1251744347101757589
+    second: yellow star_54
+  - first:
+      213: -7050739391401561460
+    second: yellow star_55
+  - first:
+      213: -7533942335300316164
+    second: yellow star_56
+  - first:
+      213: 5812288836917797730
+    second: yellow star_57
+  - first:
+      213: -5600010416770300317
+    second: yellow star_58
+  - first:
+      213: -4282296295051458760
+    second: yellow star_59
+  - first:
+      213: 1216173624366558030
+    second: yellow star_60
+  - first:
+      213: 2637970408308148960
+    second: yellow star_61
+  - first:
+      213: -4157362223743563908
+    second: yellow star_62
+  - first:
+      213: -7019210306631829818
+    second: yellow star_63
+  - first:
+      213: -8709473999232729534
+    second: yellow star_64
+  - first:
+      213: 7913465339036020392
+    second: yellow star_65
+  - first:
+      213: -5092480399925648005
+    second: yellow star_66
+  - first:
+      213: -5660605237385553542
+    second: yellow star_67
+  - first:
+      213: 906940418071807427
+    second: yellow star_68
+  - first:
+      213: 4738209285223649693
+    second: yellow star_69
+  - first:
+      213: 2975555965628965995
+    second: yellow star_70
+  - first:
+      213: -3144447457561408609
+    second: yellow star_71
+  - first:
+      213: 2177640693365646621
+    second: yellow star_72
+  - first:
+      213: 5443682740605094935
+    second: yellow star_73
+  - first:
+      213: 4273774162718388612
+    second: yellow star_74
+  - first:
+      213: -2228572442181901290
+    second: yellow star_75
+  - first:
+      213: 5783060311922807998
+    second: yellow star_76
+  - first:
+      213: -1528893467921744866
+    second: yellow star_77
+  - first:
+      213: -6709130451483152436
+    second: yellow star_78
+  - first:
+      213: 4227581904342325095
+    second: yellow star_79
+  - first:
+      213: -5339526292253238328
+    second: yellow star_80
+  - first:
+      213: 1649068600814388780
+    second: yellow star_81
+  - first:
+      213: -6125440791662454470
+    second: yellow star_82
+  - first:
+      213: -7760384471841451886
+    second: yellow star_83
+  - first:
+      213: 163580828623332923
+    second: yellow star_84
+  - first:
+      213: 4158338628387286926
+    second: yellow star_85
+  - first:
+      213: -1467687948659218776
+    second: yellow star_86
+  - first:
+      213: 8705015818036916697
+    second: yellow star_87
+  - first:
+      213: 3880812273729852944
+    second: yellow star_88
+  - first:
+      213: -4633550608954735638
+    second: yellow star_89
+  - first:
+      213: -8000215881982002302
+    second: yellow star_90
+  - first:
+      213: 7278721415432415296
+    second: yellow star_91
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: yellow star_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f38211f2dda194e0800000000000000
+      internalID: -1976607639939677192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_1
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0caf99869a5a764b0800000000000000
+      internalID: -5447203077258347840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_2
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81555ae0d2f3256d0800000000000000
+      internalID: -3003268538750905064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_3
+      rect:
+        serializedVersion: 2
+        x: 3072
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6bb370f02f60074a0800000000000000
+      internalID: -6597765817393792074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_4
+      rect:
+        serializedVersion: 2
+        x: 4096
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5757d03fb76d60ed0800000000000000
+      internalID: -2448033519582218891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_5
+      rect:
+        serializedVersion: 2
+        x: 5120
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fd3fbabc9912a480800000000000000
+      internalID: -8889514553537249806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_6
+      rect:
+        serializedVersion: 2
+        x: 6144
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b6aae7bda8a3ff70800000000000000
+      internalID: 9219898326225954481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_7
+      rect:
+        serializedVersion: 2
+        x: 7168
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8178a44b88382a40800000000000000
+      internalID: 5343583128678592911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_8
+      rect:
+        serializedVersion: 2
+        x: 8192
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c94b5f41de874f0b0800000000000000
+      internalID: -5695794669062605668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_9
+      rect:
+        serializedVersion: 2
+        x: 9216
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f040643b45fbea10800000000000000
+      internalID: 1939913767863206131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_10
+      rect:
+        serializedVersion: 2
+        x: 10240
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dd3c8a957de79430800000000000000
+      internalID: 3789758700815400400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_11
+      rect:
+        serializedVersion: 2
+        x: 11264
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85a4c044674783930800000000000000
+      internalID: 4123173510154308184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_12
+      rect:
+        serializedVersion: 2
+        x: 12288
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91c3db90b5181faa0800000000000000
+      internalID: -6128975389869130727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_13
+      rect:
+        serializedVersion: 2
+        x: 13312
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 565d42b5c38604940800000000000000
+      internalID: 5278333371714688357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_14
+      rect:
+        serializedVersion: 2
+        x: 14336
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1afc2fffe0b109410800000000000000
+      internalID: 1481714028642488225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: yellow star_15
+      rect:
+        serializedVersion: 2
+        x: 15360
+        y: 0
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01fb8bae7c0eb9b00800000000000000
+      internalID: 836509305048448784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ae383f73e2524954ca387a033419e97a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1024.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      yellow star_0: -1976607639939677192
+      yellow star_1: -5447203077258347840
+      yellow star_10: 3789758700815400400
+      yellow star_11: 4123173510154308184
+      yellow star_12: -6128975389869130727
+      yellow star_13: 5278333371714688357
+      yellow star_14: 1481714028642488225
+      yellow star_15: 836509305048448784
+      yellow star_2: -3003268538750905064
+      yellow star_3: -6597765817393792074
+      yellow star_4: -2448033519582218891
+      yellow star_5: -8889514553537249806
+      yellow star_6: 9219898326225954481
+      yellow star_7: 5343583128678592911
+      yellow star_8: -5695794669062605668
+      yellow star_9: 1939913767863206131
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

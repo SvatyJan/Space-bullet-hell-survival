@@ -14,4 +14,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Armory.unity
     guid: 9e1a686eee620184db585a0fcf6c0851
+  - enabled: 1
+    path: Assets/Scenes/Simulation.unity
+    guid: 58386d70c51bc404482b7262fbf9f101
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
