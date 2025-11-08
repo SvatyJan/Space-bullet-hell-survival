@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class PlayerUpgradeDisplayUI : MonoBehaviour
 {
@@ -22,6 +21,9 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
 
     public void SetProgression(PlayerProgression newProgression)
     {
+        if (progression == newProgression)
+            return;
+
         if (progression != null)
             progression.OnUpgradesChanged -= UpdateUpgradeIcons;
 
@@ -30,37 +32,40 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
         if (progression != null)
         {
             progression.OnUpgradesChanged += UpdateUpgradeIcons;
-            CreateEmptySlots();
-            UpdateUpgradeIcons();
+            StartCoroutine(InitializeWhenReady());
         }
     }
 
-    public PlayerProgression GetProgression() => progression;
-
-    private void OnValidate()
-    {
-        if (progression == null)
-            progression = FindObjectOfType<PlayerProgression>();
-    }
-
-    private void OnDestroy()
-    {
-        if (progression != null)
-            progression.OnUpgradesChanged -= UpdateUpgradeIcons;
-    }
-
-    private IEnumerator Start()
+    private IEnumerator InitializeWhenReady()
     {
         yield return new WaitUntil(() => progression != null && progression.shipStats != null);
-
-        progression.OnUpgradesChanged += UpdateUpgradeIcons;
-
         CreateEmptySlots();
         UpdateUpgradeIcons();
     }
 
+
+    public PlayerProgression GetProgression() => progression;
+
+    private void OnDestroy()
+    {
+        progression.OnUpgradesChanged -= UpdateUpgradeIcons;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(WaitForProgression());
+    }
+
+    private IEnumerator WaitForProgression()
+    {
+        yield return new WaitUntil(() => progression != null && progression.shipStats != null);
+        SetProgression(progression);
+    }
+
     public void CreateEmptySlots()
     {
+        if (progression == null) return;
+
         statIcons.Clear();
         weaponIcons.Clear();
 
@@ -84,6 +89,8 @@ public class PlayerUpgradeDisplayUI : MonoBehaviour
 
     public void UpdateUpgradeIcons()
     {
+        if (progression == null || progression.shipStats == null) return;
+
         foreach (var icon in statIcons)
         {
             icon.sprite = emptyIconImage;
