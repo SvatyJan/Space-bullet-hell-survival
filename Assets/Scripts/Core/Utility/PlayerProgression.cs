@@ -115,7 +115,7 @@ public class PlayerProgression : MonoBehaviour
     /** Pøidá zkušenosti. */
     public void AddXP(float xpAmount)
     {
-        shipStats.XP += xpAmount;
+        shipStats.XP += xpAmount * shipStats.XpIncrease;
         CheckLevelUp();
     }
 

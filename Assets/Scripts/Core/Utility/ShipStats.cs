@@ -59,10 +59,16 @@ public class ShipStats : MonoBehaviour
     /** Aktuální poèet xp. */
     [SerializeField] private float xp = 0f;
 
+    /** Xp multipler. 
+     * Používá se v Player Progress.AddXP().
+     * xpIncrease násobí xp které hráè sebere (procentuálnì).
+     * Napø.: xp * xpIncrease -> 5 * 1.5 = 7.5
+     **/
+    [SerializeField] private float xpIncrease = 1f;
+
     /** Poèet xp pro další level. Je poèítáno GetXPForNextLevel metodou.*/
     [SerializeField] private float xpNextlevelUp = 15f;
 
-    /** */
     [SerializeField] private float XPBase = 1f;
     [SerializeField] private float XPGrowth = 1.3f;
     [SerializeField] private float XPScale = 2.5f;
@@ -329,6 +335,12 @@ public class ShipStats : MonoBehaviour
     {
         get { return xpNextlevelUp; }
         set { xpNextlevelUp = Mathf.Max(0, value); }
+    }
+
+    public float XpIncrease
+    {
+        get { return xpIncrease; }
+        set { xpIncrease = Mathf.Max(0, value); }
     }
 
     public float GetXPForNextLevel(float level)

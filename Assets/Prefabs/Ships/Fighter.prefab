@@ -276,6 +276,7 @@ MonoBehaviour:
   attractionRadius: 15
   attractionSpeed: 2
   xp: 0
+  xpIncrease: 1
   xpNextlevelUp: 1
   XPBase: 3
   XPGrowth: 1.3
@@ -310,6 +311,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a3d4b3f08c469e54e85eea8ec48d7cfe, type: 2}
   - {fileID: 11400000, guid: 45921c6d309d7a24f96e513d1215d9d4, type: 2}
   - {fileID: 11400000, guid: 5d8a6225770db364a8f10047a82563ac, type: 2}
+  - {fileID: 11400000, guid: 159f77f5e4712e0478a22cea991db65d, type: 2}
   weaponUpgrades:
   - {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
   - {fileID: 11400000, guid: eadeae4fad7e051478018d3457a2f26c, type: 2}

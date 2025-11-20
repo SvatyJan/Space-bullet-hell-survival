@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: -216056547, guid: a0d5e33773c7cc3489d657529dc52d58, type: 3}
   evolvesRequired:
   - {fileID: 11400000, guid: 67ef2d51edf559f4eb9f33993087b941, type: 2}
-  increaseAmount: 1
+  increaseAmount: 0.1
   statType: 7
