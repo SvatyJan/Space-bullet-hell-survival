@@ -54,7 +54,7 @@ public class StatUpgradeOption : ScriptableObject, IUpgradeOption
                 stats.AttractionRadius += increaseAmount;
                 break;
             case StatType.XP:
-                stats.XP += increaseAmount;
+                stats.XpIncrease += increaseAmount;
                 break;
             case StatType.ProjectilesCount:
                 stats.ProjectilesCount += (int)increaseAmount;
