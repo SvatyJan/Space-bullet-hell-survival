@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class FleetProjectile : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class FleetProjectile : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, projectileDuration);
+        StartCoroutine(AutoReleaseCoroutine());
     }
 
     private void Update()
@@ -71,5 +72,11 @@ public class FleetProjectile : MonoBehaviour
                 fleetShipBehavior.ReleaseProjectileFromPool(this.gameObject);
             }
         }
+    }
+
+    private IEnumerator AutoReleaseCoroutine()
+    {
+        yield return new WaitForSeconds(projectileDuration);
+        fleetShipBehavior.ReleaseProjectileFromPool(gameObject);
     }
 }

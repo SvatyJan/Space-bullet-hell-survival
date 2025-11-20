@@ -64,12 +64,10 @@ public class Projectile : MonoBehaviour
             if (target != null && target != owner)
             {
                 target.TakeDamage(projectileDamage, projectileCritChance);
-                weapon.ReleaseProjectileFromPool(this.gameObject);
+                
             }
-            else
-            {
-                weapon.ReleaseProjectileFromPool(this.gameObject);
-            }
+
+            weapon.ReleaseProjectileFromPool(this.gameObject);
         }
     }
 }
