@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Fleet : MonoBehaviour, IWeapon
 {
@@ -14,8 +15,12 @@ public class Fleet : MonoBehaviour, IWeapon
     private Transform shipTransform;
     private float currentAngleOffset;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Start()
     {
+        CreateProjectilePool();
         shipTransform = GetComponentInParent<ShipStats>().transform;
         SpawnFleet(baseFleetCount);
     }
@@ -28,7 +33,7 @@ public class Fleet : MonoBehaviour, IWeapon
 
     private void SpawnFleet(int count)
     {
-        foreach (var ship in fleetShips) Destroy(ship);
+        foreach (var ship in fleetShips) ReleaseProjectileFromPool(ship);
         foreach (var point in formationPoints) Destroy(point);
         fleetShips.Clear();
         formationPoints.Clear();
@@ -78,11 +83,22 @@ public class Fleet : MonoBehaviour, IWeapon
 
     public void Fire() { }
 
-    public void ReleaseProjectileFromPool(GameObject Projectile)
+    private void CreateProjectilePool()
     {
-        // Not implemented object pooling.
-        return;
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(fleetShipPrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 1, 20
+        );
     }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
+    }
+
 
     public void Upgrade()
     {

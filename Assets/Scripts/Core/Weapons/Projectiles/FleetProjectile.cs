@@ -65,18 +65,22 @@ public class FleetProjectile : MonoBehaviour
             if (target != null && target != owner)
             {
                 target.TakeDamage(projectileDamage, projectileCritChance);
-                fleetShipBehavior.ReleaseProjectileFromPool(this.gameObject);
             }
+
+            if (fleetShipBehavior != null)
+                fleetShipBehavior.ReleaseProjectileFromPool(gameObject);
             else
-            {
-                fleetShipBehavior.ReleaseProjectileFromPool(this.gameObject);
-            }
+                Destroy(gameObject);
         }
     }
 
     private IEnumerator AutoReleaseCoroutine()
     {
         yield return new WaitForSeconds(projectileDuration);
-        fleetShipBehavior.ReleaseProjectileFromPool(gameObject);
+
+        if (fleetShipBehavior != null)
+            fleetShipBehavior.ReleaseProjectileFromPool(gameObject);
+        else
+            Destroy(gameObject);
     }
 }

@@ -59,7 +59,9 @@ public class Electrizator : MonoBehaviour, IWeapon
 
                 yield return new WaitForSeconds(lightningDelay);
 
-                currentTarget = FindClosestEnemyFromPosition(currentTarget.transform.position);
+                // Mùže se stát že je nepøítel v prùbìhu zabit nìèím jiným.
+                if (currentTarget != null)
+                    currentTarget = FindClosestEnemyFromPosition(currentTarget.transform.position);
             }
             else
             {
