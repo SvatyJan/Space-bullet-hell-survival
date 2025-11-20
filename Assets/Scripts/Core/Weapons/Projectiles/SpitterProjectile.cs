@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Projectile : MonoBehaviour
+public class SpitterProjectile : MonoBehaviour
 {
     [Header("References")]
     /** Odkaz na hráèe nebo nepøítele, který projektil vystøelil. */
@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour
     /** Smìr pohybu støely. */
     private Vector3 direction;
 
+    /** Potøebujeme referenci nepøátele pro object pooling. */
+    private SpitterBehavior spitterBehavior;
 
     private void Start()
     {
@@ -46,8 +48,9 @@ public class Projectile : MonoBehaviour
     }
 
     // Nastavení vlastnictví a poškození
-    public void Initialize(SpaceEntity owner, float damage)
+    public void Initialize(SpitterBehavior spitterBehavior, SpaceEntity owner, float damage)
     {
+        this.spitterBehavior = spitterBehavior;
         this.owner = owner;
         this.projectileDamage = projectileDamage + damage;
         this.projectileCritChance = owner.GetComponent<ShipStats>().CriticalChance;
@@ -61,7 +64,7 @@ public class Projectile : MonoBehaviour
             if (target != null && target != owner)
             {
                 target.TakeDamage(projectileDamage, projectileCritChance);
-                Destroy(gameObject);
+                spitterBehavior.ReleaseProjectileFromPool(this.gameObject);
             }
         }
     }

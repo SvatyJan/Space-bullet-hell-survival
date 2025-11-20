@@ -56,6 +56,12 @@ public class Nova : MonoBehaviour, IWeapon
         }
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         baseFireRate = Mathf.Max(8f, baseFireRate - 8f);

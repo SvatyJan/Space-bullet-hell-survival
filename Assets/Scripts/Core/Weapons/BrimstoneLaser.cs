@@ -93,6 +93,12 @@ public class BrimstoneLaser : MonoBehaviour, IWeapon
             cycleCo = StartCoroutine(Cycle());
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         baseRange += 1;

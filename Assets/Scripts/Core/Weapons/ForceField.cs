@@ -133,6 +133,11 @@ public class ForceField : MonoBehaviour, IWeapon
             }
         }
     }
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
 
     public void Fire()
     {

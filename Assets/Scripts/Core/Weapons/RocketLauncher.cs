@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class RocketLauncher : MonoBehaviour, IWeapon
 {
@@ -48,11 +49,14 @@ public class RocketLauncher : MonoBehaviour, IWeapon
     /** Seznam již zasažených cílů v rámci řetězení. */
     [SerializeField] private List<GameObject> hitTargets = new List<GameObject>();
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
 
     private void Start()
     {
         owner = GetComponentInParent<SpaceEntity>();
         shipStats = owner?.GetComponent<ShipStats>();
+        CreateProjectilePool();
 
         if (shipStats == null)
         {
@@ -108,7 +112,7 @@ public class RocketLauncher : MonoBehaviour, IWeapon
                 float finalDamage = baseDamage + shipStats.BaseDamage;
                 float critChance = shipStats.CriticalChance;
 
-                rocketScript.Initialize(owner, finalDamage);
+                rocketScript.Initialize(this, owner, finalDamage);
                 rocketScript.SetTarget(closestEnemy);
             }
 
@@ -136,6 +140,22 @@ public class RocketLauncher : MonoBehaviour, IWeapon
         }
 
         return closestEnemy;
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(rocketPrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

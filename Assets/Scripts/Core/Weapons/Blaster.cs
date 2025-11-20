@@ -1,5 +1,5 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Blaster : MonoBehaviour, IWeapon
 {
@@ -32,6 +32,9 @@ public class Blaster : MonoBehaviour, IWeapon
     /** Èas pro pøíští výstøel. */
     private float nextFireTime = 0f;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Awake()
     {
         owner = GetComponentInParent<SpaceEntity>();
@@ -56,6 +59,7 @@ public class Blaster : MonoBehaviour, IWeapon
 
     private void Start()
     {
+        CreateProjectilePool();
         owner = GetComponentInParent<SpaceEntity>();
         shipStats = owner.GetComponent<ShipStats>();
 
@@ -79,12 +83,28 @@ public class Blaster : MonoBehaviour, IWeapon
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             if (projectileScript != null)
             {
-                projectileScript.Initialize(owner, baseDamage);
+                projectileScript.Initialize(this, owner, baseDamage);
                 projectileScript.SetDirection(firingPoint.up);
             }
 
             currentPointIndex = (currentPointIndex + 1) % shootingPoints.Length;
         }
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

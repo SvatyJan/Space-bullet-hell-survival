@@ -85,6 +85,12 @@ public class ThermalShield : MonoBehaviour, IWeapon
         }
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         rechargeTime = Mathf.Max(1f, rechargeTime - 1f);

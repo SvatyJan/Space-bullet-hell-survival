@@ -149,6 +149,12 @@ public class Laser : MonoBehaviour, IWeapon
         }
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         damagePerSecond += 1f;

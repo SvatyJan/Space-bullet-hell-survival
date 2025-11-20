@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Turret : MonoBehaviour, IWeapon
 {
@@ -38,21 +39,22 @@ public class Turret : MonoBehaviour, IWeapon
     /** Cíl støelby. */
     private Vector3 targetDirection;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Start()
     {
-        // Najdi vlastníka
         owner = GetComponentInParent<SpaceEntity>();
         shipStats = owner?.GetComponent<ShipStats>();
+        CreateProjectilePool();
 
         if (owner == null || shipStats == null)
         {
             Debug.LogError($"{gameObject.name}: Turret nemùže najít vlastníka nebo ShipStats.");
         }
 
-        // Pøevzít poškození ze statù hráèe
         baseDamage += shipStats.BaseDamage;
 
-        // Získání støeleckých bodù
         if (shipStats.ShootingPoints == null || shipStats.ShootingPoints.Length == 0)
         {
             shootingPoints = new Transform[] { transform };
@@ -95,7 +97,7 @@ public class Turret : MonoBehaviour, IWeapon
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             if (projectileScript != null)
             {
-                projectileScript.Initialize(owner, baseDamage);
+                projectileScript.Initialize(this, owner, baseDamage);
                 projectileScript.SetDirection(targetDirection);
             }
 
@@ -130,6 +132,22 @@ public class Turret : MonoBehaviour, IWeapon
         }
 
         return Vector3.zero;
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

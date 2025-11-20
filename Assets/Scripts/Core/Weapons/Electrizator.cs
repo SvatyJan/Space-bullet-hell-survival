@@ -92,6 +92,12 @@ public class Electrizator : MonoBehaviour, IWeapon
         return closestEnemy;
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         baseChainCount++;

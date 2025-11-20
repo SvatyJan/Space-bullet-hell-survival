@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Echo : MonoBehaviour, IWeapon
 {
@@ -37,6 +38,9 @@ public class Echo : MonoBehaviour, IWeapon
     /** Odkaz na atributy vlastníka zbranì. */
     private ShipStats shipStats;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Awake()
     {
         owner = GetComponentInParent<SpaceEntity>();
@@ -55,6 +59,7 @@ public class Echo : MonoBehaviour, IWeapon
 
     private void Start()
     {
+        CreateProjectilePool();
         baseDamage = shipStats.BaseDamage;
     }
 
@@ -86,10 +91,26 @@ public class Echo : MonoBehaviour, IWeapon
             Projectile projectileScript = projectile.GetComponent<Projectile>();
             if (projectileScript != null)
             {
-                projectileScript.Initialize(owner, baseDamage);
+                projectileScript.Initialize(this, owner, baseDamage);
                 projectileScript.SetDirection(projectile.transform.up);
             }
         }
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(echoProjectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

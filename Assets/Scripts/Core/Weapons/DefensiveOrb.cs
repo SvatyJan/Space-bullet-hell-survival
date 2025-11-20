@@ -85,6 +85,12 @@ public class DefensiveOrb : MonoBehaviour, IWeapon
         }
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Fire() {}
 
     public void Upgrade()

@@ -75,6 +75,12 @@ public class ElectricField : MonoBehaviour, IWeapon
         }
     }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         baseDamage += 10f;

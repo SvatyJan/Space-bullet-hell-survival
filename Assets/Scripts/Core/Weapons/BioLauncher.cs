@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class BioLauncher : MonoBehaviour, IWeapon
 {
@@ -34,6 +35,9 @@ public class BioLauncher : MonoBehaviour, IWeapon
     /** Odkaz na atributy vlastníka zbranì. */
     private ShipStats stats;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Awake()
     {
         owner = GetComponentInParent<SpaceEntity>();
@@ -56,6 +60,11 @@ public class BioLauncher : MonoBehaviour, IWeapon
         {
             shootingPoints = points;
         }
+    }
+
+    private void Start()
+    {
+        CreateProjectilePool();
     }
 
     public void Fire()
@@ -88,6 +97,22 @@ public class BioLauncher : MonoBehaviour, IWeapon
                 projectileScript.SetDirection(direction);
             }
         }
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

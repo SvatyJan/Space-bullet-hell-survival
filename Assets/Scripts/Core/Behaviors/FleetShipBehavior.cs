@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class FleetShipBehavior : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class FleetShipBehavior : MonoBehaviour
     private Fleet fleetController;
     private float fireCooldown = 0f;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     public void SetFollowTarget(Transform target)
     {
         followTarget = target;
@@ -24,6 +28,11 @@ public class FleetShipBehavior : MonoBehaviour
     public void SetFleetController(Fleet controller)
     {
         fleetController = controller;
+    }
+
+    private void Start()
+    {
+        CreateProjectilePool();
     }
 
     private void Update()
@@ -71,7 +80,6 @@ public class FleetShipBehavior : MonoBehaviour
         }
     }
 
-
     private GameObject FindNearestEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -99,12 +107,27 @@ public class FleetShipBehavior : MonoBehaviour
         if (rb != null) rb.linearVelocity = dir.normalized * bulletSpeed;
     }
 
-
     private void OnDestroy()
     {
         if (fleetController != null)
         {
             fleetController.RespawnShip(gameObject);
         }
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 }

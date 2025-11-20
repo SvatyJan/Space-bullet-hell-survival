@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class SpitterBehavior : EnemyBehaviorBase
 {
@@ -10,9 +11,13 @@ public class SpitterBehavior : EnemyBehaviorBase
     private Rigidbody2D rb;
     private bool isAttacking = false;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     protected override void Start()
     {
         base.Start();
+        CreateProjectilePool();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -88,10 +93,10 @@ public class SpitterBehavior : EnemyBehaviorBase
     private void ShootProjectile(Vector3 dir)
     {
         GameObject projectileInstance = Instantiate(projectilePrefab, shootingPoint.position, shootingPoint.rotation);
-        Projectile projectileScript = projectileInstance.GetComponent<Projectile>();
+        SpitterProjectile projectileScript = projectileInstance.GetComponent<SpitterProjectile>();
         if (projectileScript != null)
         {
-            projectileScript.Initialize(spaceEntity, shipStats.BaseDamage);
+            projectileScript.Initialize(this, spaceEntity, shipStats.BaseDamage);
             projectileScript.SetDirection(dir);
         }
     }
@@ -100,5 +105,21 @@ public class SpitterBehavior : EnemyBehaviorBase
     {
         Vector3 moveDir = (target.position - transform.position).normalized;
         transform.position += moveDir * shipStats.Speed * Time.deltaTime;
+    }
+
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 }

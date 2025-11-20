@@ -78,6 +78,12 @@ public class Fleet : MonoBehaviour, IWeapon
 
     public void Fire() { }
 
+    public void ReleaseProjectileFromPool(GameObject Projectile)
+    {
+        // Not implemented object pooling.
+        return;
+    }
+
     public void Upgrade()
     {
         baseFleetCount++;

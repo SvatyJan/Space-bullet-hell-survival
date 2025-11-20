@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class GuardianBehavior : EnemyBehaviorBase
 {
@@ -17,7 +18,7 @@ public class GuardianBehavior : EnemyBehaviorBase
 
 
     [Header("Laser Attack Settings")]
-    [SerializeField] private GameObject laserProjectilePrefab;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform[] shootingPoints;
     [SerializeField] public float baseFireRate = 1f;
     [SerializeField] private float nextFireTime = 0f;
@@ -38,9 +39,13 @@ public class GuardianBehavior : EnemyBehaviorBase
     private enum GuardianPhase { Laser, Spike, Tentacle }
     private GuardianPhase currentPhaseType;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     protected override void Start()
     {
         base.Start();
+        CreateProjectilePool();
         animator = GetComponent<Animator>();
 
         tentacleAnimators.Clear();
@@ -110,12 +115,12 @@ public class GuardianBehavior : EnemyBehaviorBase
             float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) - 90f;
             Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-            GameObject projectileInstance = Instantiate(laserProjectilePrefab, shootingPoint.position, rotation);
+            GameObject projectileInstance = Instantiate(projectilePrefab, shootingPoint.position, rotation);
 
-            Projectile projectileScript = projectileInstance.GetComponent<Projectile>();
+            GuardianProjectile projectileScript = projectileInstance.GetComponent<GuardianProjectile>();
             if (projectileScript != null)
             {
-                projectileScript.Initialize(spaceEntity, shipStats.BaseDamage);
+                projectileScript.Initialize(this, spaceEntity, shipStats.BaseDamage);
                 projectileScript.SetDirection(direction);
             }
         }
@@ -227,4 +232,19 @@ public class GuardianBehavior : EnemyBehaviorBase
         transform.position += (Vector3)(direction * shipStats.Speed * Time.deltaTime);
     }
 
+    private void CreateProjectilePool()
+    {
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(projectilePrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
+    }
 }

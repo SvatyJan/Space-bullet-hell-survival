@@ -42,6 +42,9 @@ public class Rocket : MonoBehaviour
     /** Prefab efektu výbuchu rakety. */
     [SerializeField] private ParticleSystem explosionEffect;
 
+    /** Potřebujeme referenci zbraně pro object pooling. */
+    private IWeapon weapon;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,8 +57,9 @@ public class Rocket : MonoBehaviour
         this.target = target;
     }
 
-    public void Initialize(SpaceEntity owner, float damage)
+    public void Initialize(IWeapon weapon, SpaceEntity owner, float damage)
     {
+        this.weapon = weapon;
         this.owner = owner;
         this.rocketDamage = damage;
         this.rocketCritChance = owner.GetComponent<ShipStats>().CriticalChance;
@@ -83,11 +87,7 @@ public class Rocket : MonoBehaviour
     {
         if (collisionTags.Contains(other.tag))
         {
-            SpaceEntity hitEntity = other.GetComponent<SpaceEntity>();
-            if (hitEntity != null && hitEntity != owner)
-            {
-                Explode();
-            }
+            Explode();
         }
     }
 
@@ -111,6 +111,6 @@ public class Rocket : MonoBehaviour
             Destroy(instance.gameObject, 1f);
         }
 
-        Destroy(gameObject);
+        weapon.ReleaseProjectileFromPool(this.gameObject);
     }
 }
