@@ -24,7 +24,7 @@ public class XPOrb : MonoBehaviour
 
             playerXp.AddXP(xpAmount);
 
-            Destroy(gameObject);
+            XpPooling.ReleaseXpFromPool(gameObject);
         }
     }
 }

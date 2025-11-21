@@ -66,12 +66,17 @@ public class EnemyShip : SpaceEntity, IController
             {
                 bioWeaponEffect.Explode();
             }
+            
 
-            if(XpOrbPrefab != null)
+            if (XpPooling.Instance != null)
             {
-                GameObject xpOrb = Instantiate(XpOrbPrefab, transform.position, transform.rotation);
-                xpOrb.GetComponent<XPOrb>().xpAmount = shipStats.XP;
+                XpPooling.Instance.SpawnXp(
+                    transform.position,
+                    transform.rotation,
+                    shipStats.XP
+                );
             }
+
 
             if (deathEffect != null)
             {
