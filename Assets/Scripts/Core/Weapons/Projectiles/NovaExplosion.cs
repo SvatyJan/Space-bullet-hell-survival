@@ -72,7 +72,7 @@ public class NovaExplosion : MonoBehaviour
                 if (shipStats != null)
                 {
                     playerProgression.AddXP(xpOrb.xpAmount);
-                    Destroy(collision.gameObject);
+                    XpPooling.ReleaseXpFromPool(gameObject);
                 }
             }
             return;

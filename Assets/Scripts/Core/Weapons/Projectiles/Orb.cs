@@ -82,7 +82,7 @@ public class Orb : MonoBehaviour
                     {
                         float amount = xpOrb.xpAmount; 
                         playerProgression.AddXP(amount);
-                        Destroy(xpOrb.gameObject);
+                        XpPooling.ReleaseXpFromPool(gameObject);
                     }
                 }
             }
