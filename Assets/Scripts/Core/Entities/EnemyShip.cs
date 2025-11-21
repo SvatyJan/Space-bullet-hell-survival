@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyShip : SpaceEntity, IController
@@ -9,6 +7,9 @@ public class EnemyShip : SpaceEntity, IController
     [SerializeField] public EnemyBehaviorBase behavior;
     [SerializeField] private GameObject XpOrbPrefab;
     [SerializeField] private GameObject damagePopUpPrefab;
+
+    /** Pomocná proměnná pro object pooling nepřátel. */
+    [HideInInspector] public GameObject originPrefab;
 
     private float lastDamagePopupTime = 0f;
     private float damagePopupCooldown = 0.1f;
@@ -25,7 +26,8 @@ public class EnemyShip : SpaceEntity, IController
 
     private void Start()
     {
-        if(target == null)
+        EnemySpawnManager.NotifyEnemySpawned();
+        if (target == null)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
@@ -84,7 +86,8 @@ public class EnemyShip : SpaceEntity, IController
                 Destroy(deathEffectInstance, 1f);
             }
 
-            Destroy(gameObject);
+            EnemySpawnManager.NotifyEnemyDestroyed();
+            EnemyPoolManager.Instance.Release(originPrefab, gameObject);
         }
     }
 

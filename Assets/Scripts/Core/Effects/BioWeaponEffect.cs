@@ -45,7 +45,7 @@ public class BioWeaponEffect : MonoBehaviour
             yield return new WaitForSeconds(tickInterval);
         }
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     public void Explode()

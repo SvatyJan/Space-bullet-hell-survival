@@ -29,7 +29,6 @@ public class LevelPlannedEnemySpawner : MonoBehaviour
         public int Chaser, Spitter, Eye, MediumEye, BigEye, BigSpitter, Guardian;
     }
 
-    // 1 øádek = 1 level = 20 s okno (lze zmìnit levelDurationSeconds)
     [SerializeField]
     private LevelRow[] plan = new LevelRow[]
     {
@@ -143,12 +142,33 @@ public class LevelPlannedEnemySpawner : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             Vector3 pos = player.position + (Vector3)(Random.insideUnitCircle.normalized * spawnRadius);
+
             if (Vector3.Distance(pos, player.position) >= safeRadius &&
                 !Physics2D.OverlapCircle(pos, 0.5f, invalidSpawnLayers))
             {
-                Instantiate(prefab, pos, Quaternion.identity);
+                int priority = GetPriorityForPrefab(prefab);
+
+                EnemySpawnManager.Instance.EnqueueSpawn(
+                    prefab,
+                    pos,
+                    Quaternion.identity,
+                    priority
+                );
+
                 return;
             }
         }
     }
+
+
+    private int GetPriorityForPrefab(GameObject prefab)
+    {
+        if (prefab == guardianPrefab) return 100;
+        if (prefab == bigEyePrefab || prefab == bigSpitterPrefab) return 80;
+        if (prefab == mediumEyePrefab) return 60;
+        if (prefab == eyePrefab) return 40;
+        if (prefab == spitterPrefab) return 30;
+        return 10;
+    }
+
 }

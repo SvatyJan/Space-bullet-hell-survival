@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Rocket : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class Rocket : MonoBehaviour
 
     /** Rychlost otáčení rakety. */
     [SerializeField] private float rotateSpeed = 200f;
+
+    /** Čas po kterém raketa sama exploduje. */
+    [SerializeField] private float timeUntilExplode = 5f;
 
     [Header("References")]
     /** Odkaz na cílový objekt. */
@@ -49,7 +53,7 @@ public class Rocket : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
-        Destroy(gameObject, 5f);
+        StartCoroutine(AutoRelease());
     }
 
     public void SetTarget(GameObject target)
@@ -112,5 +116,11 @@ public class Rocket : MonoBehaviour
         }
 
         weapon.ReleaseProjectileFromPool(this.gameObject);
+    }
+
+    private IEnumerator AutoRelease()
+    {
+        yield return new WaitForSeconds(timeUntilExplode);
+        weapon.ReleaseProjectileFromPool(gameObject);
     }
 }
