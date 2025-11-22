@@ -12,9 +12,9 @@ public class EnemyShip : SpaceEntity, IController
     [HideInInspector] public GameObject originPrefab;
 
     private float lastDamagePopupTime = 0f;
-    private float damagePopupCooldown = 0.1f;
+    private float damagePopupCooldown = 0.05f;
     private static Queue<GameObject> popupPool = new Queue<GameObject>();
-    private static int maxPopups = 25;
+    private static int maxPopups = 100;
 
     /** Prefab efektu smrti nepřítele. */
     [SerializeField] private GameObject deathEffect;

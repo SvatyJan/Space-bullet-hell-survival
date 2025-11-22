@@ -574,7 +574,7 @@ MonoBehaviour:
   bigSpitterPrefab: {fileID: 6415720992155733756, guid: 284676886654d0f4ebe10bb482b3a6d5, type: 3}
   guardianPrefab: {fileID: 574160646217851257, guid: e76fe549b66f88a4781229ac954f04ef, type: 3}
   plan:
-  - Chaser: 4
+  - Chaser: 4000
     Spitter: 0
     Eye: 0
     MediumEye: 0
