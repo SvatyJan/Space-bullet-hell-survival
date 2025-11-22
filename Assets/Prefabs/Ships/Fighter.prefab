@@ -282,7 +282,7 @@ MonoBehaviour:
   XPGrowth: 1.3
   XPScale: 2.5
   level: 1
-  maxWeapons: 4
+  maxWeapons: 1
   projectilesCount: 1
   maxStatUpgrades: 5
   ShootingPoints:
@@ -326,10 +326,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 41fcc547c097bd542a5ca4735a948d98, type: 2}
   - {fileID: 11400000, guid: c187b8767cf77484f8b4449dcfc84cb0, type: 2}
   - {fileID: 11400000, guid: 5ad72193ce176e641b014f2f529c87f0, type: 2}
-  maxStatUpgrade: 4
+  maxStatUpgrade: 1
   maxWeaponUpgrade: 5
   upgradesCount: 3
-  startingWeapon: {fileID: 11400000, guid: eadeae4fad7e051478018d3457a2f26c, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 4fd909293dff14a40a00d6ead6a9b2a4, type: 2}
   isPlayerLevelingUp: 0
   upgradePanel: {fileID: 0}
   upgradeCardPrefab: {fileID: 7386857958975287664, guid: 2ee8d11c6666f534d9ae3e2bcb2076e9, type: 3}

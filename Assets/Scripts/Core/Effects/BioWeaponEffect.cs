@@ -18,6 +18,8 @@ public class BioWeaponEffect : StatusEffectBase
     private float tickTimer;
     private bool effectActive;
 
+    private bool followTarget = false;
+
     public void StartEffect(SpaceEntity enemy, SpaceEntity ownerOfProjectile)
     {
         owner = ownerOfProjectile;
@@ -27,6 +29,7 @@ public class BioWeaponEffect : StatusEffectBase
         elapsedTime = 0f;
         tickTimer = 0f;
         effectActive = true;
+        followTarget = true;
     }
 
     private void Update()
@@ -35,6 +38,11 @@ public class BioWeaponEffect : StatusEffectBase
 
         elapsedTime += Time.deltaTime;
         tickTimer += Time.deltaTime;
+
+        if (followTarget)
+        {
+            transform.position = target.transform.position;
+        }
 
         ShipStats stats = target.GetComponent<ShipStats>();
         if (stats == null || stats.CurrentHealth <= 0 || elapsedTime > bioWeaponEffectDuration)
@@ -53,10 +61,13 @@ public class BioWeaponEffect : StatusEffectBase
     private void EndEffect()
     {
         effectActive = false;
-        transform.SetParent(null);
+        followTarget = false;
         Explode();
         EffectSpawnManager.Instance.NotifyEffectEnded();
         EffectPoolManager.Instance.Release(gameObject);
+
+        owner = null;
+        target = null;
     }
 
     public void Explode()

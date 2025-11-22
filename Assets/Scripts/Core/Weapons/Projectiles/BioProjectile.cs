@@ -71,15 +71,14 @@ public class BioProjectile : MonoBehaviour
 
         if (bioWeaponEffectPrefab == null) return;
 
-        var effect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity, target.transform);
-
+        GameObject effectObj = EffectPoolManager.Instance.Get(bioWeaponEffectPrefab, target.transform.position);
         // Toto zamezuje klamání instancování parenta. Effekt se bude v hierarchii ukazovat pod nepøítelem, ale není jeho skuteèný parent!
-        //effect.transform.SetParent(null);
+        effectObj.transform.SetParent(null);
 
-        var BioWeaponEffect = effect.GetComponent<BioWeaponEffect>();
-        if (BioWeaponEffect != null)
+        BioWeaponEffect effect = effectObj.GetComponent<BioWeaponEffect>();
+        if (effect != null)
         {
-            BioWeaponEffect.StartEffect(target, owner);
+            effect.StartEffect(target, owner);
         }
     }
 
