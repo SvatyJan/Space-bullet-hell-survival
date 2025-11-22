@@ -2,12 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class EnemyPoolManager : MonoBehaviour
+public class EffectPoolManager : MonoBehaviour
 {
-    public static EnemyPoolManager Instance { get; private set; }
+    public static EffectPoolManager Instance { get; private set; }
 
-    /** Maximální pooling size typu nepøátel. */
-    [SerializeField] private int maxEnemyTypePoolingSize = 100;
+    [SerializeField] private int maxPoolingSize = 200;
 
     [System.Serializable]
     public struct PoolEntry
@@ -47,6 +46,7 @@ public class EnemyPoolManager : MonoBehaviour
                 },
                 obj =>
                 {
+                    //obj.transform.SetParent(null);
                     obj.SetActive(false);
                 },
                 obj =>
@@ -55,51 +55,36 @@ public class EnemyPoolManager : MonoBehaviour
                 },
                 false,
                 10,
-                maxEnemyTypePoolingSize
+                maxPoolingSize
             );
 
             pools[prefab] = pool;
         }
     }
 
-    public GameObject Get(GameObject prefab, Vector3 pos, Quaternion rot)
+    public GameObject Get(GameObject prefab, Vector3 pos)
     {
         if (!pools.ContainsKey(prefab))
             return null;
 
         var obj = pools[prefab].Get();
-        obj.transform.SetPositionAndRotation(pos, rot);
-
         instanceToPrefab[obj] = prefab;
 
-        var ship = obj.GetComponent<EnemyShip>();
-        if (ship != null)
-        {
-            ship.originPrefab = prefab;
-            ship.RemovePoisonEffect();
-
-            var stats = ship.GetComponent<ShipStats>();
-            if (stats != null)
-            {
-                stats.ResetHealthToDefault();
-            }
-        }
+        obj.transform.position = pos;
 
         return obj;
     }
 
-    public void Release(GameObject prefab, GameObject instance)
+    public void Release(GameObject instance)
     {
-        if (instanceToPrefab.ContainsKey(instance))
-            instanceToPrefab.Remove(instance);
-
-        if (pools.ContainsKey(prefab))
-        {
-            pools[prefab].Release(instance);
-        }
-        else
+        if (!instanceToPrefab.TryGetValue(instance, out var prefab))
         {
             Destroy(instance);
+            return;
         }
+
+        instanceToPrefab.Remove(instance);
+
+        pools[prefab].Release(instance);
     }
 }

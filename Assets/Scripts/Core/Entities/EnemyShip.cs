@@ -27,6 +27,7 @@ public class EnemyShip : SpaceEntity, IController
     private void Start()
     {
         EnemySpawnManager.NotifyEnemySpawned();
+        RemovePoisonEffect();
         if (target == null)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -63,12 +64,11 @@ public class EnemyShip : SpaceEntity, IController
 
         if (shipStats.CurrentHealth <= 0)
         {
-            BioWeaponEffect bioWeaponEffect = GetComponentInChildren<BioWeaponEffect>();
+            BioWeaponEffect bioWeaponEffect = GetComponentInChildren<BioWeaponEffect>(includeInactive: true);
             if (bioWeaponEffect != null)
             {
                 bioWeaponEffect.Explode();
             }
-            
 
             if (XpPooling.Instance != null)
             {
@@ -79,15 +79,32 @@ public class EnemyShip : SpaceEntity, IController
                 );
             }
 
-
             if (deathEffect != null)
             {
                 GameObject deathEffectInstance = Instantiate(deathEffect, transform.position, Quaternion.identity);
                 Destroy(deathEffectInstance, 1f);
             }
 
+            RemovePoisonEffect();
+
             EnemySpawnManager.NotifyEnemyDestroyed();
             EnemyPoolManager.Instance.Release(originPrefab, gameObject);
+        }
+    }
+
+    public void RemovePoisonEffect()
+    {
+        var effects = GetComponentsInChildren<BioWeaponEffect>(includeInactive: true);
+
+        foreach (var effect in effects)
+        {
+            GameObject effectGameObject = effect.gameObject;
+
+            effectGameObject.transform.position = transform.position;
+
+            effectGameObject.transform.SetParent(null);
+
+            EffectPoolManager.Instance.Release(effectGameObject);
         }
     }
 

@@ -91,7 +91,7 @@ public class BioLauncher : MonoBehaviour, IWeapon
             if (projectileScript != null)
             {
                 float finalDamage = baseDamage + stats.BaseDamage;
-                projectileScript.Initialize(owner, finalDamage);
+                projectileScript.Initialize(this, owner, finalDamage);
 
                 Vector2 direction = rotation * Vector2.up;
                 projectileScript.SetDirection(direction);

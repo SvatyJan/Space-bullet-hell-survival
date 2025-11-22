@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, projectileDuration);
+        StartCoroutine(AutoRelease());
     }
 
     private void Update()
@@ -69,5 +70,11 @@ public class Projectile : MonoBehaviour
 
             weapon.ReleaseProjectileFromPool(this.gameObject);
         }
+    }
+
+    private IEnumerator AutoRelease()
+    {
+        yield return new WaitForSeconds(projectileDuration);
+        weapon.ReleaseProjectileFromPool(gameObject);
     }
 }

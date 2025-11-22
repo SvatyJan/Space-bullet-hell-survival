@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,9 +39,13 @@ public class NovaExplosion : MonoBehaviour
     /** Odkaz na PlayerProgression pro pøidávání XP. */
     private PlayerProgression playerProgression;
 
+    /** Potøebujeme referenci zbranì pro object pooling. */
+    private IWeapon weapon;
 
-    public void Initialize(SpaceEntity owner, float totalDamage, float critChance, PlayerProgression playerProgression)
+
+    public void Initialize(IWeapon weapon, SpaceEntity owner, float totalDamage, float critChance, PlayerProgression playerProgression)
     {
+        this.weapon = weapon;
         this.owner = owner;
         this.damage = totalDamage;
         this.criticalChance = critChance;
@@ -57,27 +62,12 @@ public class NovaExplosion : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            weapon.ReleaseProjectileFromPool(gameObject);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("XP"))
-        {
-            XPOrb xpOrb = collision.GetComponent<XPOrb>();
-            if (xpOrb != null && owner != null)
-            {
-                ShipStats shipStats = owner.GetComponent<ShipStats>();
-                if (shipStats != null)
-                {
-                    playerProgression.AddXP(xpOrb.xpAmount);
-                    XpPooling.ReleaseXpFromPool(gameObject);
-                }
-            }
-            return;
-        }
-
         if (collisionTags.Contains(collision.tag))
         {
             SpaceEntity enemy = collision.GetComponent<SpaceEntity>();
@@ -85,11 +75,6 @@ public class NovaExplosion : MonoBehaviour
             {
                 enemy.TakeDamage(damage, criticalChance);
             }
-            else
-            {
-                Destroy(collision.gameObject);
-            }
         }
     }
-
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Nova : MonoBehaviour, IWeapon
 {
@@ -27,8 +28,12 @@ public class Nova : MonoBehaviour, IWeapon
     /** Odkaz na PlayerProgression pro pøidávání XP. */
     private PlayerProgression playerProgression;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Start()
     {
+        CreateProjectilePool();
         owner = GetComponentInParent<SpaceEntity>();
         shipStats = owner.GetComponent<ShipStats>();
         baseDamage += shipStats.BaseDamage;
@@ -51,15 +56,25 @@ public class Nova : MonoBehaviour, IWeapon
             {
                 float damage = baseDamage + shipStats.BaseDamage;
                 float crit = shipStats.CriticalChance;
-                novaExplosion.Initialize(owner, damage, crit, playerProgression);
+                novaExplosion.Initialize(this, owner, damage, crit, playerProgression);
             }
         }
     }
 
-    public void ReleaseProjectileFromPool(GameObject Projectile)
+    private void CreateProjectilePool()
     {
-        // Not implemented object pooling.
-        return;
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(novaExplosionPrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 10
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Upgrade()

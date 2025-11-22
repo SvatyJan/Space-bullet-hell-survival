@@ -1,7 +1,6 @@
-using System.Collections;
 using UnityEngine;
 
-public class BioWeaponEffect : MonoBehaviour
+public class BioWeaponEffect : StatusEffectBase
 {
     [Header("Effect Settings")]
     public float bioWeaponEffectDamage = 2f;
@@ -15,37 +14,49 @@ public class BioWeaponEffect : MonoBehaviour
     private SpaceEntity target;
     private int baseProjectileCount = 6;
 
-    public void ApplyBioWeaponEffect(SpaceEntity enemy, SpaceEntity ownerOfProjectile)
+    private float elapsedTime;
+    private float tickTimer;
+    private bool effectActive;
+
+    public void StartEffect(SpaceEntity enemy, SpaceEntity ownerOfProjectile)
     {
         owner = ownerOfProjectile;
         target = enemy;
-
         baseProjectileCount = BioLauncher.baseProjectileCount;
 
-        StartCoroutine(PoisonDamageRoutine());
+        elapsedTime = 0f;
+        tickTimer = 0f;
+        effectActive = true;
     }
 
-    private IEnumerator PoisonDamageRoutine()
+    private void Update()
     {
-        float elapsed = 0f;
+        if (!effectActive || target == null) return;
 
-        while (elapsed < bioWeaponEffectDuration && target != null)
+        elapsedTime += Time.deltaTime;
+        tickTimer += Time.deltaTime;
+
+        ShipStats stats = target.GetComponent<ShipStats>();
+        if (stats == null || stats.CurrentHealth <= 0 || elapsedTime > bioWeaponEffectDuration)
         {
-            ShipStats stats = target.GetComponent<ShipStats>();
-            if (stats == null) break;
-
-            if (stats.CurrentHealth <= 0)
-            {
-                Explode();
-                break;
-            }
-
-            target.TakeDamage(bioWeaponEffectDamage);
-            elapsed += tickInterval;
-            yield return new WaitForSeconds(tickInterval);
+            EndEffect();
+            return;
         }
 
-        gameObject.SetActive(false);
+        if (tickTimer >= tickInterval)
+        {
+            tickTimer = 0f;
+            target.TakeDamage(bioWeaponEffectDamage);
+        }
+    }
+
+    private void EndEffect()
+    {
+        effectActive = false;
+        transform.SetParent(null);
+        Explode();
+        EffectSpawnManager.Instance.NotifyEffectEnded();
+        EffectPoolManager.Instance.Release(gameObject);
     }
 
     public void Explode()
@@ -63,10 +74,10 @@ public class BioWeaponEffect : MonoBehaviour
             if (projScript != null)
             {
                 float damage = owner.GetComponent<ShipStats>().BaseDamage;
-                projScript.Initialize(owner, damage);
+                BioLauncher bioLauncher = owner.GetComponentInChildren<BioLauncher>();
+                projScript.Initialize(bioLauncher, owner, damage);
                 projScript.SetDirection(direction);
             }
         }
     }
-
 }

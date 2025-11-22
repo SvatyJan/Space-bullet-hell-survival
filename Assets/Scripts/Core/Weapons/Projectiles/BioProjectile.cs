@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class BioProjectile : MonoBehaviour
 {
@@ -19,9 +20,12 @@ public class BioProjectile : MonoBehaviour
     private bool hitHandled;
     private int lastHitFrame = -1;
 
+    /** Potøebujeme referenci zbranì pro object pooling. */
+    private IWeapon weapon;
+
     private void Start()
     {
-        Destroy(gameObject, projectileDuration);
+        StartCoroutine(AutoRelease());
     }
 
     private void Update()
@@ -34,8 +38,9 @@ public class BioProjectile : MonoBehaviour
         direction = dir.normalized;
     }
 
-    public void Initialize(SpaceEntity owner, float damage)
+    public void Initialize(IWeapon weapon, SpaceEntity owner, float damage)
     {
+        this.weapon = weapon;
         this.owner = owner;
         this.projectileDamage = damage;
     }
@@ -53,7 +58,8 @@ public class BioProjectile : MonoBehaviour
 
         hitHandled = true;
         ApplyDamageAndEffect(target);
-        Destroy(gameObject);
+
+        weapon.ReleaseProjectileFromPool(this.gameObject);
     }
 
     private void ApplyDamageAndEffect(SpaceEntity target)
@@ -64,10 +70,20 @@ public class BioProjectile : MonoBehaviour
         if (bioWeaponEffectPrefab == null) return;
 
         var effect = Instantiate(bioWeaponEffectPrefab, target.transform.position, Quaternion.identity, target.transform);
-        var effectScript = effect.GetComponent<BioWeaponEffect>();
-        if (effectScript != null)
+
+        // Toto zamezuje klamání instancování parenta. Effekt se bude v hierarchii ukazovat pod nepøítelem, ale není jeho skuteèný parent!
+        //effect.transform.SetParent(null);
+
+        var BioWeaponEffect = effect.GetComponent<BioWeaponEffect>();
+        if (BioWeaponEffect != null)
         {
-            effectScript.ApplyBioWeaponEffect(target, owner);
+            BioWeaponEffect.StartEffect(target, owner);
         }
+    }
+
+    private IEnumerator AutoRelease()
+    {
+        yield return new WaitForSeconds(projectileDuration);
+        weapon.ReleaseProjectileFromPool(gameObject);
     }
 }
