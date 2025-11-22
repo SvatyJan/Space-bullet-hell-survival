@@ -64,8 +64,13 @@ public class GuardianProjectile : MonoBehaviour
             if (target != null && target != owner)
             {
                 target.TakeDamage(projectileDamage, projectileCritChance);
-                guardianBehavior.ReleaseProjectileFromPool(this.gameObject);
             }
+            ReleaseProjectileFromPool(this.gameObject);
         }
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        guardianBehavior.ReleaseProjectileFromPool(projectile);
     }
 }

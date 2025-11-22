@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class DefensiveOrb : MonoBehaviour, IWeapon
 {
@@ -29,8 +30,12 @@ public class DefensiveOrb : MonoBehaviour, IWeapon
     /** Pøíznak, zda je orb ve stavu evoluce. */
     private bool isEvolved = false;
 
+    [Header("Object pooling")]
+    private ObjectPool<GameObject> ProjectilePool;
+
     private void Start()
     {
+        CreateProjectilePool();
         shipStats = GetComponentInParent<ShipStats>();
         playerProgression = GetComponentInParent<PlayerProgression>();
 
@@ -61,7 +66,7 @@ public class DefensiveOrb : MonoBehaviour, IWeapon
     {
         foreach (var orb in orbs)
         {
-            Destroy(orb);
+            ReleaseProjectileFromPool(orb);
         }
         orbs.Clear();
 
@@ -74,21 +79,31 @@ public class DefensiveOrb : MonoBehaviour, IWeapon
             if (orbScript == null)
             {
                 Debug.LogWarning("Orb prefab missing Orb script!");
-                Destroy(newOrb);
+                ReleaseProjectileFromPool(newOrb);
                 continue;
             }
 
             float angle = (360f / count) * i;
-            orbScript.Initialize(transform, baseOrbitSpeed, baseOrbitRadius, angle, playerProgression, isEvolved);
+            orbScript.Initialize(this, transform, baseOrbitSpeed, baseOrbitRadius, angle, playerProgression, isEvolved);
 
             orbs.Add(newOrb);
         }
     }
 
-    public void ReleaseProjectileFromPool(GameObject Projectile)
+    private void CreateProjectilePool()
     {
-        // Not implemented object pooling.
-        return;
+        ProjectilePool = new ObjectPool<GameObject>(
+            () => { return Instantiate(orbPrefab); },
+        projectile => { projectile.gameObject.SetActive(true); },
+        projectile => { projectile.gameObject.SetActive(false); },
+        projectile => { Destroy(projectile); },
+        false, 10, 20
+        );
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        ProjectilePool.Release(projectile);
     }
 
     public void Fire() {}

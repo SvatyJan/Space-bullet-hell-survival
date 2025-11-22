@@ -64,8 +64,13 @@ public class SpitterProjectile : MonoBehaviour
             if (target != null && target != owner)
             {
                 target.TakeDamage(projectileDamage, projectileCritChance);
-                spitterBehavior.ReleaseProjectileFromPool(this.gameObject);
+                ReleaseProjectileFromPool(this.gameObject);
             }
         }
+    }
+
+    public void ReleaseProjectileFromPool(GameObject projectile)
+    {
+        spitterBehavior.ReleaseProjectileFromPool(this.gameObject);
     }
 }

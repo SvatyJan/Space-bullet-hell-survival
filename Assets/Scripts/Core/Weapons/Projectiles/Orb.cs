@@ -31,6 +31,9 @@ public class Orb : MonoBehaviour
     /** Odkaz na komponentu, která spravuje XP hráèe. */
     private PlayerProgression playerProgression;
 
+    /** Potøebujeme referenci zbranì pro object pooling. */
+    private IWeapon weapon;
+
     private void Update()
     {
         if (ship == null) return;
@@ -43,8 +46,9 @@ public class Orb : MonoBehaviour
         }
     }
 
-    public void Initialize(Transform ship, float orbitSpeed, float orbitRadius, float startAngle, PlayerProgression playerProgression, bool evolved = false)
+    public void Initialize(IWeapon weapon, Transform ship, float orbitSpeed, float orbitRadius, float startAngle, PlayerProgression playerProgression, bool evolved = false)
     {
+        this.weapon = weapon;
         this.ship = ship;
         this.orbitSpeed = orbitSpeed;
         this.orbitRadius = orbitRadius;
@@ -89,12 +93,23 @@ public class Orb : MonoBehaviour
         }
     }
 
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy Projectile"))
         {
-            Destroy(collision.gameObject);
+            var spitterProjectileScript = collision.gameObject.GetComponent<SpitterProjectile>();
+            if (spitterProjectileScript != null)
+            {
+                spitterProjectileScript.ReleaseProjectileFromPool(collision.gameObject);
+            }
+            else
+            {
+                var guardianProjectileScript = collision.gameObject.GetComponent<GuardianProjectile>();
+                if (guardianProjectileScript != null)
+                {
+                    guardianProjectileScript.ReleaseProjectileFromPool(collision.gameObject);
+                }
+            }
         }
         else if (collision.CompareTag("Enemy"))
         {

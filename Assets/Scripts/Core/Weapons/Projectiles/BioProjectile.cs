@@ -54,10 +54,12 @@ public class BioProjectile : MonoBehaviour
         if (collisionTags != null && collisionTags.Count > 0 && !collisionTags.Contains(other.tag)) return;
 
         SpaceEntity target = other.GetComponentInParent<SpaceEntity>();
-        if (target == null || target == owner) return;
 
-        hitHandled = true;
-        ApplyDamageAndEffect(target);
+        if (target != null && target != owner)
+        {
+            hitHandled = true;
+            ApplyDamageAndEffect(target);
+        }
 
         weapon.ReleaseProjectileFromPool(this.gameObject);
     }
